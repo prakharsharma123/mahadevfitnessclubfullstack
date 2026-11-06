@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{% block title %}Gym Management System {% endblock %}</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script>
+  // Apply saved theme before paint to avoid a light-mode flash
+  (function () {
+    var t = localStorage.getItem('theme') || 'light';
+    document.documentElement.setAttribute('data-theme', t);
+  })();
+</script>
+</head>
+<body>
+
+{% if session.user %}
+<header class="topbar">
+  <div class="topbar-inner">
+    <a href="{{ url_for('dashboard') }}" class="brand">🏋️ Gym <span>Management </span></a>
+
+    <nav class="nav-links" id="navLinks">
+      <a href="{{ url_for('dashboard') }}" class="{{ 'active' if request.endpoint=='dashboard' }}">Dashboard</a>
+      <a href="{{ url_for('members') }}" class="{{ 'active' if request.endpoint=='members' }}">Members</a>
+      <a href="{{ url_for('admin_attendance') }}" class="{{ 'active' if request.endpoint=='admin_attendance' }}">Attendance</a>
+      <a href="{{ url_for('admin_announcements') }}" class="{{ 'active' if request.endpoint=='admin_announcements' }}">Announce</a>
+      <a href="{{ url_for('admin_qr') }}" class="{{ 'active' if request.endpoint=='admin_qr' }}">QR Code</a>
+      <a href="{{ url_for('add_member') }}" class="{{ 'active' if request.endpoint=='add_member' }}">Add Member</a>
+      <a href="{{ url_for('pending_sms') }}" class="{{ 'active' if request.endpoint=='pending_sms' }}">Pending</a>
+      <a href="{{ url_for('export_members') }}">Export</a>
+      <a href="{{ url_for('admin_setup_check') }}">Setup</a>
+      <a href="{{ url_for('logout') }}" class="logout-link">Logout</a>
+    </nav>
+
+    <div class="topbar-actions">
+      <button id="themeToggle" class="icon-btn" title="Toggle dark / light mode" aria-label="Toggle theme">
+        <span class="icon-sun">☀️</span><span class="icon-moon">🌙</span>
+      </button>
+      <button id="navToggle" class="icon-btn nav-burger" aria-label="Menu">☰</button>
+    </div>
+  </div>
+</header>
+{% endif %}
+
+<main class="page">
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      <div class="flash-wrap">
+        {% for category, msg in messages %}
+          <div class="flash flash-{{ category }}">{{ msg }}</div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  {% endwith %}
+
+  {% block content %}{% endblock %}
+</main>
+
+<script src="{{ url_for('static', filename='app.js') }}"></script>
+{% block scripts %}{% endblock %}
+</body>
+</html>

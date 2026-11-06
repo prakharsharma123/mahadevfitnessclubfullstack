@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% block title %}Add Member | Mahadev Fitness Club{% endblock %}
+{% block content %}
+
+<div class="page-head">
+  <div>
+    <h1>Add Member</h1>
+    <p class="muted">Fill in the member's details</p>
+  </div>
+</div>
+
+<div class="form-card">
+  <form method="POST" enctype="multipart/form-data" class="form-grid">
+
+    <div class="form-photo-upload">
+      <img id="photoPreview" class="photo-preview" src="" alt="" style="display:none;">
+      <div id="photoPlaceholder" class="photo-preview photo-preview-placeholder">📷</div>
+      <label class="btn btn-outline btn-sm">
+        Choose Photo
+        <input type="file" name="photo" accept="image/*" id="photoInput" style="display:none;">
+      </label>
+    </div>
+
+    <div>
+      <label>Full Name</label>
+      <input type="text" name="name" required placeholder="e.g. Rohan Sharma">
+    </div>
+
+    <div>
+      <label>Phone Number</label>
+      <input type="tel" name="phone" required placeholder="10-digit mobile number">
+    </div>
+
+    <div>
+      <label>Plan</label>
+      <select name="plan" id="planSelect" required>
+        <option value="1_month">1 Month — ₹{{ plan_fees['1_month'] }}</option>
+        <option value="3_month">3 Months — ₹{{ plan_fees['3_month'] }}</option>
+        <option value="6_month">6 Months — ₹{{ plan_fees['6_month'] }}</option>
+        <option value="1_year">1 Year — ₹{{ plan_fees['1_year'] }}</option>
+      </select>
+    </div>
+
+    <div>
+      <label>Fees (₹)</label>
+      <input type="number" name="fees" id="feesInput" required value="{{ plan_fees['1_month'] }}">
+    </div>
+
+    <div>
+      <label>Joining Date</label>
+      <input type="date" name="joining_date" required>
+    </div>
+
+    <div>
+      <label>Last Fee Paid Date</label>
+      <input type="date" name="last_fee_date" required>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary">Save Member</button>
+      <a href="{{ url_for('members') }}" class="btn btn-outline">Cancel</a>
+    </div>
+  </form>
+</div>
+
+{% endblock %}
+{% block scripts %}
+<script>
+  const planFees = {{ plan_fees|tojson }};
+  document.getElementById('planSelect').addEventListener('change', function () {
+    document.getElementById('feesInput').value = planFees[this.value];
+  });
+  document.getElementById('photoInput').addEventListener('change', function () {
+    const file = this.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = e => {
+      const img = document.getElementById('photoPreview');
+      img.src = e.target.result;
+      img.style.display = 'block';
+      document.getElementById('photoPlaceholder').style.display = 'none';
+    };
+    reader.readAsDataURL(file);
+  });
+</script>
+{% endblock %}

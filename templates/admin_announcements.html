@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Announcements | Gym Management System{% endblock %}
+{% block content %}
+<div class="page-head">
+  <div><h1>Public announcements</h1><p class="muted">Shown on every member's page</p></div>
+</div>
+
+<div class="form-card" style="max-width:720px">
+  <form method="POST" class="auth-form">
+    <label>Title</label>
+    <input type="text" name="title" maxlength="120" placeholder="e.g. Holiday notice" required>
+    <label>Message</label>
+    <textarea name="body" rows="4" maxlength="2000" placeholder="Write your message for all members" required></textarea>
+    <button type="submit" class="btn btn-primary">Publish</button>
+  </form>
+</div>
+
+<div class="panel">
+  <h3>Previous announcements ({{ items|length }})</h3>
+  {% for a in items %}
+  <div class="note {{ '' if a.active else 'note-off' }}">
+    <div class="note-head"><strong>{{ a.title }}</strong>
+      <span class="muted">{{ a.created_at.strftime('%d %b %Y') }}{{ '' if a.active else ' · hidden' }}</span></div>
+    <p>{{ a.body }}</p>
+    <a class="btn btn-outline btn-sm" href="{{ url_for('announcement_toggle', id=a.id) }}">{{ 'Hide' if a.active else 'Show' }}</a>
+    <a class="btn btn-outline btn-sm" href="{{ url_for('announcement_delete', id=a.id) }}" onclick="return confirm('Delete this announcement?')">Delete</a>
+  </div>
+  {% else %}<p class="muted">No announcements yet.</p>{% endfor %}
+</div>
+{% endblock %}

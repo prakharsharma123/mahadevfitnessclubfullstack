@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block title %}Dashboard | Gym Management System {% endblock %}
+{% block content %}
+
+<div class="page-head">
+  <div>
+    <h1>Dashboard</h1>
+    <p class="muted">Overview of members and revenue</p>
+  </div>
+</div>
+
+<div class="stat-grid">
+  <div class="stat-card">
+    <div class="stat-icon">👥</div>
+    <div>
+      <div class="stat-value">{{ stats.total_members }}</div>
+      <div class="stat-label">Total Members</div>
+    </div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-icon">✅</div>
+    <div>
+      <div class="stat-value">{{ stats.active_members }}</div>
+      <div class="stat-label">Active Members</div>
+    </div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-icon">⚠️</div>
+    <div>
+      <div class="stat-value">{{ stats.expired_members }}</div>
+      <div class="stat-label">Expired / Unpaid</div>
+    </div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-icon">💰</div>
+    <div>
+      <div class="stat-value">₹{{ "{:,}".format(stats.total_revenue) }}</div>
+      <div class="stat-label">Total Revenue</div>
+    </div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-icon">🟢</div>
+    <div>
+      <div class="stat-value">₹{{ "{:,}".format(stats.paid_revenue) }}</div>
+      <div class="stat-label">Paid Revenue</div>
+    </div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-icon">🔴</div>
+    <div>
+      <div class="stat-value">₹{{ "{:,}".format(stats.unpaid_revenue) }}</div>
+      <div class="stat-label">Pending Revenue</div>
+    </div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-icon">📅</div>
+    <div>
+      <div class="stat-value">{{ stats.paid_today_count }}</div>
+      <div class="stat-label">Paid Today</div>
+    </div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-icon">🧾</div>
+    <div>
+      <div class="stat-value">₹{{ "{:,}".format(stats.paid_today_revenue) }}</div>
+      <div class="stat-label">Revenue Today</div>
+    </div>
+  </div>
+</div>
+
+<div class="quick-actions">
+  <a href="{{ url_for('add_member') }}" class="btn btn-primary">+ Add Member</a>
+  <a href="{{ url_for('members') }}" class="btn btn-outline">View Members</a>
+  <a href="{{ url_for('pending_sms') }}" class="btn btn-outline">Pending Reminders</a>
+  <a href="{{ url_for('admin_announcements') }}" class="btn btn-outline">Announcements</a>
+  <a href="{{ url_for('admin_qr') }}" class="btn btn-outline">Attendance QR</a>
+  <a href="{{ url_for('export_members') }}" class="btn btn-outline">Export Excel</a>
+</div>
+
+{% endblock %}

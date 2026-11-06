@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Welcome | Mahadev Fitness Club</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script>
+  (function () { var t = localStorage.getItem('theme') || 'light'; document.documentElement.setAttribute('data-theme', t); })();
+</script>
+</head>
+<body class="auth-body">
+<button id="themeToggle" class="icon-btn theme-fab" title="Toggle dark / light mode" aria-label="Toggle theme">
+  <span class="icon-sun">☀️</span><span class="icon-moon">🌙</span>
+</button>
+<div class="auth-wrap">
+  <div class="auth-card">
+    <div class="auth-logo">🏋️</div>
+    <h1 class="auth-title">Mahadev Fitness Club</h1>
+    <p class="auth-sub">Members sign in to mark attendance. Owner? Use the admin login.</p>
+    {% include "_announcements.html" %}
+    <a href="{{ url_for('client_login') }}" class="btn btn-primary btn-block">Member Login / Sign Up</a>
+    <a href="{{ url_for('login') }}" class="btn btn-outline btn-block" style="margin-top:10px">Admin Login</a>
+  </div>
+</div>
+<script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>

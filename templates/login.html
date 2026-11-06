@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login | Gym Management System </title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script>
+  (function () {
+    var t = localStorage.getItem('theme') || 'light';
+    document.documentElement.setAttribute('data-theme', t);
+  })();
+</script>
+</head>
+<body class="auth-body">
+
+<button id="themeToggle" class="icon-btn theme-fab" title="Toggle dark / light mode" aria-label="Toggle theme">
+  <span class="icon-sun">☀️</span><span class="icon-moon">🌙</span>
+</button>
+
+<div class="auth-wrap">
+  <div class="auth-card">
+    <div class="auth-logo">🏋️</div>
+    <h1 class="auth-title">Gym Management System </h1>
+    <p class="auth-sub">Admin Login</p>
+
+    {% if error %}
+      <div class="flash flash-danger">{{ error }}</div>
+    {% endif %}
+
+    <form method="POST" class="auth-form">
+      <label>Username</label>
+      <input type="text" name="username" placeholder="Enter username" required autofocus>
+
+      <label>Password</label>
+      <input type="password" name="password" placeholder="Enter password" required>
+
+      <button type="submit" class="btn btn-primary btn-block">Login</button>
+    </form>
+  </div>
+</div>
+
+<script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>

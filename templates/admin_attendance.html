@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}Attendance | Gym Management System{% endblock %}
+{% block content %}
+<div class="page-head">
+  <div>
+    <h1>Attendance</h1>
+    <p class="muted">{{ day }}{% if is_today %} (today){% endif %} &middot; {{ entries|length }} present</p>
+  </div>
+  <div class="head-actions">
+    <a class="btn btn-outline btn-sm" href="?date={{ prev_day }}">&larr; Prev</a>
+    {% if not is_today %}<a class="btn btn-outline btn-sm" href="?date={{ next_day }}">Next &rarr;</a>{% endif %}
+    <a class="btn btn-outline btn-sm" href="{{ url_for('admin_test_alert') }}">{{ 'Send test alert' if telegram_ready else 'Set up alerts' }}</a>
+  </div>
+</div>
+
+{% if not telegram_ready %}
+<div class="flash flash-warning">Owner alerts are off. Add TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID to get a message on your phone whenever someone marks attendance (see docs/TELEGRAM_GUIDE.md).</div>
+{% endif %}
+
+<div class="panel">
+  <h3>Present</h3>
+  {% if entries %}
+  <div class="table-wrap"><table class="table">
+    <thead><tr><th>#</th><th>Name</th><th>Phone</th><th>Time</th></tr></thead>
+    <tbody>{% for e in entries %}<tr><td>{{ loop.index }}</td><td>{{ e.name }}</td><td>{{ e.phone }}</td><td>{{ e.time }}</td></tr>{% endfor %}</tbody>
+  </table></div>
+  {% else %}<p class="muted">No check-ins yet for this day.</p>{% endif %}
+</div>
+
+<div class="panel">
+  <h3>New online signups ({{ new_signups|length }})</h3>
+  <p class="muted" style="margin-bottom:10px">These people created an account themselves. Open edit to set their plan, fees and last fee date.</p>
+  {% if new_signups %}
+  <div class="table-wrap"><table class="table">
+    <thead><tr><th>Name</th><th>Email</th><th>Phone</th><th></th></tr></thead>
+    <tbody>{% for m in new_signups %}<tr><td>{{ m.name }}</td><td>{{ m.email }}</td><td>{{ m.phone or 'not added' }}</td>
+      <td><a class="btn btn-primary btn-sm" href="{{ url_for('edit_member', id=m.id) }}">Set plan</a></td></tr>{% endfor %}</tbody>
+  </table></div>
+  {% else %}<p class="muted">No pending signups.</p>{% endif %}
+</div>
+{% endblock %}

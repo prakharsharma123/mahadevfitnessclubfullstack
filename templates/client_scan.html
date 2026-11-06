@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}Mark Attendance | Mahadev Fitness Club{% endblock %}
+{% block content %}
+<div class="page-head">
+  <div><h1>Mark attendance</h1><p class="muted">Point your camera at the QR code on the gym wall</p></div>
+  <div class="head-actions"><a href="{{ url_for('client_home') }}" class="btn btn-outline btn-sm">Back</a></div>
+</div>
+<div class="panel">
+  <div id="reader" style="width:100%;max-width:420px;margin:0 auto"></div>
+  <p id="scanMsg" class="muted" style="text-align:center;margin-top:12px">Starting camera…</p>
+</div>
+{% endblock %}
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+<script>
+  var msg = document.getElementById('scanMsg');
+  var done = false;
+  function onScan(text) {
+    if (done) return;
+    try {
+      var u = new URL(text);
+      // accept only this site's check-in link
+      if (u.origin === window.location.origin && u.pathname === '/checkin') {
+        done = true;
+        msg.textContent = 'Marking attendance…';
+        window.location.href = u.pathname + u.search;
+        return;
+      }
+    } catch (e) {}
+    msg.textContent = 'That is not the gym QR code. Try again.';
+  }
+  var scanner = new Html5Qrcode('reader');
+  scanner.start({ facingMode: 'environment' }, { fps: 10, qrbox: 250 }, onScan)
+    .then(function () { msg.textContent = 'Scanning…'; })
+    .catch(function () {
+      msg.textContent = 'Could not open the camera. Allow camera permission, or scan the gym QR with your phone\'s normal camera app.';
+    });
+</script>
+{% endblock %}

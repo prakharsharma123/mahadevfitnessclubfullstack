@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Setup check | Gym Management System{% endblock %}
+{% block content %}
+<div class="page-head"><div><h1>Setup check</h1><p class="muted">Is everything ready for members?</p></div></div>
+<div class="panel">
+  <div class="table-wrap"><table class="table">
+    <thead><tr><th></th><th>Item</th><th>Status</th></tr></thead>
+    <tbody>{% for name, ok, note in checks %}
+      <tr><td>{{ '✅' if ok else '⚠️' }}</td><td>{{ name }}</td><td>{{ note }}</td></tr>{% endfor %}
+    </tbody>
+  </table></div>
+</div>
+<div class="panel">
+  <h3>Google Cloud values for this site</h3>
+  <p class="muted">Add these in Google Cloud Console, APIs &amp; Services, Credentials, your Web client. They must match exactly.</p>
+  <p><strong>Authorized JavaScript origin:</strong><br><code>{{ origin }}</code></p>
+  <p><strong>Authorized redirect URI:</strong><br><code>{{ redirect_uri }}</code></p>
+</div>
+<div class="quick-actions">
+  <a class="btn btn-primary" href="{{ url_for('admin_test_alert') }}">Send Telegram test message</a>
+  <a class="btn btn-outline" href="{{ url_for('client_login') }}">Try member Google login</a>
+</div>
+{% endblock %}

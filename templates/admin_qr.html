@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Attendance QR | Gym Management System{% endblock %}
+{% block content %}
+<div class="page-head">
+  <div><h1>Attendance QR code</h1><p class="muted">Print this and stick it at the gym entrance</p></div>
+</div>
+{% if not key_set %}
+<div class="flash flash-danger">GYM_QR_KEY is empty in your .env file. Set it, restart the app, then reload this page.</div>
+{% endif %}
+<div class="panel" style="text-align:center">
+  <img src="{{ url_for('admin_qr_png') }}" alt="Gym QR" style="max-width:320px;width:100%">
+  <p class="muted" style="word-break:break-all;margin-top:10px">{{ link }}</p>
+  {% if 'localhost' in link or '127.0.0.1' in link %}
+  <div class="flash flash-warning" style="margin-top:12px">This QR points to your own computer, so phones can't use it. Open this page from your live website address (for example https://yourapp.onrender.com/admin/qr) before printing.</div>
+  {% endif %}
+  <a class="btn btn-primary" href="{{ url_for('admin_qr_png') }}" download="gym-qr.png">Download PNG</a>
+  <button class="btn btn-outline" onclick="window.print()">Print</button>
+</div>
+{% endblock %}

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Attendance | Mahadev Fitness Club</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script>
+  (function () { var t = localStorage.getItem('theme') || 'light'; document.documentElement.setAttribute('data-theme', t); })();
+</script>
+</head>
+<body class="auth-body">
+<button id="themeToggle" class="icon-btn theme-fab" title="Toggle dark / light mode" aria-label="Toggle theme">
+  <span class="icon-sun">☀️</span><span class="icon-moon">🌙</span>
+</button>
+<div class="auth-wrap">
+  <div class="auth-card">
+    {% if status == 'ok' %}
+      <div class="auth-logo">✅</div>
+      <h1 class="auth-title">Attendance marked</h1>
+      <p class="auth-sub">{{ m.name }}, you are in at {{ time }}.</p>
+      <div class="streak-big">🔥 {{ current }}<small>day streak</small></div>
+    {% elif status == 'duplicate' %}
+      <div class="auth-logo">👍</div>
+      <h1 class="auth-title">Already marked today</h1>
+      <p class="auth-sub">{{ m.name }}, you are all set. Come back tomorrow.</p>
+      <div class="streak-big">🔥 {{ current }}<small>day streak</small></div>
+    {% else %}
+      <div class="auth-logo">⛔</div>
+      <h1 class="auth-title">Invalid QR code</h1>
+      <p class="auth-sub">Please scan the QR code at the gym entrance.</p>
+    {% endif %}
+    {% if m %}<a href="{{ url_for('client_home') }}" class="btn btn-outline btn-block">My Dashboard</a>{% endif %}
+  </div>
+</div>
+<script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>

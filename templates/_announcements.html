@@ -1,0 +1,11 @@
+{% if announcements %}
+<div class="panel notice-panel">
+  <h3>📢 Announcements</h3>
+  {% for a in announcements %}
+  <div class="note">
+    <div class="note-head"><strong>{{ a.title }}</strong><span class="muted">{{ a.created_at.strftime('%d %b %Y') }}</span></div>
+    <p>{{ a.body }}</p>
+  </div>
+  {% endfor %}
+</div>
+{% endif %}
