@@ -25,8 +25,8 @@
   {% for m in members %}
   <div class="member-card">
     <div class="member-photo">
-      {% if m.photo_url %}
-        <img src="{{ m.photo_url }}" alt="{{ m.name }}" loading="lazy">
+      {% if m.photo_url or m.picture_url %}
+        <img src="{{ m.photo_url or m.picture_url }}" alt="{{ m.name }}" loading="lazy" referrerpolicy="no-referrer">
       {% else %}
         <div class="member-photo-placeholder">{{ m.name[:1]|upper }}</div>
       {% endif %}
