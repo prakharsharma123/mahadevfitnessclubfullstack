@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ 'My Profile' if editing else 'Create your account' }} | Mahadev Fitness Club</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script>
+  (function () { var t = localStorage.getItem('theme') || 'light'; document.documentElement.setAttribute('data-theme', t); })();
+</script>
+</head>
+<body class="auth-body">
+<button id="themeToggle" class="icon-btn theme-fab" title="Toggle dark / light mode" aria-label="Toggle theme">
+  <span class="icon-sun">☀️</span><span class="icon-moon">🌙</span>
+</button>
+<div class="auth-wrap">
+  <div class="auth-card wide">
+    <div class="auth-logo">{{ '👤' if editing else '📝' }}</div>
+    <h1 class="auth-title">{{ 'My Profile' if editing else 'Create your account' }}</h1>
+    <p class="auth-sub">{% if editing %}Update your details any time.{% else %}Welcome {{ m.name }}. Fill in your details to finish signing up.{% endif %}</p>
+    {% with messages = get_flashed_messages(with_categories=true) %}{% for c, msg in messages %}<div class="flash flash-{{ c }}">{{ msg }}</div>{% endfor %}{% endwith %}
+    <form method="POST" enctype="multipart/form-data" class="auth-form">
+      <div class="form-photo-upload">
+        {% set cur = photo_src(m) %}
+        <img id="photoPreview" class="photo-preview" src="{{ cur or '' }}" alt="" referrerpolicy="no-referrer" style="{{ '' if cur else 'display:none;' }}">
+        <div id="photoPlaceholder" class="photo-preview photo-preview-placeholder" style="{{ 'display:none;' if cur else '' }}">📷</div>
+        <label class="btn btn-outline btn-sm">Upload photo
+          <input type="file" name="photo" accept="image/*" id="photoInput" style="display:none;">
+        </label>
+      </div>
+
+      <label>Full name</label>
+      <input type="text" name="name" value="{{ m.name }}" required>
+
+      <label>Mobile number</label>
+      <input type="tel" name="phone" inputmode="numeric" maxlength="14" value="{{ m.phone or '' }}" placeholder="10-digit mobile number" required>
+
+      <label>Plan</label>
+      <select name="plan" id="planSelect" required>
+        {% for key, label in [('1_month','1 Month'),('3_month','3 Months'),('6_month','6 Months'),('1_year','1 Year')] %}
+        <option value="{{ key }}" {{ 'selected' if m.plan == key }}>{{ label }} — ₹{{ plan_fees[key] }}</option>
+        {% endfor %}
+      </select>
+
+      <label>Joining date</label>
+      <input type="date" name="joining_date" value="{{ m.joining_date or '' }}" required>
+
+      <label>Last fee paid date</label>
+      <input type="date" name="last_fee_date" value="{{ m.last_fee_date or '' }}" required>
+
+      <p class="muted" style="margin:0 0 12px">The owner will verify your plan and fee details.</p>
+      <button type="submit" class="btn btn-primary btn-block">{{ 'Save changes' if editing else 'Complete Registration' }}</button>
+      {% if editing %}<a href="{{ url_for('client_home') }}" class="btn btn-outline btn-block" style="margin-top:10px">Cancel</a>{% endif %}
+    </form>
+  </div>
+</div>
+<script src="{{ url_for('static', filename='app.js') }}"></script>
+<script>
+  document.getElementById('photoInput').addEventListener('change', function () {
+    var f = this.files[0]; if (!f) return;
+    var r = new FileReader();
+    r.onload = function (e) {
+      var img = document.getElementById('photoPreview');
+      img.src = e.target.result; img.style.display = 'block';
+      document.getElementById('photoPlaceholder').style.display = 'none';
+    };
+    r.readAsDataURL(f);
+  });
+</script>
+</body>
+</html>

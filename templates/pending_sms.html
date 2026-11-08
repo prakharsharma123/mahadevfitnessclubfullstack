@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}Pending Reminders | Gym Management System{% endblock %}
+{% block content %}
+
+<div class="page-head">
+  <div>
+    <h1>Pending Reminders</h1>
+    <p class="muted">{{ total_pending }} member(s) with expired / unpaid fees</p>
+  </div>
+</div>
+
+<div class="list-card">
+  {% for m in pending_members %}
+  <div class="pending-row">
+    <div class="pending-photo">
+      {% if photo_src(m) %}
+        <img src="{{ photo_src(m) }}" alt="{{ m.name }}">
+      {% else %}
+        <div class="member-photo-placeholder small">{{ m.name[:1]|upper }}</div>
+      {% endif %}
+    </div>
+    <div class="pending-info">
+      <h4>{{ m.name }}</h4>
+      <p class="muted">{{ m.phone }} · Overdue {{ m.days_overdue }} day(s) · ₹{{ m.fees }}</p>
+    </div>
+    <div class="pending-actions">
+      <button class="btn btn-sm btn-outline" onclick="copyText('{{ m.phone }}', this)">Copy Phone</button>
+      <button class="btn btn-sm btn-outline" onclick="copyText(`{{ m.wa_message }}`, this)">Copy Message</button>
+      <a href="{{ url_for('send_sms', id=m.id) }}" target="_blank" class="btn btn-sm btn-primary">WhatsApp</a>
+    </div>
+  </div>
+  {% else %}
+  <div class="empty-state">🎉 No pending payments right now.</div>
+  {% endfor %}
+</div>
+
+{% endblock %}
+{% block scripts %}
+<script>
+  function copyText(text, btn) {
+    navigator.clipboard.writeText(text).then(() => {
+      const original = btn.textContent;
+      btn.textContent = 'Copied!';
+      setTimeout(() => btn.textContent = original, 1200);
+    });
+  }
+</script>
+{% endblock %}

@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %}My Dashboard | Mahadev Fitness Club{% endblock %}
+{% block content %}
+<div class="page-head">
+  <div class="who">
+    {% if photo_src(m) %}<img class="avatar" src="{{ photo_src(m) }}" alt="" referrerpolicy="no-referrer">{% endif %}
+    <div>
+      <h1>Hi {{ m.name.split(' ')[0] }}</h1>
+      <p class="muted">Mahadev Fitness Club</p>
+    </div>
+  </div>
+  <div class="head-actions">
+    <button id="themeToggle" class="icon-btn" aria-label="Toggle theme"><span class="icon-sun">☀️</span><span class="icon-moon">🌙</span></button>
+    <a href="{{ url_for('client_profile') }}" class="btn btn-outline btn-sm">Edit profile</a>
+    <a href="{{ url_for('client_logout') }}" class="btn btn-outline btn-sm">Logout</a>
+  </div>
+</div>
+
+{% include "_announcements.html" %}
+
+<div class="today-card {{ 'done' if marked_today else '' }}">
+  {% if marked_today %}✅ You are marked present today
+  {% else %}
+    <div>📷 Mark today's attendance</div>
+    <a href="{{ url_for('client_scan') }}" class="btn btn-primary btn-block" style="margin-top:10px">Scan gym QR to mark attendance</a>
+  {% endif %}
+</div>
+
+<div class="stat-grid">
+  <div class="stat-card"><div class="stat-icon">🔥</div><div><div class="stat-value">{{ current }}</div><div class="stat-label">Current streak (days)</div></div></div>
+  <div class="stat-card"><div class="stat-icon">🏆</div><div><div class="stat-value">{{ best }}</div><div class="stat-label">Best streak</div></div></div>
+  <div class="stat-card"><div class="stat-icon">📅</div><div><div class="stat-value">{{ month_count }}</div><div class="stat-label">Visits this month</div></div></div>
+  <div class="stat-card"><div class="stat-icon">💪</div><div><div class="stat-value">{{ total }}</div><div class="stat-label">Total visits</div></div></div>
+</div>
+
+<div class="panel">
+  <h3>Last 28 days</h3>
+  <div class="cal">
+    {% for c in cells %}<span class="cal-cell {{ 'on' if c.on }} {{ 'today' if c.today }}">{{ c.d }}</span>{% endfor %}
+  </div>
+</div>
+
+<div class="panel">
+  <h3>Membership</h3>
+  {% if expiry %}
+    <p>Joined: <strong>{{ m.joining_date }}</strong> &middot; Last fee: <strong>{{ m.last_fee_date }}</strong></p>
+    <p>Plan: <strong>{{ m.plan.replace('_',' ').title() }}</strong> &middot; Valid till <strong>{{ expiry }}</strong>
+      {% if days_left > 0 %}<span class="badge badge-paid">{{ days_left }} days left</span>{% else %}<span class="badge badge-expired">Expired</span>{% endif %}</p>
+  {% else %}
+    <p class="muted">Your plan is not set up yet. Please meet the owner at the gym to activate your membership.</p>
+  {% endif %}
+</div>
+{% endblock %}
