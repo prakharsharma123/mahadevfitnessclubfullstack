@@ -2,1501 +2,302 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MAHADEV FITNESS CLUB 🔱</title>
-  <link rel="icon" href="photos/Content-Creator-Project.png">
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mahadev Fitness Club, Alambagh, Lucknow</title>
+<meta name="description" content="Strength training, fat loss and personal coaching in Alambagh, Lucknow. Join Mahadev Fitness Club from ₹700 a month.">
+<link rel="icon" href="photos/Content-Creator-Project.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script>
+(function(){var t;try{t=localStorage.getItem('theme')}catch(e){}
+if(!t)t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';
+document.documentElement.setAttribute('data-theme',t)})();
+</script>
 <style>
-:root {
-  --fire: #FF4500;
-  --gold: #FFD700;
-  --ember: #FF8C00;
-  --dark: #0d0d0d;
-  --darker: #060606;
-  --steel: #111827;
-  --text: #f0f0f0;
-  --muted: #888;
-  --card: #161616;
-}
-*{margin:0;padding:0;box-sizing:border-box;}
-html{scroll-behavior:smooth;}
-body{font-family:'Rajdhani',sans-serif;background:var(--dark);color:var(--text);overflow-x:hidden;}
-::-webkit-scrollbar{width:4px;}
-::-webkit-scrollbar-track{background:#000;}
-::-webkit-scrollbar-thumb{background:var(--fire);}
-a{text-decoration:none;color:inherit;}
-
-/* ===== NAVBAR ===== */
-nav{
-  position:fixed;top:0;width:100%;z-index:9999;
-  display:flex;justify-content:space-between;align-items:center;
-  padding:1rem 3rem;
-  background:rgba(6,6,6,0.97);
-  border-bottom:1px solid rgba(255,69,0,0.25);
-  backdrop-filter:blur(20px);
-  transition:box-shadow 0.3s;
-}
-.logo{
-  font-family:'Bebas Neue',cursive;
-  font-size:1.9rem;color:var(--gold);letter-spacing:3px;
-  display:flex;align-items:center;gap:0.5rem;
-}
-.logo em{color:var(--fire);font-style:normal;}
-.logo-spin{display:inline-block;animation:spin 5s linear infinite;}
-@keyframes spin{to{transform:rotate(360deg);}}
-.nav-links{display:flex;list-style:none;gap:0.2rem;align-items:center;}
-.nav-links a{
-  padding:0.5rem 0.9rem;font-weight:600;font-size:0.88rem;
-  letter-spacing:1.5px;text-transform:uppercase;color:#ccc;
-  transition:color 0.2s;position:relative;
-}
-.nav-links a:hover{color:var(--gold);}
-.nav-links a::after{
-  content:'';position:absolute;bottom:0;left:50%;width:0;height:2px;
-  background:var(--fire);transition:all 0.3s;transform:translateX(-50%);
-}
-.nav-links a:hover::after{width:70%;}
-.nav-admin{
-  background:var(--fire)!important;color:#fff!important;
-  padding:0.5rem 1.2rem!important;border-radius:2px;
-}
-.nav-admin:hover{background:var(--ember)!important;}
-.nav-admin::after{display:none!important;}
-.hbg{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px;}
-.hbg span{display:block;width:24px;height:2px;background:var(--gold);}
-.mob-menu{
-  display:none;position:fixed;top:65px;left:0;right:0;
-  background:rgba(6,6,6,0.99);border-bottom:1px solid rgba(255,69,0,0.3);
-  padding:1.5rem 2rem;flex-direction:column;gap:0.5rem;z-index:9998;
-}
-.mob-menu.open{display:flex;}
-.mob-menu a{
-  padding:0.8rem 0;font-size:1.1rem;font-weight:600;letter-spacing:2px;
-  text-transform:uppercase;border-bottom:1px solid rgba(255,255,255,0.05);color:#ddd;
-}
-.mob-menu a:hover{color:var(--fire);}
-
-/* ===== HERO ===== */
-#home{
-  min-height:100vh;display:flex;align-items:center;justify-content:center;
-  text-align:center;padding:6rem 2rem 4rem;position:relative;overflow:hidden;
-}
-.hero-bg{
-  position:absolute;inset:0;
-  background:
-    radial-gradient(ellipse at 15% 50%, rgba(255,69,0,0.18) 0%, transparent 55%),
-    radial-gradient(ellipse at 85% 20%, rgba(255,165,0,0.1) 0%, transparent 50%),
-    linear-gradient(160deg,#0d0d0d 0%,#1a0808 50%,#0d0d0d 100%);
-}
-.hero-grid{
-  position:absolute;inset:0;
-  background-image:
-    linear-gradient(rgba(255,69,0,0.06) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(255,69,0,0.06) 1px,transparent 1px);
-  background-size:55px 55px;
-  animation:gridS 18s linear infinite;
-}
-@keyframes gridS{0%{transform:translateY(0);}100%{transform:translateY(55px);}}
-.hero-particles{position:absolute;inset:0;overflow:hidden;pointer-events:none;}
-.hero-content{position:relative;z-index:2;max-width:900px;}
-.hero-badge{
-  display:inline-block;padding:0.35rem 1.4rem;
-  border:1px solid var(--fire);color:var(--fire);
-  font-size:0.78rem;letter-spacing:4px;text-transform:uppercase;margin-bottom:1.5rem;
-  animation:pb 2.5s ease infinite;
-}
-@keyframes pb{
-  0%,100%{border-color:var(--fire);box-shadow:0 0 0 rgba(255,69,0,0);}
-  50%{border-color:var(--gold);box-shadow:0 0 25px rgba(255,69,0,0.35);}
-}
-.hero-title{
-  font-family:'Bebas Neue',cursive;
-  font-size:clamp(4.5rem,13vw,11rem);
-  line-height:0.88;letter-spacing:4px;margin-bottom:1.2rem;
-}
-.ht1{display:block;color:#fff;text-shadow:0 0 80px rgba(255,69,0,0.25);}
-.ht2{display:block;-webkit-text-stroke:2px var(--fire);color:transparent;font-size:clamp(3.5rem,10vw,9rem);}
-.ht3{display:block;color:var(--gold);text-shadow:0 0 50px rgba(255,215,0,0.4);}
-.hero-sub{font-size:1.15rem;letter-spacing:3px;color:var(--muted);margin-bottom:2.5rem;text-transform:uppercase;}
-.hero-sub strong{color:var(--fire);}
-.hero-btns{display:flex;gap:1.5rem;justify-content:center;flex-wrap:wrap;}
-.btn-primary{
-  padding:0.95rem 2.4rem;background:var(--fire);color:#fff;
-  font-family:'Rajdhani',sans-serif;font-size:1rem;font-weight:700;
-  letter-spacing:3px;text-transform:uppercase;border:none;cursor:pointer;
-  clip-path:polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%);
-  position:relative;overflow:hidden;transition:all 0.3s;display:inline-block;
-}
-.btn-primary::before{
-  content:'';position:absolute;inset:0;background:var(--gold);
-  transform:translateX(-100%);transition:0.3s;
-}
-.btn-primary:hover{color:var(--dark);}
-.btn-primary:hover::before{transform:translateX(0);}
-.btn-primary span{position:relative;z-index:1;}
-.btn-outline{
-  padding:0.95rem 2.4rem;background:transparent;color:var(--gold);
-  font-family:'Rajdhani',sans-serif;font-size:1rem;font-weight:700;
-  letter-spacing:3px;text-transform:uppercase;border:2px solid var(--gold);
-  cursor:pointer;clip-path:polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%);
-  transition:all 0.3s;display:inline-block;
-}
-.btn-outline:hover{background:var(--gold);color:var(--dark);}
-.hero-scroll{
-  position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);
-  display:flex;flex-direction:column;align-items:center;gap:0.4rem;
-  color:var(--muted);font-size:0.65rem;letter-spacing:3px;
-}
-.scroll-bar{width:1px;height:45px;background:linear-gradient(to bottom,var(--fire),transparent);animation:sb 2s ease infinite;}
-@keyframes sb{0%,100%{transform:scaleY(0);transform-origin:top;}50%{transform:scaleY(1);transform-origin:top;}}
-
-/* ===== SECTION COMMON ===== */
-section{padding:5rem 2rem;}
-.container{max-width:1200px;margin:0 auto;}
-.sec-head{text-align:center;margin-bottom:3.5rem;}
-.sec-tag{display:inline-block;color:var(--fire);font-size:0.78rem;letter-spacing:5px;text-transform:uppercase;margin-bottom:0.8rem;}
-.sec-title{font-family:'Bebas Neue',cursive;font-size:clamp(2.5rem,6vw,5rem);letter-spacing:4px;line-height:1;}
-.sec-title span{color:var(--fire);}
-.sec-line{width:80px;height:3px;background:linear-gradient(to right,var(--fire),var(--gold));margin:1.2rem auto 0;}
-
-/* ===== ABOUT ===== */
-#about{background:linear-gradient(135deg,var(--darker) 0%,var(--steel) 100%);position:relative;overflow:hidden;}
-#about::before{
-  content:'🔱';position:absolute;font-size:28rem;opacity:0.025;
-  top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;line-height:1;
-}
-.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;}
-.about-text h3{font-family:'Bebas Neue',cursive;font-size:1.9rem;color:var(--gold);letter-spacing:2px;margin-bottom:1.2rem;}
-.about-text p{color:#aaa;font-size:1rem;line-height:1.85;margin-bottom:1rem;}
-.about-text p strong{color:var(--fire);}
-.about-feats{margin-top:1.8rem;display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;}
-.af{display:flex;align-items:center;gap:0.6rem;color:#ccc;font-weight:600;font-size:0.95rem;}
-.af::before{content:'▸';color:var(--fire);}
-.stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;}
-.stat-card{
-  background:rgba(255,69,0,0.05);border:1px solid rgba(255,69,0,0.2);
-  padding:2rem;text-align:center;position:relative;transition:all 0.3s;
-}
-.stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(to right,var(--fire),var(--gold));}
-.stat-card:hover{border-color:var(--fire);background:rgba(255,69,0,0.1);transform:translateY(-5px);}
-.stat-num{font-family:'Bebas Neue',cursive;font-size:3.5rem;color:var(--fire);line-height:1;display:block;}
-.stat-lbl{color:var(--muted);font-size:0.75rem;letter-spacing:3px;text-transform:uppercase;margin-top:0.4rem;display:block;}
-
-/* ===== PROGRAMS ===== */
-#programs{background:var(--dark);}
-.prog-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:1.5rem;}
-.prog-card{
-  background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.07);
-  padding:2.5rem 1.5rem;text-align:center;position:relative;overflow:hidden;
-  cursor:pointer;transition:all 0.4s;
-}
-.prog-card::after{
-  content:'';position:absolute;bottom:0;left:0;right:0;height:3px;
-  background:linear-gradient(to right,var(--fire),var(--gold));transform:scaleX(0);transition:0.4s;
-}
-.prog-card:hover{border-color:rgba(255,69,0,0.4);transform:translateY(-10px);box-shadow:0 20px 50px rgba(255,69,0,0.18);}
-.prog-card:hover::after{transform:scaleX(1);}
-.prog-icon{font-size:2.8rem;margin-bottom:1.3rem;display:block;transition:transform 0.3s;}
-.prog-card:hover .prog-icon{transform:scale(1.2) rotate(8deg);}
-.prog-card h3{font-family:'Bebas Neue',cursive;font-size:1.3rem;letter-spacing:2px;color:var(--gold);margin-bottom:0.8rem;}
-.prog-card p{color:#777;font-size:0.85rem;line-height:1.6;}
-.prog-tag{
-  display:inline-block;margin-top:1.2rem;padding:0.25rem 0.8rem;
-  border:1px solid rgba(255,69,0,0.35);color:var(--fire);
-  font-size:0.65rem;letter-spacing:2px;text-transform:uppercase;transition:all 0.3s;
-}
-.prog-card:hover .prog-tag{background:var(--fire);color:#fff;border-color:var(--fire);}
-
-/* ===== TRAINERS ===== */
-#trainers{background:linear-gradient(180deg,var(--darker) 0%,var(--steel) 100%);}
-.trainer-wrap{max-width:500px;margin:0 auto;}
-.trainer-card{background:var(--card);border:1px solid rgba(255,255,255,0.07);overflow:hidden;transition:all 0.4s;}
-.trainer-card:hover{border-color:var(--fire);box-shadow:0 20px 60px rgba(255,69,0,0.25);}
-.tr-img{
-  width:100%;height:300px;
-  background:linear-gradient(135deg,#1a0808,#2a1010);
-  display:flex;align-items:center;justify-content:center;
-  position:relative;overflow:hidden;
-}
-.tr-avatar-img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  transition:all 0.4s;
-}
-.trainer-card:hover .tr-avatar-img{
-  transform:scale(1.08);
-}
-.tr-avatar{font-size:9rem;opacity:0.65;transition:all 0.4s;}
-.trainer-card:hover .tr-avatar{transform:scale(1.08);opacity:0.85;}
-.tr-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 50%,rgba(0,0,0,0.85) 100%);}
-.tr-badge{
-  position:absolute;top:1rem;right:1rem;
-  background:var(--fire);color:#fff;
-  font-size:0.65rem;letter-spacing:2px;padding:0.3rem 0.8rem;text-transform:uppercase;
-}
-.tr-info{padding:2rem;}
-.tr-info h3{font-family:'Bebas Neue',cursive;font-size:1.8rem;letter-spacing:2px;color:var(--gold);margin-bottom:0.3rem;}
-.tr-spec{color:var(--fire);font-size:0.85rem;letter-spacing:2px;text-transform:uppercase;margin-bottom:1rem;}
-.tr-info p{color:#888;font-size:0.95rem;line-height:1.7;margin-bottom:1.5rem;}
-.tr-stats{display:flex;gap:1rem;margin-bottom:1.5rem;padding-bottom:1.5rem;border-bottom:1px solid rgba(255,255,255,0.06);}
-.trs{flex:1;text-align:center;}
-.trs-n{font-family:'Bebas Neue',cursive;font-size:1.6rem;color:var(--fire);display:block;}
-.trs-l{font-size:0.65rem;color:var(--muted);letter-spacing:1px;text-transform:uppercase;}
-.btn-book{
-  display:block;width:100%;padding:0.85rem;
-  background:transparent;border:1px solid var(--fire);
-  color:var(--fire);font-family:'Rajdhani',sans-serif;
-  font-weight:700;letter-spacing:3px;text-transform:uppercase;
-  cursor:pointer;font-size:0.9rem;transition:all 0.3s;text-align:center;
-}
-.btn-book:hover{background:var(--fire);color:#fff;box-shadow:0 5px 20px rgba(255,69,0,0.4);}
-
-/* ===== REVIEWS ===== */
-
-#reviews{
-background:linear-gradient(180deg,#0d0d0d,#111827);
-overflow:hidden;
-}
-
-.review-slider{
-overflow:hidden;
-position:relative;
-width:100%;
-}
-
-.review-track{
-display:flex;
-gap:2rem;
-width:max-content;
-animation:reviewScroll 35s linear infinite;
-}
-
-.review-slider:hover .review-track{
-animation-play-state:paused;
-}
-
-/* Review Card */
-
-.review-card{
-min-width:320px;
-max-width:320px;
-background:rgba(255,255,255,0.03);
-border:1px solid rgba(255,69,0,0.25);
-padding:1.5rem;
-transition:all 0.4s;
-position:relative;
-}
-
-.review-card:hover{
-transform:translateY(-10px) scale(1.03);
-border-color:var(--fire);
-box-shadow:0 20px 60px rgba(255,69,0,0.25);
-}
-
-/* top section */
-
-.review-top{
-display:flex;
-align-items:center;
-gap:0.8rem;
-margin-bottom:1rem;
-}
-
-.review-top img{
-width:45px;
-height:45px;
-border-radius:50%;
-border:2px solid var(--fire);
-}
-
-.review-card h4{
-font-family:'Bebas Neue',cursive;
-letter-spacing:2px;
-color:var(--gold);
-font-size:1.1rem;
-}
-
-.stars{
-color:var(--fire);
-font-size:0.8rem;
-}
-
-.review-card p{
-color:#aaa;
-font-size:0.9rem;
-line-height:1.6;
-}
-
-/* animation */
-
-@keyframes reviewScroll{
-
-0%{
-transform:translateX(0);
-}
-
-100%{
-transform:translateX(-50%);
-}
-
-}
-
-/* responsive */
-
-@media(max-width:700px){
-
-.review-card{
-min-width:260px;
-max-width:260px;
-}
-
-}
-
-/* ===== MEMBERSHIP ===== */
-#membership{background:var(--dark);position:relative;overflow:hidden;}
-#membership::before{
-  content:'';position:absolute;top:-30%;left:50%;transform:translateX(-50%);
-  width:700px;height:700px;
-  background:radial-gradient(circle,rgba(255,69,0,0.05) 0%,transparent 70%);
-  pointer-events:none;
-}
-.plans-grid{
-  display:grid;grid-template-columns:repeat(4,1fr);
-  gap:1.5rem;align-items:start;max-width:1200px;margin:0 auto;
-}
-.plan{
-  background:var(--card);border:1px solid rgba(255,255,255,0.08);
-  padding:2.2rem 1.8rem;text-align:center;position:relative;
-  transition:all 0.4s;overflow:hidden;
-  animation:float 6s ease-in-out infinite;
-}
-.plan:hover{transform:translateY(-8px);border-color:rgba(255,69,0,0.4);box-shadow:0 15px 45px rgba(255,69,0,0.15);}
-.plan.hot{
-  background:rgba(255,69,0,0.07);border:2px solid var(--fire);
-  transform:scale(1.04);box-shadow:0 0 50px rgba(255,69,0,0.2);
-}
-.plan.hot:hover{transform:scale(1.04) translateY(-8px);}
-.plan-pop{
-  position:absolute;top:-1px;left:50%;transform:translateX(-50%);
-  background:var(--fire);color:#fff;font-size:0.62rem;letter-spacing:3px;
-  padding:0.25rem 1.3rem;text-transform:uppercase;white-space:nowrap;
-}
-.plan-name{font-family:'Bebas Neue',cursive;font-size:1.7rem;letter-spacing:4px;margin-bottom:0.3rem;margin-top:1rem;}
-.plan.hot .plan-name{color:var(--gold);}
-.plan-desc{color:var(--muted);font-size:0.8rem;letter-spacing:1px;margin-bottom:1.5rem;}
-.plan-price{margin:1.5rem 0;}
-.p-cur{font-size:1.1rem;color:var(--fire);font-weight:700;vertical-align:super;}
-.p-amt{font-family:'Bebas Neue',cursive;font-size:3.8rem;color:#fff;line-height:1;}
-.p-per{display:block;color:var(--muted);font-size:0.75rem;letter-spacing:2px;text-transform:uppercase;margin-top:0.2rem;}
-.plan-feats{list-style:none;margin:1.8rem 0;display:flex;flex-direction:column;gap:0.75rem;text-align:left;}
-.plan-feats li{display:flex;align-items:flex-start;gap:0.6rem;color:#aaa;font-size:0.88rem;line-height:1.4;}
-.plan-feats li .ck{color:var(--fire);flex-shrink:0;font-size:0.75rem;margin-top:2px;}
-.plan-feats li.off{opacity:0.3;}
-.plan-feats li.off .ck{color:var(--muted);}
-.btn-plan{
-  display:block;width:100%;padding:0.9rem;
-  background:transparent;border:1px solid rgba(255,69,0,0.5);
-  color:var(--fire);font-family:'Rajdhani',sans-serif;
-  font-weight:700;letter-spacing:2px;text-transform:uppercase;
-  cursor:pointer;font-size:0.9rem;transition:all 0.3s;
-  clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);
-}
-.btn-plan:hover{background:var(--fire);color:#fff;border-color:var(--fire);box-shadow:0 5px 20px rgba(255,69,0,0.35);}
-.plan.hot .btn-plan{background:var(--fire);color:#fff;border-color:var(--fire);}
-.plan.hot .btn-plan:hover{background:var(--gold);border-color:var(--gold);color:var(--dark);}
-.reveal{
-  opacity:0;
-  transform:translateY(40px);
-  transition:all 0.8s ease;
-}
-.reveal.active{
-  opacity:1;
-  transform:translateY(0);
-}
-@keyframes float{
-  0%,100%{transform:translateY(0);}
-  50%{transform:translateY(-6px);}
-}
-
-/* ===== SPECIAL OFFERS ===== */
-
-#offers{
-background:linear-gradient(135deg,#0d0d0d,#111827);
-}
-
-.offer-grid{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:1.5rem;
-}
-
-.offer-card{
-background:var(--card);
-border:1px solid rgba(255,69,0,0.25);
-padding:2rem;
-text-align:center;
-position:relative;
-transition:0.3s;
-}
-
-.offer-card:hover{
-transform:translateY(-8px);
-border-color:var(--fire);
-box-shadow:0 15px 40px rgba(255,69,0,0.2);
-}
-
-.offer-badge{
-position:absolute;
-top:-10px;
-left:50%;
-transform:translateX(-50%);
-background:var(--fire);
-color:#fff;
-font-size:0.65rem;
-letter-spacing:2px;
-padding:0.25rem 1rem;
-text-transform:uppercase;
-}
-
-.offer-card h3{
-font-family:'Bebas Neue';
-letter-spacing:2px;
-color:var(--gold);
-margin-bottom:0.5rem;
-}
-
-.offer-card p{
-color:#aaa;
-margin-bottom:1rem;
-}
-
-
-/* ===== GALLERY ===== */
-
-#gallery{
-background:var(--dark);
-}
-
-.gallery-grid{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:1rem;
-}
-
-.gallery-grid img{
-width:100%;
-height:250px;
-object-fit:cover;
-cursor:pointer;
-transition:0.4s;
-}
-
-.gallery-grid img:hover{
-transform:scale(1.08);
-filter:brightness(1.2);
-}
-
-
-/* ===== CTA BANNER ===== */
-
-#cta{
-background:linear-gradient(135deg,#FF4500,#FF8C00);
-padding:4rem 2rem;
-text-align:center;
-}
-
-.cta-box h2{
-font-family:'Bebas Neue';
-font-size:3rem;
-letter-spacing:3px;
-margin-bottom:1rem;
-}
-
-.cta-box p{
-max-width:600px;
-margin:0 auto 2rem;
-font-size:1.1rem;
-}
-
-
-/* ===== WHATSAPP BUTTON ===== */
-
-.whatsapp-btn{
-position:fixed;
-bottom:25px;
-right:25px;
-width:60px;
-height:60px;
-border-radius:50%;
-background:#25D366;
-color:#fff;
-font-size:30px;
-display:flex;
-align-items:center;
-justify-content:center;
-box-shadow:0 8px 25px rgba(0,0,0,0.3);
-z-index:9999;
-transition:0.3s;
-}
-
-.whatsapp-btn:hover{
-transform:scale(1.1);
-}
-
-
-/* ===== RESPONSIVE ===== */
-
+:root{--bg:#f6f5f2;--surface:#fff;--soft:#ecebe6;--ink:#14182b;--muted:#5b6074;--line:#dcdad2;--accent:#e8780a;--on-accent:#fff;--shadow:0 10px 30px rgba(20,24,43,.08);color-scheme:light}
+[data-theme=dark]{--bg:#0d1120;--surface:#151a2e;--soft:#1c2240;--ink:#eceef7;--muted:#9aa1bb;--line:#272e4d;--accent:#ffb02e;--on-accent:#1a1204;--shadow:0 10px 30px rgba(0,0,0,.4);color-scheme:dark}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+body{font-family:Figtree,system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;transition:background .25s,color .25s}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:4px}
+h1,h2,h3{font-family:'Big Shoulders Display',Impact,sans-serif;line-height:.95;letter-spacing:.01em;text-transform:uppercase}
+.wrap{max-width:1160px;margin:0 auto;padding:0 24px}
+section{padding:88px 0}
+.h2{font-size:clamp(2.4rem,5vw,3.8rem);font-weight:800;margin-bottom:12px}
+.lead{color:var(--muted);max-width:60ch;margin-bottom:40px}
+.btn{display:inline-flex;align-items:center;justify-content:center;padding:13px 24px;font:700 .95rem Figtree,sans-serif;border-radius:10px;border:2px solid var(--ink);background:transparent;color:var(--ink);cursor:pointer;transition:transform .15s,background .15s,color .15s}
+.btn:hover{transform:translateY(-2px)}
+.btn.fill{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+/* nav */
+header{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;gap:20px;height:68px}
+.brand{font:900 1.5rem 'Big Shoulders Display',sans-serif;letter-spacing:.04em;text-transform:uppercase;margin-right:auto}
+.brand b{color:var(--accent)}
+.links{display:flex;gap:22px;font-weight:600;font-size:.92rem;color:var(--muted)}
+.links a:hover{color:var(--ink)}
+.toggle{width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;font-size:1.1rem}
+.toggle .moon{display:none}[data-theme=dark] .toggle .sun{display:none}[data-theme=dark] .toggle .moon{display:inline}
+.menu{display:none}
+/* hero */
+.hero{padding:72px 0 56px}
+.hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center}
+.hero h1{font-size:clamp(3.6rem,10vw,8rem);font-weight:900}
+.hero h1 span{display:block;color:transparent;-webkit-text-stroke:2px var(--accent)}
+.hero p{margin:22px 0 28px;max-width:46ch;color:var(--muted);font-size:1.1rem}
+.hero-photo{position:relative}
+.hero-photo img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:20px;box-shadow:var(--shadow)}
+.open{position:absolute;left:-20px;bottom:24px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px 18px;box-shadow:var(--shadow);font-size:.88rem}
+.open strong{display:block;font-size:1rem}
+/* quick access */
+.quick{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:8px}
+.q{display:block;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:24px;transition:border-color .2s,transform .2s}
+.q:hover{border-color:var(--accent);transform:translateY(-3px)}
+.q strong{display:block;font:800 1.7rem 'Big Shoulders Display',sans-serif;text-transform:uppercase}
+.q span{color:var(--muted);font-size:.92rem}
+/* about */
+.about{display:grid;grid-template-columns:1.2fr 1fr;gap:56px;align-items:start}
+.about p{color:var(--muted);margin-bottom:14px}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.stats div{background:var(--surface);padding:26px}
+.stats b{display:block;font:900 3rem 'Big Shoulders Display',sans-serif;color:var(--accent);line-height:1}
+.stats span{color:var(--muted);font-size:.88rem}
+/* programs */
+.alt{background:var(--soft)}
+.prog{border-top:1px solid var(--line)}
+.prog div{display:grid;grid-template-columns:minmax(180px,1fr) 2fr auto;gap:24px;align-items:center;padding:22px 0;border-bottom:1px solid var(--line)}
+.prog h3{font-size:1.9rem;font-weight:800}
+.prog p{color:var(--muted)}
+.prog small{font-weight:600;color:var(--accent)}
+/* gallery */
+.gal{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.gal img{width:100%;height:240px;object-fit:cover;border-radius:12px}
+.gal img:first-child{grid-row:span 2;height:100%;min-height:492px}
+/* trainer */
+.trainer{display:grid;grid-template-columns:.8fr 1.2fr;gap:48px;align-items:center}
+.trainer img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:20px}
+.trainer p{color:var(--muted);margin:14px 0 22px}
+/* plans */
+.plans{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.plan{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:28px 24px;display:flex;flex-direction:column}
+.plan.pop{border:2px solid var(--accent);box-shadow:var(--shadow)}
+.plan em{font-style:normal;font-size:.82rem;font-weight:700;color:var(--accent);min-height:1.3em}
+.plan h3{font-size:1.6rem;margin:6px 0}
+.price{font:900 3.4rem 'Big Shoulders Display',sans-serif;line-height:1}
+.price sup{font-size:1.2rem;margin-right:2px}
+.plan ul{list-style:none;margin:18px 0 24px;display:grid;gap:8px;color:var(--muted);font-size:.92rem;flex:1}
+.plan li::before{content:"+ ";color:var(--accent);font-weight:800}
+.offers{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px;color:var(--muted);font-size:.95rem}
+.offers span{border:1px dashed var(--line);border-radius:999px;padding:8px 16px}
+.offers b{color:var(--ink)}
+/* reviews */
+.rev{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.rev blockquote{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:24px}
+.rev p{margin-bottom:14px}
+.rev cite{font-style:normal;font-weight:700;font-size:.9rem;color:var(--muted)}
+/* contact */
+.contact{display:grid;grid-template-columns:1fr 1.1fr;gap:48px}
+.contact dl{display:grid;gap:18px;margin-top:24px}
+.contact dt{font-weight:700;font-size:.85rem;color:var(--accent)}
+.contact dd{color:var(--muted)}
+.form{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:28px;display:grid;gap:14px}
+.form label{font-weight:600;font-size:.88rem;display:grid;gap:6px}
+.form input,.form select,.form textarea{font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:12px 14px;width:100%}
+.form input:focus,.form select:focus,.form textarea:focus{outline:2px solid var(--accent);border-color:transparent}
+.map{margin-top:40px;border-radius:18px;overflow:hidden;border:1px solid var(--line)}
+.map iframe{width:100%;height:340px;border:0;display:block}
+[data-theme=dark] .map iframe{filter:invert(.9) hue-rotate(180deg) brightness(.85)}
+/* footer */
+footer{border-top:1px solid var(--line);padding:40px 0 90px;color:var(--muted);font-size:.9rem}
+.foot{display:flex;flex-wrap:wrap;gap:12px 24px;justify-content:space-between}
+.foot nav{display:flex;flex-wrap:wrap;gap:8px 18px}
+.foot a:hover{color:var(--accent)}
+.credit{margin-top:22px;padding-top:18px;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;gap:8px 18px}
+/* floating */
+.wa{position:fixed;right:20px;bottom:20px;z-index:40;background:#25d366;color:#08331a;font-weight:700;padding:13px 20px;border-radius:999px;box-shadow:var(--shadow)}
+.toast{position:fixed;left:50%;top:84px;transform:translate(-50%,-160%);background:var(--ink);color:var(--bg);padding:12px 20px;border-radius:12px;z-index:70;font-weight:600;transition:transform .3s}
+.toast.show{transform:translate(-50%,0)}
 @media(max-width:900px){
-
-.offer-grid{
-grid-template-columns:1fr;
-}
-
-.gallery-grid{
-grid-template-columns:1fr 1fr;
-}
-
-}
-
-@media(max-width:600px){
-
-.gallery-grid{
-grid-template-columns:1fr;
-}
-
-}
-
-/* ===== CONTACT ===== */
-#contact{background:linear-gradient(180deg,var(--steel) 0%,var(--darker) 100%);}
-.contact-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:4rem;max-width:1200px;margin:0 auto;}
-.ci h3{font-family:'Bebas Neue',cursive;font-size:2rem;color:var(--gold);letter-spacing:3px;margin-bottom:1rem;}
-.ci p{color:#888;line-height:1.85;margin-bottom:2rem;font-size:0.97rem;}
-.ci-items{display:flex;flex-direction:column;gap:1.2rem;}
-.ci-item{
-  display:flex;align-items:flex-start;gap:1.1rem;
-  padding:1.1rem;background:rgba(255,255,255,0.03);
-  border:1px solid rgba(255,255,255,0.06);transition:all 0.3s;
-}
-.ci-item:hover{border-color:rgba(255,69,0,0.3);background:rgba(255,69,0,0.05);}
-.ci-icon{
-  width:44px;height:44px;flex-shrink:0;
-  background:rgba(255,69,0,0.1);border:1px solid rgba(255,69,0,0.3);
-  display:flex;align-items:center;justify-content:center;font-size:1.1rem;
-}
-.ci-text label{display:block;font-size:0.68rem;letter-spacing:3px;color:var(--fire);text-transform:uppercase;margin-bottom:0.3rem;}
-.ci-text span{color:#ccc;font-weight:600;font-size:0.97rem;}
-.cf{background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.07);padding:2.5rem;}
-.cf h3{font-family:'Bebas Neue',cursive;font-size:1.8rem;color:var(--gold);letter-spacing:3px;margin-bottom:2rem;}
-.f-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
-.fg{margin-bottom:1rem;}
-.fg label{display:block;font-size:0.68rem;letter-spacing:3px;color:var(--fire);text-transform:uppercase;margin-bottom:0.45rem;}
-.fg input,.fg select,.fg textarea{
-  width:100%;background:rgba(255,255,255,0.03);
-  border:1px solid rgba(255,255,255,0.1);color:var(--text);
-  padding:0.85rem 1rem;font-family:'Rajdhani',sans-serif;font-size:1rem;
-  font-weight:500;outline:none;transition:all 0.3s;resize:none;
-}
-.fg input:focus,.fg select:focus,.fg textarea:focus{
-  border-color:var(--fire);background:rgba(255,69,0,0.05);
-}
-.fg select option{background:var(--dark);}
-.btn-submit{
-  width:100%;padding:1.1rem;
-  background:linear-gradient(135deg,var(--fire),var(--ember));
-  color:#fff;border:none;font-family:'Rajdhani',sans-serif;
-  font-size:1rem;font-weight:700;letter-spacing:4px;text-transform:uppercase;
-  cursor:pointer;clip-path:polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%);
-  transition:all 0.3s;margin-top:0.5rem;
-}
-.btn-submit:hover{background:linear-gradient(135deg,var(--gold),var(--ember));box-shadow:0 8px 30px rgba(255,69,0,0.4);transform:translateY(-2px);}
-.map-box{max-width:1200px;margin:3rem auto 0;border:1px solid rgba(255,69,0,0.25);overflow:hidden;position:relative;}
-.map-label{position:absolute;top:1rem;left:1rem;z-index:2;background:var(--fire);color:#fff;padding:0.35rem 1rem;font-size:0.68rem;letter-spacing:3px;text-transform:uppercase;font-weight:700;}
-.map-box iframe{width:100%;height:370px;display:block;filter:grayscale(50%) invert(1) hue-rotate(180deg) brightness(0.8) contrast(0.9);}
-
-/* ===== FOOTER ===== */
-footer{
-  background:var(--darker);
-  border-top:1px solid rgba(255,69,0,0.2);
-  padding:3rem 2rem 1rem;
-  text-align:center;
-}
-.f-logo{
-  font-family:'Bebas Neue',cursive;
-  font-size:2.4rem;
-  color:var(--gold);
-  letter-spacing:4px;
-  margin-bottom:1rem;
-}
-.f-logo em{color:var(--fire);font-style:normal;}
-.f-links{
-  display:flex;
-  justify-content:center;
-  gap:2rem;
-  flex-wrap:wrap;
-  margin:1.5rem 0;
-}
-.f-links a{
-  color:#555;
-  font-size:0.78rem;
-  letter-spacing:2px;
-  text-transform:uppercase;
-  transition:color 0.3s;
-}
-.f-links a:hover{color:var(--fire);}
-footer p{color:var(--muted);font-size:0.82rem;}
-.f-motto{
-  color:rgba(255,69,0,0.4);
-  font-size:0.72rem;
-  letter-spacing:2px;
-  margin-top:0.5rem;
-}
-
-/* ===== CREDITS SECTION ===== */
-.credits{
-  margin-top:2.5rem;
-  padding-top:2rem;
-  border-top:1px solid rgba(255,69,0,0.15);
-}
-.credits-text{
-  font-size:0.85rem;
-  color:#666;
-  margin-bottom:1rem;
-  letter-spacing:1px;
-}
-.credits-text span{
-  color:var(--gold);
-  font-weight:700;
-  font-family:'Bebas Neue',cursive;
-  font-size:1.1rem;
-  letter-spacing:2px;
-}
-.credits-icons{
-  display:flex;
-  justify-content:center;
-  gap:1rem;
-  margin-top:0.8rem;
-}
-.credit-icon{
-  width:38px;
-  height:38px;
-  background:rgba(255,69,0,0.1);
-  border:1px solid rgba(255,69,0,0.3);
-  border-radius:50%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:var(--fire);
-  font-size:1rem;
-  transition:all 0.3s;
-}
-.credit-icon:hover{
-  background:var(--fire);
-  color:#fff;
-  transform:translateY(-3px) scale(1.1);
-  box-shadow:0 5px 15px rgba(255,69,0,0.4);
-}
-
-@media(max-width:600px){
-  .credits-text{font-size:0.8rem;}
-  .credit-icon{width:35px;height:35px;font-size:0.9rem;}
-}
-/* ===== TOAST ===== */
-.toast{
-  position:fixed;bottom:2rem;right:2rem;z-index:99999;
-  background:#111;border:1px solid var(--fire);border-left:4px solid var(--fire);
-  padding:1rem 1.5rem;max-width:300px;
-  transform:translateX(200%);transition:transform 0.4s;
-}
-.toast.show{transform:translateX(0);}
-.toast strong{display:block;font-family:'Bebas Neue',cursive;font-size:1.1rem;letter-spacing:2px;color:var(--gold);margin-bottom:0.3rem;}
-.toast span{font-size:0.9rem;color:#ccc;}
-
-/* ===== RESPONSIVE ===== */
-@media(max-width:1100px){
-  .prog-grid{grid-template-columns:repeat(3,1fr);}
-  .plans-grid{grid-template-columns:repeat(2,1fr);max-width:700px;}
-  .plan.hot{transform:none;}
-  .plan.hot:hover{transform:translateY(-8px);}
-}
-@media(max-width:850px){
-  nav{padding:1rem 1.5rem;}
-  .nav-links{display:none;}
-  .hbg{display:flex;}
-  .about-grid{grid-template-columns:1fr;}
-  .contact-grid{grid-template-columns:1fr;}
-  .f-row{grid-template-columns:1fr;}
-  .prog-grid{grid-template-columns:repeat(2,1fr);}
-}
-@media(max-width:600px){
-  .plans-grid{grid-template-columns:1fr;max-width:380px;}
-  .prog-grid{grid-template-columns:1fr;}
-  section{padding:4rem 1.2rem;}
-  .hero-btns{flex-direction:column;align-items:center;}
-  nav{padding:0.8rem 1.2rem;}
-}
+.links{display:none;position:absolute;top:68px;left:0;right:0;flex-direction:column;gap:0;background:var(--bg);border-bottom:1px solid var(--line);padding:8px 24px}
+.links.open{display:flex}.links a{padding:14px 0;border-bottom:1px solid var(--line)}
+.menu{display:inline-block}
+.hero-grid,.about,.trainer,.contact{grid-template-columns:1fr}
+.hero-photo{order:-1}.hero-photo img{aspect-ratio:16/10}.open{left:12px}
+.quick,.rev{grid-template-columns:1fr}
+.plans{grid-template-columns:1fr 1fr}
+.prog div{grid-template-columns:1fr;gap:6px}
+.gal{grid-template-columns:1fr 1fr}.gal img:first-child{grid-row:auto;min-height:0;height:240px}
+section{padding:64px 0}}
+@media(max-width:560px){.plans{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
 </style>
 </head>
 <body>
+<header><div class="wrap nav">
+  <a class="brand" href="#top">Mahadev <b>Fitness</b></a>
+  <div class="links" id="links">
+    <a href="#about">About</a><a href="#programs">Programs</a><a href="#trainer">Trainer</a><a href="#plans">Plans</a><a href="#contact">Contact</a>
+    <a href="/client/login">Member login</a><a href="/admin/login">Admin</a>
+  </div>
+  <button class="toggle" id="themeBtn" aria-label="Switch between light and dark mode"><span class="sun">☀</span><span class="moon">☾</span></button>
+  <a class="btn fill" href="/signup">Sign up</a>
+  <button class="toggle menu" id="menuBtn" aria-label="Open menu">☰</button>
+</div></header>
 
-<!-- NAVBAR -->
-<nav id="nav">
-  <a href="#home" class="logo">
-    <span class="logo-spin">🔱</span> MAHADEV <em>FITNESS</em>
-  </a>
-  <ul class="nav-links">
-    <li><a href="#home">Home</a></li>
-    <li><a href="#about">About</a></li>
-    <li><a href="#programs">Programs</a></li>
-    <li><a href="#trainers">Trainers</a></li>
-    <li><a href="#membership">Membership</a></li>
-    <li><a href="#contact">Contact</a></li>
-    <li><a href="/client/login">Login</a></li>
-    <li><a href="/signup" class="nav-admin">Sign Up</a></li>
-    <li><a href="/client/scan">Attendance</a></li>
-    <li><a href="/admin/login">⚙ Admin</a></li>
-  </ul>
-  <button class="hbg" onclick="toggleMenu()" aria-label="Menu">
-    <span></span><span></span><span></span>
-  </button>
-</nav>
-<div class="mob-menu" id="mobMenu">
-  <a href="#home" onclick="cm()">Home</a>
-  <a href="#about" onclick="cm()">About</a>
-  <a href="#programs" onclick="cm()">Programs</a>
-  <a href="#trainers" onclick="cm()">Trainers</a>
-  <a href="#membership" onclick="cm()">Membership</a>
-  <a href="#contact" onclick="cm()">Contact</a>
-  <a href="/client/login" onclick="cm()">Member Login</a>
-  <a href="/signup" onclick="cm()" style="color:var(--fire)">Sign Up</a>
-  <a href="/client/scan" onclick="cm()">Mark Attendance</a>
-  <a href="/admin/login" onclick="cm()">⚙ Admin Portal</a>
-</div>
-
-<!-- ========== HERO ========== -->
-<section id="home">
-  <div class="hero-bg"></div>
-  <div class="hero-grid"></div>
-  <div class="hero-particles" id="particles"></div>
-  <div class="hero-content">
-    <div class="hero-badge">🔱 Est. 2015 &nbsp;•&nbsp; Lucknow, India</div>
-    <h1 class="hero-title">
-      <span class="ht1">FORGE YOUR</span>
-      <span class="ht2">LEGEND</span>
-      <span class="ht3">TODAY</span>
-    </h1>
-    <p class="hero-sub">Where <strong>Iron</strong> Meets <strong>Willpower</strong></p>
-    <div class="hero-btns">
-      <a href="/signup" class="btn-primary"><span>🔥 Sign Up</span></a>
-      <a href="/client/login" class="btn-outline">Member Login</a>
-      <a href="/client/scan" class="btn-outline">📷 Mark Attendance</a>
+<main id="top">
+<section class="hero"><div class="wrap">
+  <div class="hero-grid">
+    <div>
+      <h1>Forge your <span>legend</span> today</h1>
+      <p>Strength training, fat loss and one-to-one coaching in Alambagh, Lucknow. Open six days a week, run by a national powerlifting champion.</p>
+      <a class="btn fill" href="/signup">Join from ₹700 a month</a>
+      <a class="btn" href="#plans" style="margin-left:8px">See plans</a>
+    </div>
+    <div class="hero-photo">
+      <img src="photos/i1.jpeg" alt="Inside Mahadev Fitness Club">
+      <div class="open"><strong>Mon to Sat</strong>6 to 10:30 AM, 5 to 10:30 PM</div>
     </div>
   </div>
-  <div class="hero-scroll">
-    <span>SCROLL</span>
-    <div class="scroll-bar"></div>
+  <div class="quick">
+    <a class="q" href="/signup"><strong>Sign up</strong><span>Create your member account with Google.</span></a>
+    <a class="q" href="/client/login"><strong>Member login</strong><span>Check your plan, fee date and notices.</span></a>
+    <a class="q" href="/client/scan"><strong>Mark attendance</strong><span>Scan the QR code at the gym entrance.</span></a>
   </div>
-</section>
+</div></section>
 
-<!-- ========== ABOUT ========== -->
-<section id="about">
-  <div class="container">
-    <div class="sec-head">
-      <span class="sec-tag">⚡ Who We Are</span>
-      <h2 class="sec-title">THE <span>MAHADEV</span> LEGACY</h2>
-      <div class="sec-line"></div>
-    </div>
-    <div class="about-grid">
-      <div class="about-text">
-        <h3>🔱 Built for Warriors. Open to All.</h3>
-        <p>At <strong>Mahadev Fitness Club</strong>, we believe every body holds the power of a god. Founded in 2015 in the heart of Lucknow, we've been transforming lives through science-backed training, elite coaching, and an unbreakable community spirit.</p>
-        <p>Named after the mightiest of deities, our gym is a <strong>temple of transformation</strong>. Whether you're taking your first step or chasing your peak — Mahadev is your sanctuary.</p>
-        <div class="about-feats">
-          <div class="af">AC + Ventilated Halls</div>
-          <div class="af">Certified Expert Trainers</div>
-          <div class="af">Premium Equipment</div>
-          <div class="af">Diet &amp; Nutrition Plans</div>
-          <div class="af">Supplement Store</div>
-          <div class="af">Cardio Zone</div>
-          <div class="af">Group Classes</div>
-        </div>
-      </div>
-      <div class="stats-grid">
-        <div class="stat-card">
-          <span class="stat-num" data-target="2500">0+</span>
-          <span class="stat-lbl">Members Strong</span>
-        </div>
-        <div class="stat-card">
-          <span class="stat-num" data-target="10">0+</span>
-          <span class="stat-lbl">Years of Excellence</span>
-        </div>
-        <div class="stat-card">
-          <span class="stat-num" data-target="15">0+</span>
-          <span class="stat-lbl">Expert Trainers</span>
-        </div>
-        <div class="stat-card">
-          <span class="stat-num" data-target="98">0%</span>
-          <span class="stat-lbl">Success Rate</span>
-        </div>
-      </div>
-    </div>
+<section id="about" class="alt"><div class="wrap about">
+  <div>
+    <h2 class="h2">Built for warriors, open to all</h2>
+    <p>Mahadev Fitness Club started in 2015 in Alambagh with one idea: a gym that treats your first week and your hundredth with the same seriousness.</p>
+    <p>You get air-conditioned halls, certified trainers, quality equipment, diet and nutrition plans, a cardio zone and group classes.</p>
   </div>
-</section>
-
-<!-- ========== PROGRAMS ========== -->
-<section id="programs">
-  <div class="container">
-    <div class="sec-head">
-      <span class="sec-tag">💪 What We Offer</span>
-      <h2 class="sec-title">OUR <span>PROGRAMS</span></h2>
-      <div class="sec-line"></div>
-    </div>
-    <div class="prog-grid">
-      <div class="prog-card">
-        <span class="prog-icon">🏋️</span>
-        <h3>Weight Training</h3>
-        <p>Build raw, functional strength with structured barbell and dumbbell programs by certified coaches.</p>
-        <span class="prog-tag">Beginner to Advanced</span>
-      </div>
-      <div class="prog-card">
-        <span class="prog-icon">🔥</span>
-        <h3>Fat Loss</h3>
-        <p>Incinerate body fat with scientifically-designed metabolic conditioning and cardio protocols.</p>
-        <span class="prog-tag">All Levels</span>
-      </div>
-      <div class="prog-card">
-        <span class="prog-icon">💪</span>
-        <h3>Muscle Building</h3>
-        <p>Hypertrophy-focused training with progressive overload and optimal nutrition timing.</p>
-        <span class="prog-tag">Intermediate+</span>
-      </div>
-      <div class="prog-card">
-        <span class="prog-icon">🎯</span>
-        <h3>Personal Training</h3>
-        <p>One-on-one exclusive sessions tailored 100% to your goals, body type, and fitness level.</p>
-        <span class="prog-tag">1-on-1 Sessions</span>
-      </div>
-      <div class="prog-card">
-        <span class="prog-icon">⚡</span>
-        <h3>HIIT</h3>
-        <p>High-Intensity Interval Training that torches calories and boosts your athletic performance.</p>
-        <span class="prog-tag">Group Classes</span>
-      </div>
-    </div>
+  <div class="stats">
+    <div><b>2500+</b><span>Members trained</span></div>
+    <div><b>10</b><span>Years open</span></div>
+    <div><b>15</b><span>Trainers</span></div>
+    <div><b>98%</b><span>Members who renew</span></div>
   </div>
-</section>
+</div></section>
 
-<!-- ========== GALLERY ========== -->
-<section id="gallery">
-  <div class="container">
-
-    <div class="sec-head">
-      <span class="sec-tag">📸 Our Gym</span>
-      <h2 class="sec-title">GYM <span>GALLERY</span></h2>
-      <div class="sec-line"></div>
-    </div>
-
-    <div class="gallery-grid">
-
-      <img src="photos/i1.jpeg" alt="Mahadev Fitness Club - Gym Interior">
-      <img src="photos/i2.png" alt="Mahadev Fitness Club - Weight Training Area">
-      <img src="photos/i3.png" alt="Mahadev Fitness Club - Cardio Zone">
-      <img src="photos/i4.png" alt="Mahadev Fitness Club - Workout Area">
-      <img src="photos/i5.png" alt="Mahadev Fitness Club - Equipment">
-      <img src="photos/i6.png" alt="Mahadev Fitness Club - Training Space">
-      <img src="photos/i7.png" alt="Mahadev Fitness Club - Gym Floor">
-      <img src="photos/i8.png" alt="Mahadev Fitness Club - Fitness Area">
-      <img src="photos/i9.png" alt="Mahadev Fitness Club - Training Zone">
-
-    </div>
-
+<section id="programs"><div class="wrap">
+  <h2 class="h2">Programs</h2>
+  <p class="lead">Pick the one that matches your goal. Your trainer adjusts it as you progress.</p>
+  <div class="prog">
+    <div><h3>Weight training</h3><p>Barbell and dumbbell programs that build real, usable strength.</p><small>All levels</small></div>
+    <div><h3>Fat loss</h3><p>Metabolic conditioning and cardio planned around your schedule.</p><small>All levels</small></div>
+    <div><h3>Muscle building</h3><p>Progressive overload with nutrition timed to your sessions.</p><small>Intermediate and up</small></div>
+    <div><h3>Personal training</h3><p>One-to-one sessions built around your body and your goals.</p><small>By appointment</small></div>
+    <div><h3>HIIT</h3><p>Short, hard interval classes that lift endurance and burn calories.</p><small>Group classes</small></div>
   </div>
-</section>
+</div></section>
 
-<!-- ========== TRAINERS ========== -->
-<section id="trainers">
-  <div class="container">
-    <div class="sec-head">
-      <span class="sec-tag">🏆 Our Expert</span>
-      <h2 class="sec-title">ELITE <span>TRAINER</span></h2>
-      <div class="sec-line"></div>
+<section class="alt"><div class="wrap">
+  <h2 class="h2">Inside the gym</h2>
+  <div class="gal" style="margin-top:28px">
+    <img src="photos/i2.png" alt="Weight training area" loading="lazy"><img src="photos/i3.png" alt="Cardio zone" loading="lazy"><img src="photos/i4.png" alt="Workout area" loading="lazy">
+    <img src="photos/i5.png" alt="Equipment" loading="lazy"><img src="photos/i6.png" alt="Training space" loading="lazy"><img src="photos/i7.png" alt="Gym floor" loading="lazy">
+    <img src="photos/i8.png" alt="Fitness area" loading="lazy"><img src="photos/i9.png" alt="Training zone" loading="lazy">
+  </div>
+</div></section>
+
+<section id="trainer"><div class="wrap trainer">
+  <img src="photos/trainer.png" alt="Ashish Kumar Singh, head trainer" loading="lazy">
+  <div>
+    <h2 class="h2">Ashish Kumar Singh</h2>
+    <strong style="color:var(--accent)">Head trainer, strength and powerlifting</strong>
+    <p>National powerlifting champion with more than 12 years of coaching. He has taken hundreds of beginners and athletes to their strongest with disciplined, science-backed training.</p>
+    <a class="btn fill" href="#contact">Book a session</a>
+  </div>
+</div></section>
+
+<section id="plans" class="alt"><div class="wrap">
+  <h2 class="h2">Membership plans</h2>
+  <p class="lead">Pay once for the duration you choose. Longer plans add personal training sessions.</p>
+  <div class="plans">
+    <div class="plan"><em></em><h3>1 month</h3><div class="price"><sup>₹</sup>700</div>
+      <ul><li>Full gym access</li><li>Cardio and strength equipment</li><li>Trainer guidance</li><li>Basic diet advice</li></ul>
+      <button class="btn" onclick="pick('1 Month Membership – ₹700')">Join now</button></div>
+    <div class="plan"><em></em><h3>3 months</h3><div class="price"><sup>₹</sup>2000</div>
+      <ul><li>Everything in 1 month</li><li>3 personal training sessions</li><li>Monthly progress check</li><li>Fat loss or muscle plan</li></ul>
+      <button class="btn" onclick="pick('3 Months Membership – ₹2000')">Join now</button></div>
+    <div class="plan pop"><em>Most popular</em><h3>6 months</h3><div class="price"><sup>₹</sup>4000</div>
+      <ul><li>Everything in 3 months</li><li>8 personal training sessions</li><li>Custom diet plan</li><li>Supplement guidance</li></ul>
+      <button class="btn fill" onclick="pick('6 Months Membership – ₹4000')">Join now</button></div>
+    <div class="plan"><em></em><h3>1 year</h3><div class="price"><sup>₹</sup>8000</div>
+      <ul><li>Everything in 6 months</li><li>15 personal training sessions</li><li>Advanced diet program</li><li>Progress reports</li></ul>
+      <button class="btn" onclick="pick('1 Year Membership – ₹8000')">Join now</button></div>
+  </div>
+  <div class="offers"><span><b>3-month plan:</b> get 1 month free</span><span><b>New members:</b> 10% off the annual plan</span><span><b>Training pack:</b> buy 5 sessions, get 2 free</span></div>
+</div></section>
+
+<section><div class="wrap">
+  <h2 class="h2">What members say</h2>
+  <div class="rev" style="margin-top:28px">
+    <blockquote><p>Best gym in Alambagh. The trainers are supportive and the equipment is top quality.</p><cite>Rahul Verma</cite></blockquote>
+    <blockquote><p>I lost 12 kg in four months on the fat loss program. A great place to train.</p><cite>Priya Singh</cite></blockquote>
+    <blockquote><p>It feels like family. Works just as well for beginners as for serious lifters.</p><cite>Amit Tiwari</cite></blockquote>
+  </div>
+</div></section>
+
+<section id="contact" class="alt"><div class="wrap">
+  <div class="contact">
+    <div>
+      <h2 class="h2">Visit or message us</h2>
+      <p class="lead" style="margin-bottom:0">Walk in, call, or send a note. We reply the same day.</p>
+      <dl>
+        <div><dt>Phone</dt><dd><a href="tel:+919580752023">+91 9580752023</a></dd></div>
+        <div><dt>Email</dt><dd><a href="mailto:Ashishrajsngh718@gmail.com">Ashishrajsngh718@gmail.com</a></dd></div>
+        <div><dt>Address</dt><dd>Gupta Market, Prem Nagar, Muslim Nagar, Alambagh, Lucknow, Uttar Pradesh 226005</dd></div>
+        <div><dt>Timings</dt><dd>Monday to Saturday: 6:00 to 10:30 AM and 5:00 to 10:30 PM. Sunday closed.</dd></div>
+      </dl>
     </div>
-    <div class="trainer-wrap">
-      <div class="trainer-card">
-        <div class="tr-img">
-          <img src="photos/trainer.png" alt="Ashish Kumar Singh - Head Trainer" class="tr-avatar-img">
-          <div class="tr-overlay"></div>
-          <div class="tr-badge">Head Trainer</div>
-        </div>
-        <div class="tr-info">
-          <h3>Ashish Kumar Singh</h3>
-          <div class="tr-spec">⚡ Strength &amp; Powerlifting Coach</div>
-          <p>National powerlifting champion with 12+ years of experience. Ashish
-             has transformed hundreds of athletes and beginners into powerful, confident individuals through disciplined, science-backed training.</p>
-          <div class="tr-stats">
-            <div class="trs"><span class="trs-n">12+</span><span class="trs-l">Years Exp</span></div>
-            <div class="trs"><span class="trs-n">500+</span><span class="trs-l">Clients</span></div>
-            <div class="trs"><span class="trs-n">3×</span><span class="trs-l">Champion</span></div>
-            <div class="trs"><span class="trs-n">98%</span><span class="trs-l">Success</span></div>
-          </div>
-          <a href="#contact" class="btn-book">📅 Book a Session</a>
-        </div>
-      </div>
+    <div class="form">
+      <label>Full name<input id="cName" placeholder="Your full name"></label>
+      <label>Phone<input id="cPhone" type="tel" placeholder="+91"></label>
+      <label>Email<input id="cEmail" type="email" placeholder="you@example.com"></label>
+      <label>Interested in<select id="cInterest">
+        <option value="">Choose a program or plan</option>
+        <option>Weight training</option><option>Fat loss</option><option>Muscle building</option><option>Personal training</option><option>HIIT</option>
+        <option>1 Month Membership – ₹700</option><option>3 Months Membership – ₹2000</option><option>6 Months Membership – ₹4000</option><option>1 Year Membership – ₹8000</option>
+        <option>General enquiry</option></select></label>
+      <label>Message<textarea id="cMsg" rows="3" placeholder="Tell us your goal"></textarea></label>
+      <button class="btn fill" onclick="send()">Send message</button>
     </div>
   </div>
-</section>
+  <div class="map"><iframe title="Mahadev Fitness Club location" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3561.1228688511533!2d80.89813167523229!3d26.80421607671207!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x399bfd977bf37dbf%3A0x9edaf365f3126578!2sMahadev%20Fitness%20Club!5e0!3m2!1sen!2sin!4v1772455153166!5m2!1sen!2sin"></iframe></div>
+</div></section>
+</main>
 
-<!-- ========== REVIEWS ========== -->
-<section id="reviews">
-  <div class="container">
+<footer><div class="wrap">
+  <div class="foot"><strong>Mahadev Fitness Club, Lucknow</strong>
+    <nav><a href="/client/login">Member login</a><a href="/signup">Sign up</a><a href="/client/scan">Attendance</a><a href="/admin/login">Admin</a></nav></div>
+  <p style="margin-top:10px">© 2025 Mahadev Fitness Club. Jai Mahadev.</p>
+  <div class="credit"><span>Website by Prakhar Sharma</span>
+    <a href="tel:+918318276922">Call</a><a href="https://wa.me/918318276922" target="_blank" rel="noopener">WhatsApp</a><a href="https://www.instagram.com/prakh.ar16/" target="_blank" rel="noopener">Instagram</a><a href="https://www.linkedin.com/in/prakhar-sharma-06april/" target="_blank" rel="noopener">LinkedIn</a><a href="mailto:prakharsharmawork1@gmail.com">Email</a><a href="https://github.com/prakharsharma123" target="_blank" rel="noopener">GitHub</a></div>
+</div></footer>
 
-    <div class="sec-head">
-      <span class="sec-tag">⭐ Member Reviews</span>
-      <h2 class="sec-title">MEMBER <span>TRANSFORMATIONS</span></h2>
-      <div class="sec-line"></div>
-    </div>
-
-    <div class="review-slider">
-
-      <div class="review-track">
-
-        <!-- Review 1 -->
-        <div class="review-card">
-          <div class="review-top">
-            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Rahul Verma">
-            <div>
-              <h4>Rahul Verma</h4>
-              <span class="stars">⭐⭐⭐⭐⭐</span>
-            </div>
-          </div>
-          <p>Best gym in Alambagh. Trainers are extremely supportive and equipment is top quality.</p>
-        </div>
-
-        <!-- Review 2 -->
-        <div class="review-card">
-          <div class="review-top">
-            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Priya Singh">
-            <div>
-              <h4>Priya Singh</h4>
-              <span class="stars">⭐⭐⭐⭐⭐</span>
-            </div>
-          </div>
-          <p>I lost 12kg in 4 months thanks to the fat loss program. Amazing environment.</p>
-        </div>
-
-        <!-- Review 3 -->
-        <div class="review-card">
-          <div class="review-top">
-            <img src="https://randomuser.me/api/portraits/men/52.jpg" alt="Amit Tiwari">
-            <div>
-              <h4>Amit Tiwari</h4>
-              <span class="stars">⭐⭐⭐⭐⭐</span>
-            </div>
-          </div>
-          <p>Mahadev Fitness Club feels like family. Perfect for beginners and professionals.</p>
-        </div>
-
-        <!-- Review 4 -->
-        <div class="review-card">
-          <div class="review-top">
-            <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Neha Gupta">
-            <div>
-              <h4>Neha Gupta</h4>
-              <span class="stars">⭐⭐⭐⭐⭐</span>
-            </div>
-          </div>
-          <p>HIIT sessions are incredible. I feel stronger and healthier every day.</p>
-        </div>
-
-        <!-- Review 5 -->
-        <div class="review-card">
-          <div class="review-top">
-            <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Vikram Yadav">
-            <div>
-              <h4>Vikram Yadav</h4>
-              <span class="stars">⭐⭐⭐⭐⭐</span>
-            </div>
-          </div>
-          <p>Affordable membership and powerful training programs. Totally worth it.</p>
-        </div>
-
-        <!-- Review 6 -->
-        <div class="review-card">
-          <div class="review-top">
-            <img src="https://randomuser.me/api/portraits/men/82.jpg" alt="Rohit Mishra">
-            <div>
-              <h4>Rohit Mishra</h4>
-              <span class="stars">⭐⭐⭐⭐⭐</span>
-            </div>
-          </div>
-          <p>Arjun sir is a fantastic coach. My strength improved drastically.</p>
-        </div>
-
-        <!-- Duplicate cards for infinite scroll -->
-        <!-- copy same reviews again -->
-
-        <div class="review-card">
-          <div class="review-top">
-            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Rahul Verma">
-            <div>
-              <h4>Rahul Verma</h4>
-              <span class="stars">⭐⭐⭐⭐⭐</span>
-            </div>
-          </div>
-          <p>Best gym in Alambagh. Trainers are extremely supportive and equipment is top quality.</p>
-        </div>
-
-        <div class="review-card">
-          <div class="review-top">
-            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Priya Singh">
-            <div>
-              <h4>Priya Singh</h4>
-              <span class="stars">⭐⭐⭐⭐⭐</span>
-            </div>
-          </div>
-          <p>I lost 12kg in 4 months thanks to the fat loss program. Amazing environment.</p>
-        </div>
-
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ========== MEMBERSHIP ========== -->
-<section id="membership">
-  <div class="sec-head">
-    <span class="sec-tag">💎 Choose Your Duration</span>
-    <h2 class="sec-title">MEMBERSHIP <span>PLANS</span></h2>
-    <div class="sec-line"></div>
-  </div>
-
-  <div class="plans-grid">
-
-    <!-- 1 MONTH -->
-    <div class="plan reveal">
-      <div class="plan-name">1 MONTH</div>
-      <div class="plan-desc">Perfect to get started</div>
-      <div class="plan-price">
-        <span class="p-cur">₹</span><span class="p-amt">700</span>
-        <span class="p-per">One Month</span>
-      </div>
-      <ul class="plan-feats">
-        <li><span class="ck">✦</span> Full Gym Access</li>
-        <li><span class="ck">✦</span> Cardio + Strength Equipment</li>
-        <li><span class="ck">✦</span> Trainer Guidance</li>
-        <li><span class="ck">✦</span> Basic Fitness Assessment</li>
-        <li><span class="ck">✦</span> Open Workout Hours</li>
-        <li><span class="ck">✦</span> Clean Changing Area</li>
-        <li><span class="ck">✦</span> Diet Consultation (Basic)</li>
-      </ul>
-      <button class="btn-plan" onclick="selectPlan('1 Month Membership – ₹700')">
-Join Now
-</button>
-    </div>
-
-    <!-- 3 MONTH -->
-    <div class="plan reveal">
-      <div class="plan-name">3 MONTHS</div>
-      <div class="plan-desc">Build consistency</div>
-      <div class="plan-price">
-        <span class="p-cur">₹</span><span class="p-amt">2000</span>
-        <span class="p-per">Quarter Plan</span>
-      </div>
-      <ul class="plan-feats">
-        <li><span class="ck">✦</span> Everything in 1 Month</li>
-        <li><span class="ck">✦</span> 3 Personal Training Sessions</li>
-        <li><span class="ck">✦</span> Monthly Progress Check</li>
-        <li><span class="ck">✦</span> Fat Loss / Muscle Plan</li>
-        <li><span class="ck">✦</span> Priority Trainer Support</li>
-        <li><span class="ck">✦</span> Body Composition Test</li>
-      </ul>
-      <button class="btn-plan" onclick="selectPlan('3 Months Membership – ₹2000')">
-Join Now
-</button>
-    </div>
-
-    <!-- 6 MONTH -->
-    <div class="plan hot reveal">
-      <div class="plan-pop">🔥 Most Popular</div>
-      <div class="plan-name">6 MONTHS</div>
-      <div class="plan-desc">Serious Transformation</div>
-      <div class="plan-price">
-        <span class="p-cur">₹</span><span class="p-amt">4000</span>
-        <span class="p-per">Half Year</span>
-      </div>
-      <ul class="plan-feats">
-        <li><span class="ck">✦</span> Everything in 3 Months</li>
-        <li><span class="ck">✦</span> 8 Personal Training Sessions</li>
-        <li><span class="ck">✦</span> Custom Diet Plan</li>
-        <li><span class="ck">✦</span> Monthly Body Analysis</li>
-        <li><span class="ck">✦</span> Supplement Guidance</li>
-        <li><span class="ck">✦</span> Transformation Tracking</li>
-      </ul>
-      <button class="btn-plan" onclick="selectPlan('6 Months Membership – ₹4000')">
-Join Now 🔥
-</button>
-    </div>
-
-    <!-- 1 YEAR -->
-    <div class="plan reveal">
-      <div class="plan-name">1 YEAR</div>
-      <div class="plan-desc">Ultimate Dedication</div>
-      <div class="plan-price">
-        <span class="p-cur">₹</span><span class="p-amt">8000</span>
-        <span class="p-per">Annual Plan</span>
-      </div>
-      <ul class="plan-feats">
-        <li><span class="ck">✦</span> Everything in 6 Months</li>
-        <li><span class="ck">✦</span> 15 Personal Training Sessions</li>
-        <li><span class="ck">✦</span> Advanced Diet Program</li>
-        <li><span class="ck">✦</span> Complete Body Transformation Plan</li>
-        <li><span class="ck">✦</span> Progress Tracking Reports</li>
-        <li><span class="ck">✦</span> VIP Trainer Support</li>
-      </ul>
-      <button class="btn-plan" onclick="selectPlan('1 Year Membership – ₹8000')">
-Go Annual 👑
-</button>
-    </div>
-
-  </div>
-</section>
-
-<!-- ========== SPECIAL OFFER ========== -->
-<section id="offers">
-  <div class="container">
-
-    <div class="sec-head">
-      <span class="sec-tag">🔥 Limited Time</span>
-      <h2 class="sec-title">SPECIAL <span>OFFERS</span></h2>
-      <div class="sec-line"></div>
-    </div>
-
-    <div class="offer-grid">
-
-      <div class="offer-card">
-        <div class="offer-badge">🔥 Hot Deal</div>
-        <h3>Summer Transformation</h3>
-        <p>Join 3 Months Plan and get <strong>1 Month FREE</strong>.</p>
-        <button class="btn-plan">Claim Offer</button>
-      </div>
-
-      <div class="offer-card">
-        <div class="offer-badge">⚡ Limited</div>
-        <h3>New Member Discount</h3>
-        <p>First time joining? Get <strong>10% OFF</strong> on annual membership.</p>
-        <button class="btn-plan">Join Today</button>
-      </div>
-
-      <div class="offer-card">
-        <div class="offer-badge">💪 Bonus</div>
-        <h3>Personal Training Pack</h3>
-        <p>Buy 5 sessions and get <strong>2 Sessions Free</strong>.</p>
-        <button class="btn-plan">Book Now</button>
-      </div>
-
-    </div>
-
-  </div>
-</section>
-
-<!-- ========== CTA BANNER ========== -->
-<section id="cta">
-  <div class="cta-box">
-
-    <h2>READY TO TRANSFORM YOUR BODY?</h2>
-
-    <p>Join Mahadev Fitness Club today and start building the strongest version of yourself.</p>
-
-    <a href="#membership" class="btn-primary">
-      <span>🔥 Join Now</span>
-    </a>
-
-  </div>
-</section>
-
-<!-- ========== CONTACT ========== -->
-<section id="contact">
-  <div class="container">
-    <div class="sec-head">
-      <span class="sec-tag">📍 Find Us</span>
-      <h2 class="sec-title">GET IN <span>TOUCH</span></h2>
-      <div class="sec-line"></div>
-    </div>
-    <div class="contact-grid">
-      <div class="ci">
-        <h3>🔱 Visit Mahadev Fitness Club</h3>
-        <p>Ready to start your transformation? Walk in, call us, or drop a message. Our expert team is ready to guide you every step of the way toward your goals.</p>
-        <div class="ci-items">
-          <div class="ci-item">
-            <div class="ci-icon">📞</div>
-            <div class="ci-text">
-              <label>Phone</label>
-              <a href="tel:+919580752023" class="contact-link">
-  +91 9580752023
-</a>
-            </div>
-          </div>
-          <div class="ci-item">
-            <div class="ci-icon">✉️</div>
-            <div class="ci-text">
-              <label>Email</label>
-              <a href="mailto:Ashishrajsngh718@gmail.com" class="contact-link">
-  Ashishrajsngh718@gmail.com
-</a>
-            </div>
-          </div>
-          <div class="ci-item">
-            <div class="ci-icon">📍</div>
-            <div class="ci-text">
-              <label>Address</label>
-              <span>Gupta Market, Prem Nagar, Muslim Nagar, Alambagh, Lucknow, Uttar Pradesh 226005</span>
-            </div>
-          </div>
-          <div class="ci-item">
-            <div class="ci-icon">⏰</div>
-            <div class="ci-text">
-              <label>Timings</label>
-              <span>
-<strong>Monday – Saturday</strong><br>
-Morning: 6:00 AM – 10:30 AM<br>
-Evening: 5:00 PM – 10:30 PM<br><br>
-<strong>Sunday</strong>: Closed
-</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="cf">
-        <h3>📨 Send a Message</h3>
-        <div class="f-row">
-          <div class="fg">
-            <label>Full Name</label>
-            <input type="text" id="cName" placeholder="Your full name">
-          </div>
-          <div class="fg">
-            <label>Phone Number</label>
-            <input type="tel" id="cPhone" placeholder="+91 XXXXX XXXXX">
-          </div>
-        </div>
-        <div class="fg">
-          <label>Email Address</label>
-          <input type="email" id="cEmail" placeholder="you@example.com">
-        </div>
-        <div class="fg">
-          <label>Interested In</label>
-          <select id="cInterest">
-
-<option value="">Select Program or Membership...</option>
-
-<optgroup label="🏋️ Training Programs">
-<option value="Weight Training">Weight Training</option>
-<option value="Fat Loss Program">Fat Loss Program</option>
-<option value="Muscle Building Program">Muscle Building Program</option>
-<option value="Personal Training">Personal Training</option>
-<option value="HIIT Training">HIIT Training</option>
-</optgroup>
-
-<optgroup label="💎 Membership Plans">
-<option value="1 Month Membership – ₹700">1 Month Membership – ₹700</option>
-<option value="3 Months Membership – ₹2500">3 Months Membership – ₹2000</option>
-<option value="6 Months Membership – ₹4000">6 Months Membership – ₹4000</option>
-<option value="1 Year Membership – ₹8000">1 Year Membership – ₹8000</option>
-</optgroup>
-
-<option value="General Enquiry">General Enquiry</option>
-
-</select>
-        </div>
-        <div class="fg">
-          <label>Your Message</label>
-          <textarea id="cMsg" rows="4" placeholder="Tell us your fitness goals and we'll help you get there..."></textarea>
-        </div>
-        <button class="btn-submit" onclick="submitForm()">🔥 Send Message</button>
-      </div>
-    </div>
-    <div class="map-box">
-      <div class="map-label">📍 Our Location – Lucknow, UP</div>
-      <iframe
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3561.1228688511533!2d80.89813167523229!3d26.80421607671207!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x399bfd977bf37dbf%3A0x9edaf365f3126578!2sMahadev%20Fitness%20Club!5e0!3m2!1sen!2sin!4v1772455153166!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Mahadev Fitness Club Location"></iframe>
-    </div>
-  </div>
-</section>
-
-<!-- ========== FOOTER ========== -->
-<footer>
-  <div class="f-logo">🔱 MAHADEV <em>FITNESS</em> CLUB</div>
-  <div class="f-links">
-    <a href="#home">Home</a>
-    <a href="#about">About</a>
-    <a href="#programs">Programs</a>
-    <a href="#trainers">Trainers</a>
-    <a href="#membership">Membership</a>
-    <a href="#contact">Contact</a>
-    <a href="/client/login">Member Login</a>
-    <a href="/signup">Sign Up</a>
-    <a href="/client/scan">Attendance</a>
-    <a href="/admin/login" style="color:var(--fire)">Admin Portal</a>
-  </div>
-  <p>© 2025 Mahadev Fitness Club, Lucknow. All rights reserved.</p>
-  <p class="f-motto">💪 NO PAIN &nbsp;•&nbsp; NO GAIN &nbsp;•&nbsp; JAI MAHADEV 🔱</p>
-  
-  <!-- CREDITS SECTION -->
-  <div class="credits">
-    <p class="credits-text">
-      Website Designed & Developed by <span>Prakhar Sharma</span>
-    </p>
-    <p class="credits-text" style="font-size:0.75rem;margin-top:-0.5rem;">
-      Need a website? Let's build something amazing together!
-    </p>
-    <div class="credits-icons">
-      <a href="tel:+918318276922" class="credit-icon" title="Call Me" target="_blank">
-        <i class="fas fa-phone"></i>
-      </a>
-      <a href="https://wa.me/918318276922" class="credit-icon" title="WhatsApp" target="_blank">
-        <i class="fab fa-whatsapp"></i>
-      </a>
-      <a href="https://www.instagram.com/prakh.ar16/" class="credit-icon" title="Instagram" target="_blank">
-        <i class="fab fa-instagram"></i>
-      </a>
-      <a href="https://www.linkedin.com/in/prakhar-sharma-06april/" class="credit-icon" title="LinkedIn" target="_blank">
-        <i class="fab fa-linkedin-in"></i>
-      </a>
-      <a href="mailto:prakharsharmawork1@gmail.com" class="credit-icon" title="Email Me" target="_blank">
-        <i class="fas fa-envelope"></i>
-      </a>
-      <a href="https://github.com/prakharsharma123" class="credit-icon" title="GitHub" target="_blank">
-        <i class="fab fa-github"></i>
-      </a>
-    </div>
-  </div>
-</footer>
-
-<div class="toast" id="toastEl">
-  <strong id="tTitle"></strong>
-  <span id="tMsg"></span>
-</div>
+<a class="wa" target="_blank" rel="noopener" href="https://wa.me/919580752023?text=Hello%20Mahadev%20Fitness%20Club!%20I%20want%20to%20join%20the%20gym.">WhatsApp us</a>
+<div class="toast" id="toast" role="status"></div>
 
 <script>
-window.addEventListener('scroll',function(){
-  document.getElementById('nav').style.boxShadow =
-    window.scrollY > 60 ? '0 4px 40px rgba(255,69,0,0.2)' : 'none';
-});
-document.querySelectorAll('a[href^="#"]').forEach(function(a){
-  a.addEventListener('click',function(e){
-    e.preventDefault();
-    var t = document.querySelector(a.getAttribute('href'));
-    if(t) t.scrollIntoView({behavior:'smooth'});
-  });
-});
-function toggleMenu(){ document.getElementById('mobMenu').classList.toggle('open'); }
-function cm(){ document.getElementById('mobMenu').classList.remove('open'); }
-(function(){
-  var c = document.getElementById('particles');
-  var style = document.createElement('style');
-  style.textContent = '@keyframes pf{0%{transform:translateY(100vh) scale(0);opacity:0;}10%{opacity:.9;}90%{opacity:.9;}100%{transform:translateY(-80px) scale(1);opacity:0;}}';
-  document.head.appendChild(style);
-  for(var i=0;i<30;i++){
-    var p = document.createElement('div');
-    var s = Math.random()*4+2;
-    p.style.cssText = 'position:absolute;border-radius:50%;width:'+s+'px;height:'+s+'px;opacity:0;left:'+Math.random()*100+'%;background:'+(Math.random()>.5?'#FF4500':'#FFD700')+';animation:pf '+(Math.random()*8+6)+'s linear '+(Math.random()*8)+'s infinite;';
-    c.appendChild(p);
-  }
-})();
-function animCount(el){
-  var num = parseInt(el.getAttribute('data-target'));
-  var suffix = num >= 2000 ? '+' : num >= 90 ? '%' : '+';
-  var cur = 0; var step = num / 60;
-  var timer = setInterval(function(){
-    cur += step;
-    if(cur >= num){ cur = num; clearInterval(timer); }
-    el.textContent = Math.floor(cur) + suffix;
-  }, 28);
-}
-var io = new IntersectionObserver(function(entries){
-  entries.forEach(function(e){
-    if(e.isIntersecting && e.target.dataset.target){ animCount(e.target); io.unobserve(e.target); }
-  });
-},{threshold:0.5});
-document.querySelectorAll('[data-target]').forEach(function(el){ io.observe(el); });
-function showToast(title, msg){
-  document.getElementById('tTitle').textContent = title;
-  document.getElementById('tMsg').textContent = msg;
-  var el = document.getElementById('toastEl');
-  el.classList.add('show');
-  setTimeout(function(){ el.classList.remove('show'); }, 3500);
-}
-function submitForm(){
-
-  var name = document.getElementById("cName").value.trim();
-  var phone = document.getElementById("cPhone").value.trim();
-  var email = document.getElementById("cEmail").value.trim();
-  var interest = document.getElementById("cInterest").value;
-  var message = document.getElementById("cMsg").value.trim();
-
-  if(!name || !email){
-    showToast("⚠️ Missing Info","Please fill name and email.");
-    return;
-  }
-
-  var subject = "Gym Enquiry - Mahadev Fitness Club";
-
-  var body =
-  "Name: " + name + "%0D%0A" +
-  "Phone: " + phone + "%0D%0A" +
-  "Email: " + email + "%0D%0A" +
-  "Interest: " + interest + "%0D%0A%0D%0A" +
-  "Message:%0D%0A" + message;
-
-  var mailtoLink = "mailto:Ashishrajsngh718@gmail.com?subject=" + subject + "&body=" + body;
-
-  window.location.href = mailtoLink;
-
-}
-const reveals = document.querySelectorAll('.reveal');
-
-function revealOnScroll(){
-  reveals.forEach(el=>{
-    const windowHeight = window.innerHeight;
-    const elementTop = el.getBoundingClientRect().top;
-    if(elementTop < windowHeight - 100){
-      el.classList.add('active');
-    }
-  });
-}
-window.addEventListener('scroll', revealOnScroll);
-revealOnScroll();
-
-function selectPlan(plan){
-
-  // scroll to contact section
-  document.getElementById("contact").scrollIntoView({
-    behavior: "smooth"
-  });
-
-  // auto select plan in dropdown
-  document.getElementById("cInterest").value = plan;
-
-  // show toast
-  showToast("Membership Selected 💪", plan + " selected. Fill the form to continue.");
-
-}
-
-</script>
-
-<a href="https://wa.me/919580752023?text=Hello%20Mahadev%20Fitness%20Club!%20I%20want%20to%20join%20the%20gym." class="whatsapp-btn" target="_blank">
-<i class="fab fa-whatsapp"></i>
-</a>
-
-<script>
-fetch('/api/announcements').then(function(r){return r.json();}).then(function(list){
-  if(!list.length) return;
-  var b=document.createElement('div');
-  b.style.cssText='position:fixed;left:0;right:0;bottom:0;z-index:9999;background:#111;color:#fff;border-top:2px solid #ff5a1f;padding:10px 16px;font:600 14px Rajdhani,sans-serif;text-align:center';
-  var a=list[0]; b.textContent='📢 '+a.title+': '+a.body;
-  var x=document.createElement('span'); x.textContent='  ✕'; x.style.cursor='pointer'; x.onclick=function(){b.remove();};
-  b.appendChild(x); document.body.appendChild(b);
-}).catch(function(){});
+var $=function(i){return document.getElementById(i)};
+$('themeBtn').onclick=function(){var d=document.documentElement,t=d.getAttribute('data-theme')==='dark'?'light':'dark';d.setAttribute('data-theme',t);try{localStorage.setItem('theme',t)}catch(e){}};
+$('menuBtn').onclick=function(){$('links').classList.toggle('open')};
+$('links').onclick=function(){$('links').classList.remove('open')};
+function toast(m){var t=$('toast');t.textContent=m;t.classList.add('show');setTimeout(function(){t.classList.remove('show')},3200)}
+function pick(p){$('cInterest').value=p;$('contact').scrollIntoView({behavior:'smooth'});toast(p+' selected. Fill the form to continue.')}
+function send(){var n=$('cName').value.trim(),e=$('cEmail').value.trim();
+if(!n||!e){toast('Please enter your name and email.');return}
+var b='Name: '+n+'\nPhone: '+$('cPhone').value+'\nEmail: '+e+'\nInterest: '+$('cInterest').value+'\n\n'+$('cMsg').value;
+location.href='mailto:Ashishrajsngh718@gmail.com?subject='+encodeURIComponent('Gym enquiry - Mahadev Fitness Club')+'&body='+encodeURIComponent(b)}
+fetch('/api/announcements').then(function(r){return r.json()}).then(function(l){
+if(!l.length)return;var b=document.createElement('div'),a=l[0];
+b.style.cssText='position:fixed;left:0;right:0;bottom:0;z-index:60;background:var(--ink);color:var(--bg);padding:12px 60px 12px 20px;font-weight:600;font-size:.92rem';
+b.textContent=a.title+': '+a.body;
+var x=document.createElement('button');x.textContent='Close';x.setAttribute('aria-label','Close announcement');
+x.style.cssText='position:absolute;right:12px;top:8px;background:none;border:1px solid currentColor;color:inherit;border-radius:8px;padding:4px 10px;cursor:pointer';
+x.onclick=function(){b.remove()};b.appendChild(x);document.body.appendChild(b)}).catch(function(){});
 </script>
 </body>
 </html>
