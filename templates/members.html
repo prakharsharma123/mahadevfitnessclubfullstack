@@ -21,43 +21,93 @@
   <button type="submit" class="btn btn-outline">Filter</button>
 </form>
 
-<div class="member-grid">
+<style>
+  /* Row layout for the members list (self-contained, no changes to style.css) */
+  .mrow-list { display: flex; flex-direction: column; gap: 10px; }
+  .mrow {
+    display: flex; align-items: center; gap: 16px;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 12px; padding: 12px 16px; box-shadow: var(--shadow);
+  }
+  .mrow-photo {
+    width: 64px; height: 64px; flex: 0 0 64px;
+    border-radius: 50%; overflow: hidden; background: var(--surface-2);
+  }
+  .mrow-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .mrow-photo .member-photo-placeholder { font-size: 1.6rem; }
+  .mrow-info { flex: 1.3; min-width: 0; }
+  .mrow-info h3 { font-size: 1.05rem; margin: 0 0 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .mrow-info p { margin: 0; font-size: 0.85rem; }
+  .mrow-plan { flex: 1; font-size: 0.88rem; }
+  .mrow-plan strong, .mrow-expiry strong { display: block; font-size: 0.95rem; color: var(--text); }
+  .mrow-plan span, .mrow-expiry span { color: var(--text-muted); font-size: 0.8rem; }
+  .mrow-expiry { flex: 1; font-size: 0.88rem; }
+  .mrow-status {
+    flex: 0 0 auto; padding: 3px 12px; border-radius: 999px;
+    font-size: 0.72rem; font-weight: 700; text-transform: uppercase;
+  }
+  .mrow-status.paid { background: var(--success-soft); color: var(--success); }
+  .mrow-status.active { background: var(--accent-soft); color: var(--accent); }
+  .mrow-status.expired { background: var(--danger-soft); color: var(--danger); }
+  .mrow-actions { display: flex; gap: 8px; flex: 0 0 auto; }
+  .mrow-btn {
+    padding: 7px 12px; font-size: 0.82rem; font-weight: 600; line-height: 1;
+    border: 1px solid var(--border); border-radius: 8px;
+    background: var(--surface); color: var(--text); white-space: nowrap;
+  }
+  .mrow-btn:hover { background: var(--surface-2); }
+  .mrow-btn.danger { color: var(--danger); }
+  .mrow-btn.danger:hover { background: var(--danger-soft); border-color: var(--danger); }
+
+  @media (max-width: 900px) {
+    .mrow { flex-wrap: wrap; }
+    .mrow-info { flex: 1 1 calc(100% - 90px); }
+    .mrow-plan, .mrow-expiry { flex: 1 1 40%; }
+    .mrow-actions { width: 100%; flex-wrap: wrap; }
+    .mrow-btn { flex: 1; text-align: center; }
+  }
+</style>
+
+<div class="mrow-list">
   {% for m in members %}
-  <div class="member-card">
-    <div class="member-photo">
+  <div class="mrow">
+    <div class="mrow-photo">
       {% if photo_src(m) %}
         <img src="{{ photo_src(m) }}" alt="{{ m.name }}" loading="lazy" referrerpolicy="no-referrer">
       {% else %}
         <div class="member-photo-placeholder">{{ m.name[:1]|upper }}</div>
       {% endif %}
-      {% if m.payment_done and m.last_fee_date == today %}
-        <span class="badge badge-paid">Paid</span>
-      {% elif m.days_left == 0 %}
-        <span class="badge badge-expired">Expired</span>
-      {% else %}
-        <span class="badge badge-active">Active</span>
-      {% endif %}
     </div>
 
-    <div class="member-body">
+    <div class="mrow-info">
       <h3>{{ m.name }}</h3>
       <p class="muted">{{ m.phone }}</p>
-      <div class="member-meta">
-        <span>{{ (m.plan or '').replace('_',' ').title() }}</span>
-        <span>₹{{ m.fees }}</span>
-      </div>
-      <div class="member-meta">
-        <span>Expiry: {{ m.expiry_date }}</span>
-        <span>{{ m.days_left }} day(s) left</span>
-      </div>
     </div>
 
-    <div class="member-actions">
-      <a href="{{ url_for('edit_member', id=m.id) }}" class="icon-action" title="Edit">✏️</a>
-      <a href="{{ url_for('mark_paid', id=m.id) }}" class="icon-action" title="Mark Paid">✅</a>
-      <a href="{{ url_for('send_sms', id=m.id) }}" class="icon-action" title="WhatsApp reminder" target="_blank">💬</a>
-      <a href="{{ url_for('delete', id=m.id) }}" class="icon-action danger" title="Delete"
-         onclick="return confirm('Delete {{ m.name }}? This cannot be undone.');">🗑️</a>
+    <div class="mrow-plan">
+      <strong>{{ (m.plan or '').replace('_',' ').title() }}</strong>
+      <span>₹{{ m.fees }}</span>
+    </div>
+
+    <div class="mrow-expiry">
+      <strong>{{ m.expiry_date }}</strong>
+      <span>{{ m.days_left }} day(s) left</span>
+    </div>
+
+    {% if m.payment_done and m.last_fee_date == today %}
+      <span class="mrow-status paid">Paid</span>
+    {% elif m.days_left == 0 %}
+      <span class="mrow-status expired">Expired</span>
+    {% else %}
+      <span class="mrow-status active">Active</span>
+    {% endif %}
+
+    <div class="mrow-actions">
+      <a href="{{ url_for('edit_member', id=m.id) }}" class="mrow-btn">Edit</a>
+      <a href="{{ url_for('mark_paid', id=m.id) }}" class="mrow-btn">Mark Paid</a>
+      <a href="{{ url_for('send_sms', id=m.id) }}" class="mrow-btn" target="_blank">Send Reminder</a>
+      <a href="{{ url_for('delete', id=m.id) }}" class="mrow-btn danger"
+         onclick="return confirm('Delete {{ m.name }}? This cannot be undone.');">Delete</a>
     </div>
   </div>
   {% else %}
