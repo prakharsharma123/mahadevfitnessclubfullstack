@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#ffeed0;--surface:#fff8ea;--soft:#f9e2b8;--ink:#0a3430;--muted:#4f6b66;--line:#ecd3a3;--accent:#007064;--on-accent:#fff;--gold:#f4c180;--teal:#00a79d;--deep:#007064;--shadow:0 16px 40px rgba(0,80,70,.14)}
+:root{--bg:#f3f4f7;--surface:#fff;--soft:#eef0f4;--ink:#171a21;--muted:#676e7d;--line:#e2e4ea;--accent:#f4713f;--on-accent:#fff;--gold:#ff8a5c;--accent-soft:#fdeae1;--deep:#171a21;--shadow:0 1px 2px rgba(20,22,30,.05),0 8px 24px rgba(20,22,30,.08)}
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;scroll-padding-top:76px}
 body{font-family:'Instrument Sans',system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;transition:background .25s,color .25s}
@@ -26,7 +26,7 @@ section{padding:96px 0}
 .btn.fill{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
 header{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--bg) 85%,transparent);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
 .nav{display:flex;align-items:center;gap:16px;height:70px}
-.brand{font:800 1.25rem 'Bricolage Grotesque',sans-serif;letter-spacing:-.02em;margin-right:auto;display:flex;align-items:center;gap:10px}
+.brand{font:800 1.25rem 'Bricolage Grotesque',sans-serif;letter-spacing:-.03em;margin-right:auto;display:flex;align-items:center;gap:10px}
 .brand i{width:14px;height:14px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 4px color-mix(in srgb,var(--gold) 30%,transparent)}
 .links{display:flex;gap:24px;font-weight:600;font-size:.92rem;color:var(--muted)}
 .links a:hover{color:var(--ink)}
@@ -38,7 +38,7 @@ header{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--bg) 8
 .hero h1{font-size:clamp(3.2rem,8.2vw,7rem)}
 .hero p{margin:26px 0 30px;max-width:44ch;color:var(--muted);font-size:1.12rem}
 .arch{position:relative}
-.arch{min-height:320px}.arch img{background:linear-gradient(160deg,#00a79d,#007064);width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:999px 999px 24px 24px;box-shadow:var(--shadow)}
+.arch{min-height:320px}.arch img{background:linear-gradient(160deg,#ff9a6c,#f4713f);width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:999px 999px 24px 24px;box-shadow:var(--shadow)}
 .tag{position:absolute;left:-26px;bottom:34px;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:14px 18px;box-shadow:var(--shadow);font-size:.88rem;line-height:1.4}
 .tag b{display:block;font-size:1rem}
 .bar{position:relative;height:10px;margin:56px 0 40px;background:linear-gradient(var(--line),var(--line)) center/100% 2px no-repeat}
@@ -47,14 +47,14 @@ header{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--bg) 8
 .quick{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
 .q{display:flex;flex-direction:column;gap:6px;background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:26px;transition:border-color .2s,transform .2s}
 .q:hover{border-color:var(--accent);transform:translateY(-3px)}
-.q strong{font:800 1.45rem 'Bricolage Grotesque',sans-serif;letter-spacing:-.02em}
+.q strong{font:800 1.45rem 'Bricolage Grotesque',sans-serif;letter-spacing:-.03em}
 .q span{color:var(--muted);font-size:.93rem}
 /* about band */
-.band{background:var(--deep);color:#ffeed0}
-.band .lead{color:#d7e8e2}
+.band{background:var(--deep);color:#f3f4f7}
+.band .lead{color:#b8bdc9}
 .about{display:grid;grid-template-columns:1.1fr 1fr;gap:56px;align-items:center}
 .stats{display:grid;grid-template-columns:1fr 1fr;gap:28px 20px}
-.stats b{display:block;font:800 3.6rem 'Bricolage Grotesque',sans-serif;letter-spacing:-.04em;line-height:1;color:var(--gold)}
+.stats b{display:block;font:800 3.6rem 'Bricolage Grotesque',sans-serif;letter-spacing:-.03em;line-height:1;color:var(--gold)}
 
 .stats span{font-size:.9rem;opacity:.75}
 /* programs */
@@ -79,20 +79,20 @@ header{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--bg) 8
 .plate::after{content:"";position:absolute;width:14px;height:14px;border-radius:50%;background:var(--surface);border:3px solid var(--ink);top:-3px;opacity:0}
 .plate b{font:800 2.2rem 'Bricolage Grotesque',sans-serif;line-height:1}
 .plate span{display:block;font-size:.72rem;color:var(--muted);font-weight:600}
-.plate{border-color:var(--teal)}.pop .plate{border-color:var(--deep)}.price{font:800 2.6rem 'Bricolage Grotesque',sans-serif;letter-spacing:-.03em}
+.plate{border-color:var(--ink)}.pop .plate{border-color:var(--accent)}.price{font:800 2.6rem 'Bricolage Grotesque',sans-serif;letter-spacing:-.03em}
 .plan em{font-style:normal;font-size:.8rem;font-weight:700;color:var(--accent);min-height:1.3em}
 .plan ul{list-style:none;margin:16px 0 22px;display:grid;gap:8px;color:var(--muted);font-size:.9rem;flex:1}
 .plan .btn{width:100%}
 /* diwali */
-.diwali{background:var(--gold);color:#0a3430;border-radius:32px;padding:44px;display:grid;grid-template-columns:1fr 1.3fr;gap:36px;align-items:center;position:relative;overflow:hidden}
-.diwali::before{content:"";position:absolute;right:-70px;top:-70px;width:240px;height:240px;border-radius:50%;border:34px solid rgba(255,238,208,.55)}
+.diwali{background:var(--accent);color:#fff;border-radius:32px;padding:44px;display:grid;grid-template-columns:1fr 1.3fr;gap:36px;align-items:center;position:relative;overflow:hidden}
+.diwali::before{content:"";position:absolute;right:-70px;top:-70px;width:240px;height:240px;border-radius:50%;border:34px solid rgba(255,255,255,.16)}
 .diwali>*{position:relative}
 .diwali h2{font-size:clamp(2rem,4.2vw,3.1rem);margin-bottom:10px}
 .diwali p{max-width:40ch;margin-bottom:22px}
-.diwali .btn{background:#007064;border-color:#007064;color:#fff}
+.diwali .btn{background:#fff;border-color:#fff;color:var(--accent)}
 .deals{display:grid;gap:12px}
-.deals div{background:#fff8ea;border-radius:18px;padding:18px 22px;display:flex;gap:16px;align-items:center}
-.deals b{font:800 2.3rem 'Bricolage Grotesque',sans-serif;color:#007064;letter-spacing:-.03em;min-width:92px}
+.deals div{background:#fff;color:var(--ink);border-radius:18px;padding:18px 22px;display:flex;gap:16px;align-items:center}
+.deals b{font:800 2.3rem 'Bricolage Grotesque',sans-serif;color:var(--accent);letter-spacing:-.03em;min-width:92px}
 .deals span{font-size:.95rem}
 /* reviews */
 .rev{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
@@ -128,7 +128,8 @@ footer{border-top:1px solid var(--line);padding:40px 0 96px;color:var(--muted);f
 .plans{grid-template-columns:1fr 1fr}
 .gal{column-count:2}
 section{padding:68px 0}}
-@media(max-width:560px){.plans{grid-template-columns:1fr}}
+.nav .btn{white-space:nowrap;flex-shrink:0}
+@media(max-width:560px){.plans{grid-template-columns:1fr}.nav{gap:8px}.brand{font-size:1.02rem;line-height:1.1;min-width:0}.nav .btn{padding:10px 16px;font-size:.88rem}.icon{width:40px;height:40px;flex-shrink:0}}
 @media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
 </style>
 </head>
@@ -230,7 +231,7 @@ section{padding:68px 0}}
   <p class="lead">Pay once for the length you choose. Longer plans include more personal training sessions.</p>
   <div class="plans">
     <div class="plan"><em></em><div class="plate" style="--s:96px"><div><b>1</b><span>month</span></div></div><div class="price">₹700</div>
-      <ul><li>Full gym access</li><li>Cardio and strength equipment</li><li>Trainer guidance</li><li>Basic diet advice</li></ul>
+      <ul><li>Full gym access</li><li>Strength equipment</li><li>Trainer guidance</li><li>Basic diet advice</li><li>Cardio zone: add ₹500 extra</li></ul>
       <button class="btn" onclick="pick('1 Month Membership – ₹700')">Join now</button></div>
     <div class="plan"><em></em><div class="plate" style="--s:112px"><div><b>3</b><span>months</span></div></div><div class="price">₹2000</div>
       <ul><li>Everything in 1 month</li><li>3 personal training sessions</li><li>Monthly progress check</li><li>Fat loss or muscle plan</li></ul>
