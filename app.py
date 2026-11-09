@@ -541,6 +541,7 @@ def admin_setup_check():
     if require_login():
         return redirect("/admin/login")
     import notify
+    from push import vapid_ready as push_ready
     root = request.url_root.rstrip("/")
     env = os.environ.get
     checks = [
@@ -557,6 +558,8 @@ def admin_setup_check():
          "GITHUB_TOKEN and GITHUB_REPO set." if github_storage.is_configured() else "GITHUB_TOKEN / GITHUB_REPO missing. Photos will not upload."),
         ("Telegram alerts", notify.is_configured(),
          "Token and chat id set. Use the test button below." if notify.is_configured() else "TELEGRAM_BOT_TOKEN / TELEGRAM_CHAT_ID missing."),
+        ("Phone / laptop notifications (Chrome push)", push_ready(),
+         "VAPID keys set. Enable it on each device from Admin, Attendance." if push_ready() else "VAPID_PUBLIC_KEY / VAPID_PRIVATE_KEY missing. Run python scripts/make_vapid_keys.py"),
         ("Attendance QR key", bool(env("GYM_QR_KEY")),
          "Set." if env("GYM_QR_KEY") else "GYM_QR_KEY is empty. Anyone could mark attendance."),
         ("HTTPS", root.startswith("https://") or "localhost" in root,
@@ -576,6 +579,8 @@ def health():
 import client_routes
 import payments
 payments.register(app, db, Member, Payment, require_login, PLAN_MONTHS, add_months)
+import notify, push
+push.register(app, db, require_login, notify)
 client_routes.register(app, db, Member, Attendance, Announcement, require_login, PLAN_MONTHS, PLAN_FEES, add_months)
 
 
