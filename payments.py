@@ -19,7 +19,7 @@ def pay_url(member_id):
 def register(app, db, Member, Payment, require_login, PLAN_MONTHS, add_months):
     UPI_ID = os.environ.get("UPI_ID", "ashishrajsngh@ybl")
     UPI_NAME = os.environ.get("UPI_NAME", "Mahadev Fitness Club")
-    WINDOW = int(os.environ.get("PAY_WINDOW_MIN", "15"))
+    WINDOW = int(os.environ.get("PAY_WINDOW_MIN", "5"))
     AUTO_APPROVE = os.environ.get("AUTO_APPROVE_UTR", "0") == "1"
 
     def member_from_ref(ref):
