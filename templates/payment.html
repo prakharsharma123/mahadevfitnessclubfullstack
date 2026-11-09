@@ -25,7 +25,7 @@ h1,h2,.amt{font-family:'Bricolage Grotesque',system-ui,sans-serif;letter-spacing
 .mono{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.85rem}
 .timer{margin-top:auto;display:flex;align-items:center;gap:16px}
 .ring{position:relative;width:74px;height:74px;flex:0 0 74px}
-.ring svg{transform:rotate(-90deg)}
+.ring svg{transform:rotate(-90deg);width:100%;height:100%}
 .ring b{position:absolute;inset:0;display:grid;place-items:center;font:600 .95rem ui-monospace,monospace}
 .right{padding:36px;display:flex;flex-direction:column;gap:18px;align-items:stretch}
 .right h2{font-size:1.7rem;text-align:center}
@@ -54,7 +54,24 @@ h1,h2,.amt{font-family:'Bricolage Grotesque',system-ui,sans-serif;letter-spacing
 .spin{width:46px;height:46px;border-radius:50%;border:5px solid var(--soft);border-top-color:var(--accent);animation:r 1s linear infinite}
 @keyframes r{to{transform:rotate(360deg)}}
 .foot{text-align:center;color:var(--muted);font-size:.8rem;margin-top:auto}
-@media(max-width:820px){.card{grid-template-columns:1fr}.left{padding:26px}.right{padding:24px}.amt{font-size:2.8rem}.timer{margin-top:0}}
+@media(max-width:820px){
+body{padding:12px;place-items:start center}
+.card{grid-template-columns:1fr;border-radius:22px}
+.left{padding:20px;gap:14px 12px;display:grid;grid-template-columns:1fr auto;align-items:center}
+.left::after{width:150px;height:150px;border-width:26px;right:-60px;top:-60px}
+.brand{grid-column:1/-1;font-size:1rem}.dot{width:32px;height:32px}
+.amt{font-size:2.5rem}
+.rows{grid-column:1/-1;grid-row:3;font-size:.85rem;gap:8px}
+.rows div:nth-child(3){display:none}
+.timer{grid-column:2;grid-row:2;margin:0;flex-direction:column;gap:4px;text-align:center}
+.timer>div:last-child{display:none}
+.ring{width:66px;height:66px;flex:0 0 66px}
+.right{padding:20px 16px;gap:14px}
+.right h2{font-size:1.35rem}
+.flash{order:-4}.hd{order:-3}#payBtn{order:-2;width:100%;padding:16px}
+.qr img{width:min(210px,56vw);height:auto;aspect-ratio:1}
+}
+@media(max-width:480px){.utr form{flex-direction:column}.utr .btn{width:100%}.upi{flex-wrap:wrap}.upi .btn{width:100%}.utr{padding:16px}}
 </style>
 </head>
 <body>
@@ -72,7 +89,7 @@ h1,h2,.amt{font-family:'Bricolage Grotesque',system-ui,sans-serif;letter-spacing
     </div>
     {% if p.status == 'pending' %}
     <div class="timer">
-      <div class="ring"><svg width="74" height="74"><circle cx="37" cy="37" r="32" fill="none" stroke="#2a3040" stroke-width="6"/><circle id="arc" cx="37" cy="37" r="32" fill="none" stroke="#f4713f" stroke-width="6" stroke-linecap="round" stroke-dasharray="201" stroke-dashoffset="0"/></svg><b id="clock">--:--</b></div>
+      <div class="ring"><svg viewBox="0 0 74 74"><circle cx="37" cy="37" r="32" fill="none" stroke="#2a3040" stroke-width="6"/><circle id="arc" cx="37" cy="37" r="32" fill="none" stroke="#f4713f" stroke-width="6" stroke-linecap="round" stroke-dasharray="201" stroke-dashoffset="0"/></svg><b id="clock">--:--</b></div>
       <div><strong>Complete payment in time</strong><div class="lbl" style="text-transform:none;letter-spacing:0">This QR expires automatically.</div></div>
     </div>
     {% endif %}
@@ -82,7 +99,7 @@ h1,h2,.amt{font-family:'Bricolage Grotesque',system-ui,sans-serif;letter-spacing
     {% with msgs = get_flashed_messages(with_categories=true) %}{% for c, t in msgs %}<div class="flash">{{ t }}</div>{% endfor %}{% endwith %}
 
     {% if p.status == 'pending' %}
-      <div><h2>Scan and pay with any UPI app</h2><p class="sub">Hi {{ first }}, the amount is already filled in. Just approve it.</p></div>
+      <div class="hd"><h2>Scan and pay with any UPI app</h2><p class="sub">Hi {{ first }}, the amount is already filled in. Just approve it.</p></div>
       <div class="qr"><i></i><i></i><i></i><i></i><img src="{{ url_for('payment_qr', ref=ref) }}" alt="UPI QR code for ₹{{ p.amount }}"></div>
       <div class="apps"><span>GPay</span><span>PhonePe</span><span>Paytm</span><span>BHIM</span></div>
       <a id="payBtn" class="btn" href="{{ link }}" style="display:none">Pay ₹{{ p.amount }} with UPI app</a>
