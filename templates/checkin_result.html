@@ -31,9 +31,25 @@
       <h1 class="auth-title">Invalid QR code</h1>
       <p class="auth-sub">Please scan the QR code at the gym entrance.</p>
     {% endif %}
+    {% if speech %}<button type="button" id="sayBtn" class="btn btn-primary btn-block" style="margin-bottom:10px">🔊 Hear message again</button>{% endif %}
     {% if m %}<a href="{{ url_for('client_home') }}" class="btn btn-outline btn-block">My Dashboard</a>{% endif %}
   </div>
 </div>
 <script src="{{ url_for('static', filename='app.js') }}"></script>
+{% if speech %}
+<script>
+  // Speaks the thank-you message. Some phones block sound until you tap, so the button above is the backup.
+  var msg = {{ speech|tojson }};
+  function say() {
+    if (!('speechSynthesis' in window)) return;
+    speechSynthesis.cancel();
+    var u = new SpeechSynthesisUtterance(msg);
+    u.lang = 'en-IN'; u.rate = 0.95;
+    speechSynthesis.speak(u);
+  }
+  window.addEventListener('load', function () { setTimeout(say, 400); });
+  document.getElementById('sayBtn').onclick = say;
+</script>
+{% endif %}
 </body>
 </html>
