@@ -287,8 +287,15 @@ def register(app, db, Member, Attendance, Announcement, require_login, PLAN_MONT
                 f"🕒 {now.strftime('%I:%M %p')}  |  📞 {m.phone}\n"
                 f"🔥 Streak: {current} days  |  👥 Today: {count_today} present"
             )
+        first = (m.name or "member").split()[0]
+        when = now.strftime("%I:%M %p").lstrip("0")
+        if status == "ok":
+            speech = (f"Thank you {first}. Your attendance is marked at {when}. "
+                      f"Your streak is {current} {'day' if current == 1 else 'days'}. Keep it up!")
+        else:
+            speech = f"{first}, your attendance is already marked for today."
         return render_template("checkin_result.html", status=status, m=m, current=current,
-                               time=now.strftime("%I:%M %p"))
+                               time=now.strftime("%I:%M %p"), speech=speech)
 
     # ------------------------------------------------------------ admin: attendance
     @app.route("/admin/attendance")
@@ -321,3 +328,31 @@ def register(app, db, Member, Attendance, Announcement, require_login, PLAN_MONT
               "Could not send. Check TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID (see docs/TELEGRAM_GUIDE.md).",
               "warning" if not ok else "success")
         return redirect("/admin/attendance")
+
+    # ------------------------------------------------------------ admin: live voice announcer
+    @app.route("/admin/live")
+    def admin_live():
+        if require_login():
+            return redirect("/admin/login")
+        return render_template("admin_live.html")
+
+    @app.route("/admin/live/feed")
+    def admin_live_feed():
+        """Polled every few seconds by the announcer page.
+        First call (no ?after=) only returns the current position, so old check-ins are not re-read.
+        Later calls return check-ins newer than ?after=<id>."""
+        if require_login():
+            return jsonify({"error": "unauthorized"}), 401
+        after = request.args.get("after", type=int)
+        if after is None:
+            last = db.session.query(db.func.max(Attendance.id)).scalar() or 0
+            return jsonify({"last": last, "items": []})
+        rows = (db.session.query(Attendance, Member)
+                .join(Member, Member.id == Attendance.member_id)
+                .filter(Attendance.id > after).order_by(Attendance.id).limit(20).all())
+        items = []
+        for a, m in rows:
+            t = a.checkin_time.replace(tzinfo=ZoneInfo("UTC")).astimezone(IST)
+            items.append({"id": a.id, "name": m.name, "time": t.strftime("%I:%M %p").lstrip("0")})
+        return jsonify({"last": rows[-1][0].id if rows else after, "items": items})
+
