@@ -18,6 +18,16 @@
 
 {% include "_announcements.html" %}
 
+{% if pay_link and days_left is not none and days_left <= 5 %}
+<div class="panel" style="border-color:var(--accent);display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap">
+  <div>
+    <strong>{% if days_left > 0 %}Your plan ends in {{ days_left }} day{{ '' if days_left == 1 else 's' }}{% else %}Your plan has expired{% endif %}</strong>
+    <div class="muted">Renew now with UPI: ₹{{ m.fees }} for {{ m.plan.replace('_',' ') }}.</div>
+  </div>
+  <a href="{{ pay_link }}" class="btn btn-primary">Pay fees now</a>
+</div>
+{% endif %}
+
 <div class="today-card {{ 'done' if marked_today else '' }}">
   {% if marked_today %}✅ You are marked present today
   {% else %}
