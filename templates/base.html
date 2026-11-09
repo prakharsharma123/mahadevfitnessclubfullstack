@@ -25,6 +25,7 @@
       <a href="{{ url_for('dashboard') }}" class="{{ 'active' if request.endpoint=='dashboard' }}">Dashboard</a>
       <a href="{{ url_for('members') }}" class="{{ 'active' if request.endpoint=='members' }}">Members</a>
       <a href="{{ url_for('admin_attendance') }}" class="{{ 'active' if request.endpoint=='admin_attendance' }}">Attendance</a>
+      <a href="{{ url_for('admin_payments') }}" class="{{ 'active' if request.endpoint=='admin_payments' }}">Payments</a>
       <a href="{{ url_for('admin_announcements') }}" class="{{ 'active' if request.endpoint=='admin_announcements' }}">Announce</a>
       <a href="{{ url_for('admin_qr') }}" class="{{ 'active' if request.endpoint=='admin_qr' }}">QR Code</a>
       <a href="{{ url_for('add_member') }}" class="{{ 'active' if request.endpoint=='add_member' }}">Add Member</a>
