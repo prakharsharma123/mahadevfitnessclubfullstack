@@ -1,0 +1,13 @@
+{
+  "name": "Mahadev Fitness Club",
+  "short_name": "Mahadev Gym",
+  "start_url": "/admin",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#11131a",
+  "theme_color": "#ea4f22",
+  "icons": [
+    { "src": "/static/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/static/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" }
+  ]
+}
