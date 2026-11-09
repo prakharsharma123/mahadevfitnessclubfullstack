@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Payments | Gym Management System{% endblock %}
+{% block content %}
+<div class="page-head"><div><h1>Payments</h1><p class="muted">Check your bank app for each UTR, then confirm. UPI ID: {{ upi_id }}</p></div></div>
+{% with messages = get_flashed_messages(with_categories=true) %}{% for c, msg in messages %}<div class="flash flash-{{ c }}">{{ msg }}</div>{% endfor %}{% endwith %}
+{% if auto %}<div class="flash flash-warning">Auto-approve is ON: members are marked paid as soon as they submit a UTR, without bank checking.</div>{% endif %}
+
+<div class="panel"><h3>Waiting for your confirmation ({{ waiting|length }})</h3>
+  {% for p in waiting %}{% set m = names.get(p.member_id) %}
+  <div class="note"><div class="note-head"><strong>{{ m.name if m else 'Member' }} {{ '· ' ~ m.phone if m }}</strong><span class="muted">₹{{ p.amount }}</span></div>
+    <p>UTR <strong>{{ p.utr }}</strong> &middot; Order {{ p.order_id }} &middot; {{ p.submitted_at.strftime('%d %b %H:%M') }} UTC</p>
+    <form method="post" action="{{ url_for('admin_payment_action', pid=p.id, action='confirm') }}" style="display:inline"><button class="btn btn-primary btn-sm">Confirm paid</button></form>
+    <form method="post" action="{{ url_for('admin_payment_action', pid=p.id, action='reject') }}" style="display:inline" onsubmit="return confirm('Reject this payment?')"><button class="btn btn-outline btn-sm">Reject</button></form>
+  </div>
+  {% else %}<p class="muted">Nothing waiting.</p>{% endfor %}
+</div>
+
+<div class="panel"><h3>Recent</h3>
+  <div class="table-wrap"><table class="table"><thead><tr><th>Member</th><th>Amount</th><th>Status</th><th>UTR</th><th>Order</th></tr></thead><tbody>
+  {% for p in recent %}{% set m = names.get(p.member_id) %}
+  <tr><td>{{ m.name if m else p.member_id }}</td><td>₹{{ p.amount }}</td><td>{{ p.status }}</td><td>{{ p.utr or '-' }}</td><td>{{ p.order_id }}</td></tr>
+  {% else %}<tr><td colspan="5" class="muted">No payments yet.</td></tr>{% endfor %}
+  </tbody></table></div>
+</div>
+{% endblock %}
