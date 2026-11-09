@@ -17,6 +17,15 @@
 <div class="flash flash-warning">Owner alerts are off. Add TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID to get a message on your phone whenever someone marks attendance (see docs/TELEGRAM_GUIDE.md).</div>
 {% endif %}
 
+<div class="panel" id="pushBox">
+  <h3>Phone and laptop notifications</h3>
+  <p class="muted" style="margin-bottom:10px">Get an alert with sound on this device whenever someone marks attendance, even when the page is closed or the phone is locked. Turn it on once per device.</p>
+  <p id="pushState" style="font-weight:600;margin-bottom:10px">Checking...</p>
+  <button id="pushEnable" class="btn btn-primary btn-sm" style="display:none">Enable notifications</button>
+  <button id="pushTest" class="btn btn-outline btn-sm" style="display:none">Send test notification</button>
+  <button id="pushDisable" class="btn btn-outline btn-sm" style="display:none">Turn off on this device</button>
+</div>
+
 <div class="panel">
   <h3>Present</h3>
   {% if entries %}
@@ -39,3 +48,4 @@
   {% else %}<p class="muted">No pending signups.</p>{% endif %}
 </div>
 {% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='push.js') }}"></script>{% endblock %}
