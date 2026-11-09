@@ -242,8 +242,10 @@ def register(app, db, Member, Attendance, Announcement, require_login, PLAN_MONT
             except Exception:
                 pass
 
+        import payments
+        pay_link = url_for("payment_page", ref=payments.make_ref(m.id)) if (m.fees or 0) > 0 else None
         notes = Announcement.query.filter_by(active=True).order_by(Announcement.id.desc()).limit(10).all()
-        return render_template("client_home.html", m=m, current=current, best=best, announcements=notes,
+        return render_template("client_home.html", m=m, pay_link=pay_link, current=current, best=best, announcements=notes,
                                month_count=sum(1 for d in days if d.startswith(month_prefix)),
                                total=len(days), marked_today=marked_today, cells=cells,
                                expiry=expiry, days_left=days_left)
