@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block title %}Live announcer | Gym Management System{% endblock %}
+{% block content %}
+<div class="page-head"><div><h1>Live announcer</h1>
+  <p class="muted">Keep this page open on the gym desk phone or computer. It says each check-in out loud.</p></div></div>
+
+<div class="panel" style="text-align:center">
+  <div id="state" style="font-size:1.3rem;font-weight:700;margin-bottom:6px">Announcer is off</div>
+  <p id="hint" class="muted" style="margin-bottom:16px">Tap Start once so the browser allows sound. Keep the screen on and the volume up.</p>
+  <button id="startBtn" class="btn btn-primary">Start announcer</button>
+  <button id="testBtn" class="btn btn-outline" style="display:none">Test voice</button>
+</div>
+
+<div class="panel"><h3>Announced today</h3><div id="log" class="muted">Nothing yet.</div></div>
+{% endblock %}
+{% block scripts %}
+<script>
+  var last = null, timer = null, queue = [], talking = false, wake = null;
+  function speak(text, done) {
+    var u = new SpeechSynthesisUtterance(text);
+    u.lang = 'en-IN'; u.rate = 0.95; u.onend = u.onerror = done;
+    speechSynthesis.speak(u);
+  }
+  function drain() {
+    if (talking || !queue.length) return;
+    talking = true;
+    speak(queue.shift(), function () { talking = false; drain(); });
+  }
+  function addLog(t) {
+    var el = document.getElementById('log');
+    if (el.classList.contains('muted')) { el.classList.remove('muted'); el.innerHTML = ''; }
+    var p = document.createElement('div'); p.textContent = t; p.style.padding = '6px 0';
+    el.insertBefore(p, el.firstChild);
+  }
+  function poll() {
+    var url = '/admin/live/feed' + (last === null ? '' : '?after=' + last);
+    fetch(url, { cache: 'no-store' }).then(function (r) {
+      if (r.status === 401) { document.getElementById('state').textContent = 'Logged out. Please log in again.'; clearInterval(timer); throw 0; }
+      return r.json();
+    }).then(function (d) {
+      last = d.last;
+      d.items.forEach(function (i) {
+        var line = i.name + ' marked attendance at ' + i.time;
+        addLog(i.time + '  ' + i.name); queue.push(line);
+      });
+      drain();
+    }).catch(function () {});
+  }
+  function keepAwake() {
+    if ('wakeLock' in navigator) navigator.wakeLock.request('screen').then(function (l) { wake = l; }).catch(function () {});
+  }
+  document.getElementById('startBtn').onclick = function () {
+    if (!('speechSynthesis' in window)) { document.getElementById('state').textContent = 'This browser cannot speak. Try Chrome.'; return; }
+    speak('Announcer is on.', function () {});
+    document.getElementById('state').textContent = 'Announcer is ON. Listening for check-ins...';
+    document.getElementById('hint').textContent = 'Leave this page open. Check-ins are spoken as they happen.';
+    this.style.display = 'none'; document.getElementById('testBtn').style.display = 'inline-flex';
+    keepAwake(); poll(); timer = setInterval(poll, 4000);
+  };
+  document.getElementById('testBtn').onclick = function () { queue.push('Rahul marked attendance at 6:42 PM'); drain(); };
+  document.addEventListener('visibilitychange', function () { if (!document.hidden && timer) keepAwake(); });
+</script>
+{% endblock %}
