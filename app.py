@@ -100,6 +100,21 @@ class Announcement(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
 
+class Payment(db.Model):
+    """One UPI payment attempt (QR session) for a member's fees."""
+    id = db.Column(db.Integer, primary_key=True)
+    member_id = db.Column(db.Integer, db.ForeignKey("member.id", ondelete="CASCADE"), nullable=False, index=True)
+    order_id = db.Column(db.String(30), unique=True)
+    amount = db.Column(db.Integer, nullable=False)
+    status = db.Column(db.String(12), default="pending", index=True)  # pending, submitted, paid, expired, rejected
+    utr = db.Column(db.String(20), index=True)
+    attempts = db.Column(db.Integer, default=0)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    expires_at = db.Column(db.DateTime)
+    submitted_at = db.Column(db.DateTime)
+    paid_at = db.Column(db.DateTime)
+
+
 def upgrade_schema():
     """create_all() never adds columns to an existing table, so add the new
     Member columns by hand. Safe to run on every start (skips if present)."""
@@ -120,16 +135,16 @@ with app.app_context():
 
 
 # ---------------- WHATSAPP MESSAGE ----------------
-def generate_wa_message(name, fees, plan, expiry_date):
-    payment_page = f"https://prakharsharma123.github.io/Gym_Payment/?amount={fees}"
+def generate_wa_message(name, fees, plan, expiry_date, member_id=None):
+    import payments
+    payment_page = payments.pay_url(member_id) if member_id else request.url_root.rstrip("/")
     return (
         f"MAHADEV FITNESS CLUB\n"
         f"Hello {name},\n\n"
         f"Your gym fees of Rs.{fees} are due.\n"
         f"Plan: {plan}\n"
         f"Expiry: {expiry_date}\n\n"
-        f"Pay Online: {payment_page}\n\n"
-        f"UPI: ashishrajsngh@ybl\n"
+        f"Pay online (QR + UPI): {payment_page}\n\n"
         f"- Team Mahadev"
     )
 
@@ -366,7 +381,7 @@ def members():
             expiry = add_months(last_fee, PLAN_MONTHS.get(m.plan, 1))
             m.days_left = max((expiry - today).days, 0)
             m.expiry_date = expiry.strftime("%d %b %Y")
-            m.wa_message = generate_wa_message(m.name, m.fees, m.plan, m.expiry_date)
+            m.wa_message = generate_wa_message(m.name, m.fees, m.plan, m.expiry_date, m.id)
         except Exception:
             m.days_left = 0
             m.expiry_date = "N/A"
@@ -402,7 +417,7 @@ def pending_sms():
             if days_left <= 0:
                 m.expiry_date = expiry.strftime("%d %b %Y")
                 m.days_overdue = abs(days_left)
-                m.wa_message = generate_wa_message(m.name, m.fees, m.plan, m.expiry_date)
+                m.wa_message = generate_wa_message(m.name, m.fees, m.plan, m.expiry_date, m.id)
                 pending.append(m)
         except Exception:
             continue
@@ -421,7 +436,7 @@ def send_sms(id):
         expiry_date = expiry.strftime("%d %b %Y")
     except Exception:
         expiry_date = "N/A"
-    message = generate_wa_message(member.name, member.fees, member.plan, expiry_date)
+    message = generate_wa_message(member.name, member.fees, member.plan, expiry_date, member.id)
     wa_link = f"https://wa.me/91{member.phone}?text={quote(message)}"
     return redirect(wa_link)
 
@@ -559,6 +574,8 @@ def health():
 
 
 import client_routes
+import payments
+payments.register(app, db, Member, Payment, require_login, PLAN_MONTHS, add_months)
 client_routes.register(app, db, Member, Attendance, Announcement, require_login, PLAN_MONTHS, PLAN_FEES, add_months)
 
 
