@@ -39,7 +39,7 @@
     <div>
       <label>Plan</label>
       <select name="plan" id="planSelect" required>
-        {% for key, label in [('1_month','1 Month'), ('3_month','3 Months'), ('6_month','6 Months'), ('1_year','1 Year')] %}
+        {% for key, label in PLAN_CHOICES %}
           <option value="{{ key }}" {{ 'selected' if m.plan==key }}>{{ label }} — ₹{{ plan_fees[key] }}</option>
         {% endfor %}
       </select>
@@ -51,12 +51,7 @@
     </div>
 
     <div>
-      <label>Joining Date</label>
-      <input type="date" name="joining_date" required value="{{ m.joining_date }}">
-    </div>
-
-    <div>
-      <label>Last Fee Paid Date</label>
+      <label>Last Fee Paid Date (renewal day of month stays fixed)</label>
       <input type="date" name="last_fee_date" required value="{{ m.last_fee_date }}">
     </div>
 
