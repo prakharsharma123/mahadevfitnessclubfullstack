@@ -16,7 +16,7 @@ def pay_url(member_id):
     return request.url_root.rstrip("/") + url_for("payment_page", ref=make_ref(member_id))
 
 
-def register(app, db, Member, Payment, require_login, PLAN_MONTHS, add_months):
+def register(app, db, Member, Payment, require_login, PLAN_MONTHS, add_months, apply_payment):
     UPI_ID = os.environ.get("UPI_ID", "ashishrajsngh@ybl")
     UPI_NAME = os.environ.get("UPI_NAME", "Mahadev Fitness Club")
     WINDOW = int(os.environ.get("PAY_WINDOW_MIN", "5"))
@@ -65,8 +65,9 @@ def register(app, db, Member, Payment, require_login, PLAN_MONTHS, add_months):
         return max(int((p.expires_at - datetime.utcnow()).total_seconds()), 0) if p.status == "pending" else 0
 
     def finish(m, p, how):
-        m.payment_done = True
-        m.last_fee_date = ist_today()
+        # Move the due date forward by the plan's months (same day of month),
+        # NOT to the day the payment arrived.
+        apply_payment(m, datetime.strptime(ist_today(), "%Y-%m-%d").date())
         p.status, p.paid_at = "paid", datetime.utcnow()
         db.session.commit()
         notify.notify_owner(f"✅ Fee marked PAID ({how})\n{m.name} | 📞 {m.phone}\n₹{p.amount} | UTR {p.utr}\nOrder {p.order_id}")
