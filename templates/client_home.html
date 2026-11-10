@@ -22,7 +22,7 @@
 <div class="panel" style="border-color:var(--accent);display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap">
   <div>
     <strong>{% if days_left > 0 %}Your plan ends in {{ days_left }} day{{ '' if days_left == 1 else 's' }}{% else %}Your plan has expired{% endif %}</strong>
-    <div class="muted">Renew now with UPI: ₹{{ m.fees }} for {{ m.plan.replace('_',' ') }}.</div>
+    <div class="muted">Renew now with UPI: ₹{{ m.fees }} for {{ plan_label(m.plan) }}.</div>
   </div>
   <a href="{{ pay_link }}" class="btn btn-primary">Pay fees now</a>
 </div>
@@ -54,7 +54,7 @@
   <h3>Membership</h3>
   {% if expiry %}
     <p>Joined: <strong>{{ m.joining_date }}</strong> &middot; Last fee: <strong>{{ m.last_fee_date }}</strong></p>
-    <p>Plan: <strong>{{ m.plan.replace('_',' ').title() }}</strong> &middot; Valid till <strong>{{ expiry }}</strong>
+    <p>Plan: <strong>{{ plan_label(m.plan) }}</strong> &middot; Valid till <strong>{{ expiry }}</strong>
       {% if days_left > 0 %}<span class="badge badge-paid">{{ days_left }} days left</span>{% else %}<span class="badge badge-expired">Expired</span>{% endif %}</p>
   {% else %}
     <p class="muted">Your plan is not set up yet. Please meet the owner at the gym to activate your membership.</p>
