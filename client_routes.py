@@ -142,17 +142,19 @@ def register(app, db, Member, Attendance, Announcement, require_login, PLAN_MONT
         phone = re.sub(r"\D", "", request.form.get("phone", ""))[-10:]
         name = request.form.get("name", "").strip() or m.name
         plan = request.form.get("plan", "")
-        joining = parse_date(request.form.get("joining_date", ""))
         last_fee = parse_date(request.form.get("last_fee_date", ""))
         if len(phone) != 10:
             return "Please enter a valid 10-digit mobile number."
         if plan not in PLAN_FEES:
             return "Please choose a plan."
-        if not joining or not last_fee:
-            return "Please enter both the joining date and the last fee date."
+        if not last_fee:
+            return "Please enter the last fee paid date."
         m.phone, m.name = phone, name[:100]
         m.plan, m.fees = plan, PLAN_FEES[plan]
-        m.joining_date, m.last_fee_date = joining, last_fee
+        if last_fee != m.last_fee_date or not m.anchor_day:
+            m.anchor_day = date.fromisoformat(last_fee).day
+        m.last_fee_date = last_fee
+        m.joining_date = m.joining_date or last_fee
 
         photo = request.files.get("photo")
         if photo and photo.filename:
@@ -237,7 +239,7 @@ def register(app, db, Member, Attendance, Announcement, require_login, PLAN_MONT
         if m.plan and m.last_fee_date:
             try:
                 last = datetime.strptime(m.last_fee_date, "%Y-%m-%d").date()
-                exp = add_months(last, PLAN_MONTHS.get(m.plan, 1))
+                exp = add_months(last, PLAN_MONTHS.get(m.plan, 1), m.anchor_day)
                 expiry, days_left = exp.strftime("%d %b %Y"), (exp - t).days
             except Exception:
                 pass
