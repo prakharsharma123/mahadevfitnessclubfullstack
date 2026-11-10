@@ -47,16 +47,90 @@ app.config['MAX_CONTENT_LENGTH'] = 6 * 1024 * 1024  # 6MB upload cap
 db = SQLAlchemy(app)
 
 # ---------------- PLAN CONFIG ----------------
-PLAN_MONTHS = {"1_month": 1, "3_month": 3, "6_month": 6, "1_year": 12}
-PLAN_FEES = {"1_month": 700, "3_month": 2500, "6_month": 4000, "1_year": 8000}
+# Base plans (gym only). Cardio plans are generated below: base fee + 500 per month.
+BASE_PLAN_MONTHS = {"1_month": 1, "3_month": 3, "6_month": 6, "1_year": 12}
+BASE_PLAN_FEES = {"1_month": 700, "3_month": 1800, "6_month": 3000, "1_year": 6000}
+BASE_PLAN_NAMES = {"1_month": "1 Month", "3_month": "3 Months", "6_month": "6 Months", "1_year": "1 Year"}
+CARDIO_PER_MONTH = 500
+
+PLAN_MONTHS, PLAN_FEES, PLAN_LABELS = {}, {}, {}
+for _k, _m in BASE_PLAN_MONTHS.items():
+    PLAN_MONTHS[_k], PLAN_FEES[_k], PLAN_LABELS[_k] = _m, BASE_PLAN_FEES[_k], BASE_PLAN_NAMES[_k]
+    _c = _k + "_cardio"   # e.g. 1_month_cardio = 700 + 500, 1_year_cardio = 6000 + 12*500
+    PLAN_MONTHS[_c] = _m
+    PLAN_FEES[_c] = BASE_PLAN_FEES[_k] + _m * CARDIO_PER_MONTH
+    PLAN_LABELS[_c] = BASE_PLAN_NAMES[_k] + " + Cardio"
+# Order used in every dropdown
+PLAN_CHOICES = [(k, PLAN_LABELS[k]) for k in PLAN_LABELS]
 
 
-def add_months(sourcedate, months):
+def plan_label(plan):
+    return PLAN_LABELS.get(plan) or (plan or "").replace("_", " ").title()
+
+
+def has_cardio(plan):
+    return bool(plan) and plan.endswith("_cardio")
+
+
+def ist_today():
+    """Today's date in India (the server runs in UTC)."""
+    from datetime import timedelta
+    return (datetime.utcnow() + timedelta(hours=5, minutes=30)).date()
+
+
+def add_months(sourcedate, months, anchor_day=None):
+    """Move a date forward by whole months, keeping the SAME day of month.
+    anchor_day is the day the member's cycle is fixed on (e.g. 30). Short months
+    use their last day (30 Jan -> 28/29 Feb) but the cycle goes back to the anchor
+    day afterwards (28 Feb -> 30 Mar), so the date never drifts."""
+    anchor = anchor_day or sourcedate.day
     month = sourcedate.month - 1 + months
     year = sourcedate.year + month // 12
     month = month % 12 + 1
-    day = min(sourcedate.day, calendar.monthrange(year, month)[1])
+    day = min(anchor, calendar.monthrange(year, month)[1])
     return date(year, month, day)
+
+
+def parse_ymd(txt):
+    return datetime.strptime(txt, "%Y-%m-%d").date()
+
+
+def member_expiry(m):
+    """Expiry date of the member's current paid period (None if not set up)."""
+    last = parse_ymd(m.last_fee_date)
+    return add_months(last, PLAN_MONTHS.get(m.plan, 1), m.anchor_day)
+
+
+def paid_today(m, today_str):
+    """True if this member was marked paid today (old rows fall back to last_fee_date)."""
+    if not m.payment_done:
+        return False
+    return (m.paid_on or m.last_fee_date) == today_str
+
+
+def apply_payment(m, today):
+    """Record a payment WITHOUT using the payment date as the new start.
+    The next period starts on the old expiry date (same day of month, only the month
+    changes). If the member was away for several periods, skip forward to the latest
+    cycle date that is not in the future, so nobody is charged for months they missed
+    and nobody gets free days either. Returns False if already marked paid today."""
+    today_str = today.strftime("%Y-%m-%d")
+    if paid_today(m, today_str):
+        return False
+    months = PLAN_MONTHS.get(m.plan, 1)
+    try:
+        last = parse_ymd(m.last_fee_date)
+        anchor = m.anchor_day or last.day
+        start = add_months(last, months, anchor)          # = old expiry date
+        while add_months(start, months, anchor) <= today:  # skip fully missed periods
+            start = add_months(start, months, anchor)
+    except Exception:                                      # no valid last date: start today
+        start, anchor = today, today.day
+    m.last_fee_date = start.strftime("%Y-%m-%d")
+    m.anchor_day = anchor
+    m.payment_done = True
+    m.paid_on = today_str
+    return True
 
 
 # ---------------- DATABASE MODEL ----------------
@@ -68,6 +142,8 @@ class Member(db.Model):
     joining_date = db.Column(db.String(20))
     last_fee_date = db.Column(db.String(20))
     plan = db.Column(db.String(20))
+    anchor_day = db.Column(db.Integer)         # fixed day of month for renewals
+    paid_on = db.Column(db.String(20))         # YYYY-MM-DD the payment was recorded
     payment_done = db.Column(db.Boolean, default=False)
     photo_url = db.Column(db.String(300))     # public jsDelivr/GitHub URL
     photo_path = db.Column(db.String(300))    # path inside the GitHub repo (for deletes)
@@ -122,7 +198,8 @@ def upgrade_schema():
     insp = inspect(db.engine)
     have = {c['name'] for c in insp.get_columns('member')}
     wanted = {'email': 'VARCHAR(150)', 'google_id': 'VARCHAR(60)',
-              'picture_url': 'VARCHAR(500)', 'source': "VARCHAR(10) DEFAULT 'admin'"}
+              'picture_url': 'VARCHAR(500)', 'source': "VARCHAR(10) DEFAULT 'admin'",
+              'anchor_day': 'INTEGER', 'paid_on': 'VARCHAR(20)'}
     with db.engine.begin() as conn:
         for col, ddl in wanted.items():
             if col not in have:
@@ -135,6 +212,16 @@ with app.app_context():
 
 
 # ---------------- WHATSAPP MESSAGE ----------------
+def plan_extra(plan):
+    """Fee breakdown shown in messages when the plan includes cardio."""
+    if not has_cardio(plan):
+        return ""
+    base = plan[:-len("_cardio")]
+    months = BASE_PLAN_MONTHS[base]
+    return (f" (includes Cardio: Rs.{BASE_PLAN_FEES[base]} gym + "
+            f"Rs.{months * CARDIO_PER_MONTH} cardio)")
+
+
 def generate_wa_message(name, fees, plan, expiry_date, member_id=None):
     import payments
     payment_page = payments.pay_url(member_id) if member_id else request.url_root.rstrip("/")
@@ -142,7 +229,7 @@ def generate_wa_message(name, fees, plan, expiry_date, member_id=None):
         f"MAHADEV FITNESS CLUB\n"
         f"Hello {name},\n\n"
         f"Your gym fees of Rs.{fees} are due.\n"
-        f"Plan: {plan}\n"
+        f"Plan: {plan_label(plan)}{plan_extra(plan)}\n"
         f"Expiry: {expiry_date}\n\n"
         f"Pay online (QR + UPI): {payment_page}\n\n"
         f"- Team Mahadev"
@@ -151,7 +238,7 @@ def generate_wa_message(name, fees, plan, expiry_date, member_id=None):
 
 # ---------------- STATS ----------------
 def calculate_revenue_stats():
-    today = datetime.now().date()
+    today = ist_today()
     today_str = today.strftime("%Y-%m-%d")
     all_members = Member.query.all()
     stats = {
@@ -162,10 +249,9 @@ def calculate_revenue_stats():
     }
     for m in all_members:
         try:
-            last_fee = datetime.strptime(m.last_fee_date, "%Y-%m-%d").date()
-            expiry = add_months(last_fee, PLAN_MONTHS.get(m.plan, 1))
+            expiry = member_expiry(m)
             days_left = (expiry - today).days
-            if m.payment_done and m.last_fee_date == today_str:
+            if paid_today(m, today_str):
                 stats['paid_count'] += 1
                 stats['paid_revenue'] += m.fees
                 stats['paid_today_count'] += 1
@@ -198,6 +284,8 @@ def photo_src(m):
 
 
 app.jinja_env.globals["photo_src"] = photo_src
+app.jinja_env.globals["plan_label"] = plan_label
+app.jinja_env.globals["PLAN_CHOICES"] = PLAN_CHOICES
 
 
 @app.route("/member-photo/<int:id>")
@@ -278,9 +366,10 @@ def add_member():
             name=request.form["name"].strip(),
             phone=request.form["phone"].strip(),
             fees=int(request.form["fees"] or 0),
-            joining_date=request.form["joining_date"],
+            joining_date=request.form["last_fee_date"],   # joining date no longer asked
             last_fee_date=request.form["last_fee_date"],
             plan=request.form["plan"],
+            anchor_day=parse_ymd(request.form["last_fee_date"]).day,
         )
         db.session.add(member)
         db.session.commit()  # commit first to get member.id for the photo filename
@@ -312,8 +401,10 @@ def edit_member(id):
         m.phone = request.form["phone"].strip()
         m.fees = int(request.form["fees"] or 0)
         m.plan = request.form["plan"]
-        m.joining_date = request.form["joining_date"]
-        m.last_fee_date = request.form["last_fee_date"]
+        new_last = request.form["last_fee_date"]
+        if new_last != m.last_fee_date or not m.anchor_day:
+            m.anchor_day = parse_ymd(new_last).day   # admin typed a new date: that day is the cycle day
+        m.last_fee_date = new_last
 
         photo = request.files.get("photo")
         if photo and photo.filename and github_storage.is_configured():
@@ -334,9 +425,10 @@ def mark_paid(id):
     if require_login():
         return redirect("/admin/login")
     member = Member.query.get_or_404(id)
-    member.payment_done = True
-    member.last_fee_date = datetime.now().strftime("%Y-%m-%d")
-    db.session.commit()
+    if apply_payment(member, ist_today()):
+        db.session.commit()
+    else:
+        flash(f"{member.name} is already marked paid today.", "warning")
     return redirect("/members")
 
 
@@ -359,7 +451,7 @@ def delete(id):
 def members():
     if require_login():
         return redirect("/admin/login")
-    today = datetime.now().date()
+    today = ist_today()
     today_str = today.strftime("%Y-%m-%d")
     search_query = request.args.get('search', '').strip()
     status_filter = request.args.get('status', 'all')
@@ -373,12 +465,11 @@ def members():
 
     filtered = []
     for m in all_members:
-        if m.payment_done and m.last_fee_date != today_str:
+        if m.payment_done and not paid_today(m, today_str):
             m.payment_done = False
             db.session.commit()
         try:
-            last_fee = datetime.strptime(m.last_fee_date, "%Y-%m-%d").date()
-            expiry = add_months(last_fee, PLAN_MONTHS.get(m.plan, 1))
+            expiry = member_expiry(m)
             m.days_left = max((expiry - today).days, 0)
             m.expiry_date = expiry.strftime("%d %b %Y")
             m.wa_message = generate_wa_message(m.name, m.fees, m.plan, m.expiry_date, m.id)
@@ -389,7 +480,7 @@ def members():
 
         include = True
         if status_filter == 'paid':
-            include = (m.payment_done and m.last_fee_date == today_str)
+            include = paid_today(m, today_str)
         elif status_filter in ('pending', 'expired'):
             include = (m.days_left == 0 and not m.payment_done)
         elif status_filter == 'active':
@@ -406,13 +497,12 @@ def members():
 def pending_sms():
     if require_login():
         return redirect("/admin/login")
-    today = datetime.now().date()
+    today = ist_today()
     all_members = Member.query.filter_by(payment_done=False).all()
     pending = []
     for m in all_members:
         try:
-            last_fee = datetime.strptime(m.last_fee_date, "%Y-%m-%d").date()
-            expiry = add_months(last_fee, PLAN_MONTHS.get(m.plan, 1))
+            expiry = member_expiry(m)
             days_left = (expiry - today).days
             if days_left <= 0:
                 m.expiry_date = expiry.strftime("%d %b %Y")
@@ -429,10 +519,9 @@ def send_sms(id):
     if require_login():
         return redirect("/admin/login")
     member = Member.query.get_or_404(id)
-    today = datetime.now().date()
+    today = ist_today()
     try:
-        last_fee = datetime.strptime(member.last_fee_date, "%Y-%m-%d").date()
-        expiry = add_months(last_fee, PLAN_MONTHS.get(member.plan, 1))
+        expiry = member_expiry(member)
         expiry_date = expiry.strftime("%d %b %Y")
     except Exception:
         expiry_date = "N/A"
@@ -447,7 +536,7 @@ def export_members():
     if require_login():
         return redirect("/admin/login")
     import openpyxl
-    today = datetime.now().date()
+    today = ist_today()
     all_members = Member.query.all()
     wb = openpyxl.Workbook()
     ws = wb.active
@@ -456,14 +545,13 @@ def export_members():
                "Last Fee Submit Date", "Expiry Date", "Days Left", "Status", "Payment Done"])
     for idx, m in enumerate(all_members, start=1):
         try:
-            last_fee = datetime.strptime(m.last_fee_date, "%Y-%m-%d").date()
-            expiry = add_months(last_fee, PLAN_MONTHS.get(m.plan, 1))
+            expiry = member_expiry(m)
             days_left = (expiry - today).days
             expiry_str = expiry.strftime("%d %b %Y")
         except Exception:
             days_left, expiry_str = 0, "N/A"
         today_str = today.strftime("%Y-%m-%d")
-        status = "Paid Today" if (m.payment_done and m.last_fee_date == today_str) else ("Active" if days_left > 0 else "Expired")
+        status = "Paid Today" if paid_today(m, today_str) else ("Active" if days_left > 0 else "Expired")
         ws.append([idx, m.name, m.phone, (m.plan or "").replace("_", " ").title(), m.fees,
                    m.joining_date, m.last_fee_date, expiry_str, max(days_left, 0), status,
                    "Yes" if m.payment_done else "No"])
@@ -578,7 +666,7 @@ def health():
 
 import client_routes
 import payments
-payments.register(app, db, Member, Payment, require_login, PLAN_MONTHS, add_months)
+payments.register(app, db, Member, Payment, require_login, PLAN_MONTHS, add_months, apply_payment)
 import notify, push
 push.register(app, db, require_login, notify)
 client_routes.register(app, db, Member, Attendance, Announcement, require_login, PLAN_MONTHS, PLAN_FEES, add_months)
