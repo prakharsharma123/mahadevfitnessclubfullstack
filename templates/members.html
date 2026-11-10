@@ -85,7 +85,7 @@
     </div>
 
     <div class="mrow-plan">
-      <strong>{{ (m.plan or '').replace('_',' ').title() }}</strong>
+      <strong>{{ plan_label(m.plan) }}</strong>
       <span>₹{{ m.fees }}</span>
     </div>
 
@@ -94,7 +94,7 @@
       <span>{{ m.days_left }} day(s) left</span>
     </div>
 
-    {% if m.payment_done and m.last_fee_date == today %}
+    {% if m.payment_done and (m.paid_on or m.last_fee_date) == today %}
       <span class="mrow-status paid">Paid</span>
     {% elif m.days_left == 0 %}
       <span class="mrow-status expired">Expired</span>
