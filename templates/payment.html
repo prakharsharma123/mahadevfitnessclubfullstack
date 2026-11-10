@@ -79,7 +79,7 @@ body{padding:12px;place-items:start center}
   <section class="left">
     <div class="brand"><span class="dot">M</span>Mahadev Fitness Club</div>
     <div>
-      <div class="lbl">Fees for {{ m.plan.replace('_',' ').title() if m.plan else 'membership' }}</div>
+      <div class="lbl">Fees for {{ plan_label(m.plan) if m.plan else 'membership' }}</div>
       <div class="amt">₹{{ '{:,.2f}'.format(p.amount) }}</div>
     </div>
     <div class="rows">
