@@ -35,6 +35,7 @@
     {% if m %}<a href="{{ url_for('client_home') }}" class="btn btn-outline btn-block">My Dashboard</a>{% endif %}
   </div>
 </div>
+{% include "_credit.html" %}
 <script src="{{ url_for('static', filename='app.js') }}"></script>
 {% if speech %}
 <script>
