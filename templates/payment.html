@@ -10,7 +10,7 @@
 <style>
 :root{--bg:#f3f4f7;--ink:#171a21;--muted:#676e7d;--line:#e2e4ea;--accent:#f4713f;--soft:#fde9e2;--ok:#16a34a;--bad:#dc2626}
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Instrument Sans',system-ui,sans-serif;background:var(--bg);color:var(--ink);min-height:100vh;display:grid;place-items:center;padding:24px;line-height:1.5}
+body{font-family:'Instrument Sans',system-ui,sans-serif;background:var(--bg);color:var(--ink);min-height:100vh;display:grid;place-items:center;align-content:center;padding:24px;line-height:1.5}
 h1,h2,.amt{font-family:'Bricolage Grotesque',system-ui,sans-serif;letter-spacing:-.02em}
 .card{width:100%;max-width:960px;display:grid;grid-template-columns:.85fr 1.15fr;border-radius:28px;overflow:hidden;background:#fff;box-shadow:0 24px 60px rgba(20,22,30,.14)}
 .left{background:var(--ink);color:#f3f4f7;padding:36px;display:flex;flex-direction:column;gap:26px;position:relative;overflow:hidden}
@@ -72,6 +72,8 @@ body{padding:12px;place-items:start center}
 .qr img{width:min(210px,56vw);height:auto;aspect-ratio:1}
 }
 @media(max-width:480px){.utr form{flex-direction:column}.utr .btn{width:100%}.upi{flex-wrap:wrap}.upi .btn{width:100%}.utr{padding:16px}}
+.pay-credit{width:100%;max-width:960px;margin-top:18px}.pay-credit .site-credit{padding:8px 0;color:var(--muted)}.pay-credit .site-credit a{color:inherit;text-decoration:none}.pay-credit .site-credit a:hover{color:var(--accent)}
+.site-credit{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:8px 18px;font-size:.85rem}.credit-by{display:inline-flex;align-items:center;gap:8px;font-weight:600}.credit-photo{width:28px;height:28px;border-radius:50%;object-fit:cover;border:2px solid var(--accent)}
 </style>
 </head>
 <body>
@@ -133,6 +135,7 @@ body{padding:12px;place-items:start center}
     <p class="foot">Mahadev Fitness Club, Alambagh, Lucknow. Payments go straight to the club's UPI account.</p>
   </section>
 </main>
+<div class="pay-credit">{% include "_credit.html" %}</div>
 <script>
 var status="{{ p.status }}", secs={{ secs }}, win={{ window }};
 if(/Android|iPhone|iPad/i.test(navigator.userAgent)){var b=document.getElementById('payBtn');if(b)b.style.display='inline-flex'}
