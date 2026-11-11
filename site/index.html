@@ -113,8 +113,9 @@ header{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--bg) 8
 footer{border-top:1px solid var(--line);padding:40px 0 96px;color:var(--muted);font-size:.9rem}
 .foot{display:flex;flex-wrap:wrap;gap:12px 24px;justify-content:space-between}
 .foot nav,.credit{display:flex;flex-wrap:wrap;gap:8px 18px}
+.credit-by{display:inline-flex;align-items:center;gap:8px;font-weight:600}.credit-photo{width:30px;height:30px;border-radius:50%;object-fit:cover;border:2px solid var(--accent)}
 .foot a:hover,.credit a:hover{color:var(--accent)}
-.credit{margin-top:22px;padding-top:18px;border-top:1px solid var(--line)}
+.credit{align-items:center;margin-top:22px;padding-top:18px;border-top:1px solid var(--line)}
 .wa{position:fixed;right:20px;bottom:20px;z-index:40;background:#25d366;color:#08331a;font-weight:700;padding:13px 20px;border-radius:999px;box-shadow:var(--shadow)}
 .toast{position:fixed;left:50%;top:84px;transform:translate(-50%,-30px);opacity:0;visibility:hidden;pointer-events:none;background:var(--ink);color:var(--bg);padding:12px 20px;border-radius:14px;z-index:70;font-weight:600;transition:transform .3s,opacity .3s,visibility .3s}
 .toast.show{transform:translate(-50%,0);opacity:1;visibility:visible}
@@ -287,7 +288,7 @@ section{padding:68px 0}}
   <div class="foot"><strong>Mahadev Fitness Club, Lucknow</strong>
     <nav><a href="/client/login">Member login</a><a href="/signup">Sign up</a><a href="/client/scan">Attendance</a><a href="/admin/login">Admin</a></nav></div>
   <p style="margin-top:10px">© 2025 Mahadev Fitness Club. Jai Mahadev.</p>
-  <div class="credit"><span>Website by Prakhar Sharma</span>
+  <div class="credit"><span class="credit-by"><img class="credit-photo" src="/static/prakhar.jpg" alt="Prakhar Sharma" width="28" height="28" onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 40 40%27%3E%3Crect width=%2740%27 height=%2740%27 fill=%27%23f4713f%27/%3E%3Ctext x=%2720%27 y=%2726%27 font-size=%2716%27 font-family=%27Arial%27 font-weight=%27700%27 fill=%27white%27 text-anchor=%27middle%27%3EPS%3C/text%3E%3C/svg%3E'"><span>Website by Prakhar Sharma</span></span>
     <a href="tel:+918318276922">Call</a><a href="https://wa.me/918318276922" target="_blank" rel="noopener">WhatsApp</a><a href="https://www.instagram.com/prakh.ar16/" target="_blank" rel="noopener">Instagram</a><a href="https://www.linkedin.com/in/prakhar-sharma-06april/" target="_blank" rel="noopener">LinkedIn</a><a href="mailto:prakharsharmawork1@gmail.com">Email</a><a href="https://github.com/prakharsharma123" target="_blank" rel="noopener">GitHub</a></div>
 </div></footer>
 
