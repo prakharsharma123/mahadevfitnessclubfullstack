@@ -16,4 +16,14 @@
   <a class="btn btn-primary" href="{{ url_for('admin_qr_png') }}" download="gym-qr.png">Download PNG</a>
   <button class="btn btn-outline" onclick="window.print()">Print</button>
 </div>
+
+<div class="page-head" style="margin-top:26px">
+  <div><h1>Fee payment QR code</h1><p class="muted">Put this at the counter or send it in the group. Members scan it, sign in with Google, confirm name and mobile, then pay.</p></div>
+</div>
+<div class="panel" style="text-align:center">
+  <img src="{{ url_for('admin_payqr_png') }}" alt="Fee payment QR" style="max-width:320px;width:100%">
+  <p class="muted" style="word-break:break-all;margin-top:10px">{{ pay_link }}</p>
+  <a class="btn btn-primary" href="{{ url_for('admin_payqr_png') }}" download="gym-pay-qr.png">Download PNG</a>
+  <button class="btn btn-outline" onclick="window.print()">Print</button>
+</div>
 {% endblock %}
