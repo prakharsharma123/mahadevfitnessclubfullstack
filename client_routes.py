@@ -77,7 +77,7 @@ def register(app, db, Member, Attendance, Announcement, require_login, PLAN_MONT
     def client_login():
         if current_client():
             return redirect(url_for("client_home"))
-        return render_template("client_login.html", google_ready=google_ready, signup=False)
+        return render_template("client_login.html", google_ready=google_ready, signup=False, pay=bool(request.args.get("pay")))
 
     @app.route("/signup")
     @app.route("/client/signup")
@@ -179,6 +179,19 @@ def register(app, db, Member, Attendance, Announcement, require_login, PLAN_MONT
             return redirect(url_for("client_login"))
         if request.method == "POST":
             first_time = not m.phone
+            typed = re.sub(r"\D", "", request.form.get("phone", ""))[-10:]
+            old = (Member.query.filter(Member.phone == typed, Member.id != m.id, Member.google_id.is_(None)).first()
+                   if first_time and len(typed) == 10 else None)
+            if old:
+                # The owner already added this person: attach the Google login to that record
+                # instead of creating a duplicate member.
+                old.google_id, old.email, old.picture_url = m.google_id, m.email, m.picture_url or old.picture_url
+                db.session.delete(m)
+                db.session.commit()
+                session["client_id"] = old.id
+                notify.notify_owner(f"🔗 Google login linked to existing member\n{old.name} | 📞 {old.phone}")
+                flash(f"Welcome back, {old.name.split()[0]}! We found your gym account.", "success")
+                return redirect(safe_next(url_for("client_home")))
             err = save_profile(m, editing=False)
             if err:
                 flash(err, "danger")
@@ -251,6 +264,33 @@ def register(app, db, Member, Attendance, Announcement, require_login, PLAN_MONT
                                month_count=sum(1 for d in days if d.startswith(month_prefix)),
                                total=len(days), marked_today=marked_today, cells=cells,
                                expiry=expiry, days_left=days_left)
+
+    # ------------------------------------------------------------ QR fee payment gate
+    @app.route("/pay")
+    def pay_gate():
+        """The printed 'Pay fees' QR opens here. Identify the person first (Google login,
+        then name + mobile), then send them to their own payment page."""
+        key = request.args.get("k", "")
+        expected = os.environ.get("GYM_QR_KEY", "")
+        if expected and key != expected:
+            return render_template("checkin_result.html", status="badkey")
+        m = current_client()
+        here = request.full_path.rstrip("?")
+        if not m:
+            session["next"] = here
+            return redirect(url_for("client_login", pay=1))
+        if not m.phone or not m.plan:
+            session["next"] = here
+            flash("Please confirm your name, mobile number and plan so we can show the right fee.", "warning")
+            return redirect(url_for("client_register"))
+        if (m.fees or 0) <= 0:
+            flash("No fee amount is set for your account. Please ask the gym.", "danger")
+            return redirect(url_for("client_home"))
+        if m.payment_done and (m.paid_on or m.last_fee_date) == today_ist().isoformat():
+            flash("Your fees are already marked as paid today. Thank you!", "success")
+            return redirect(url_for("client_home"))
+        import payments
+        return redirect(url_for("payment_page", ref=payments.make_ref(m.id)))
 
     # ------------------------------------------------------------ QR check-in
     @app.route("/checkin")
