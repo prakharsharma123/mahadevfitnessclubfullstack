@@ -684,6 +684,5 @@ import notify, push
 push.register(app, db, require_login, notify)
 client_routes.register(app, db, Member, Attendance, Announcement, require_login, PLAN_MONTHS, PLAN_FEES, add_months)
 
-git
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)), debug=False)
