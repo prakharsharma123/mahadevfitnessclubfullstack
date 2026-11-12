@@ -608,7 +608,20 @@ def admin_qr():
         return redirect("/admin/login")
     key = os.environ.get("GYM_QR_KEY", "")
     link = f"{request.url_root.rstrip('/')}/checkin?k={key}"
-    return render_template("admin_qr.html", link=link, key_set=bool(key))
+    pay_link = f"{request.url_root.rstrip('/')}/pay?k={key}"
+    return render_template("admin_qr.html", link=link, pay_link=pay_link, key_set=bool(key))
+
+
+@app.route("/admin/payqr.png")
+def admin_payqr_png():
+    if require_login():
+        return redirect("/admin/login")
+    import qrcode
+    link = f"{request.url_root.rstrip('/')}/pay?k={os.environ.get('GYM_QR_KEY', '')}"
+    buf = io.BytesIO()
+    qrcode.make(link, box_size=14, border=3).save(buf, format="PNG")
+    buf.seek(0)
+    return send_file(buf, mimetype="image/png", download_name="gym-pay-qr.png")
 
 
 @app.route("/admin/qr.png")
@@ -671,6 +684,6 @@ import notify, push
 push.register(app, db, require_login, notify)
 client_routes.register(app, db, Member, Attendance, Announcement, require_login, PLAN_MONTHS, PLAN_FEES, add_months)
 
-
+git
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)), debug=False)
