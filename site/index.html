@@ -6,6 +6,20 @@
 <title>Mahadev Fitness Club, Alambagh, Lucknow</title>
 <meta name="description" content="Strength training, fat loss and personal coaching in Alambagh, Lucknow. Memberships from ₹700 a month.">
 <link rel="icon" href="photos/Content-Creator-Project.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Mahadev Fitness Club">
+<meta property="og:title" content="Mahadev Fitness Club, Alambagh, Lucknow">
+<meta property="og:description" content="Strength training, fat loss and personal coaching in Alambagh, Lucknow. Plans from ₹700 a month.">
+<meta property="og:image" content="photos/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Mahadev Fitness Club, Alambagh, Lucknow">
+<meta property="og:locale" content="en_IN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Mahadev Fitness Club, Alambagh, Lucknow">
+<meta name="twitter:description" content="Strength training, fat loss and personal coaching. Plans from ₹700 a month.">
+<meta name="twitter:image" content="photos/og-image.jpg">
+<meta name="theme-color" content="#f4713f">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -110,9 +124,34 @@ header{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--bg) 8
 .form input:focus,.form select:focus,.form textarea:focus{outline:2px solid var(--accent);border-color:transparent}
 .map{margin-top:44px;border-radius:24px;overflow:hidden;border:1px solid var(--line)}
 .map iframe{width:100%;height:340px;border:0;display:block}
+/* policies */
+.pol{background:var(--surface);border:1px solid var(--line);border-radius:18px;margin-bottom:12px;overflow:hidden}
+.pol summary{cursor:pointer;list-style:none;padding:18px 22px;font:800 1.15rem 'Bricolage Grotesque',sans-serif;letter-spacing:-.01em;display:flex;gap:14px;align-items:center}
+.pol summary::-webkit-details-marker{display:none}
+.pol summary::after{content:"+";margin-left:auto;color:var(--accent);font-size:1.6rem;line-height:1}
+.pol[open] summary::after{content:"\2212"}
+.pol .n{flex:0 0 34px;height:34px;border-radius:50%;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;font-size:.95rem}
+.pol .pb{padding:0 22px 20px;color:var(--muted);font-size:.95rem}
+.pol .pb p,.pol .pb li{margin-bottom:9px}
+.pol .pb ul{margin:0 0 6px 20px}
+.pol .pb strong{color:var(--ink)}
+.pol .tw{overflow-x:auto;margin:6px 0 12px}
+.pol table{border-collapse:collapse;width:100%;min-width:520px;font-size:.9rem}
+.pol th,.pol td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+.pol th{font-size:.76rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
+.pol .note{background:var(--accent-soft);color:var(--ink);border-radius:12px;padding:12px 16px;margin:6px 0 12px}
+.officers{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:6px}
+.officer{background:var(--surface);border:1px solid var(--accent);border-radius:20px;padding:22px 24px}
+.officer small{display:block;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.05em;font-size:.75rem;margin-bottom:4px}
+.officer h3{font-size:1.4rem;margin-bottom:2px}
+.officer p{color:var(--muted);font-size:.93rem}
+.officer a{text-decoration:underline}
+.polmore{margin-top:18px;color:var(--muted);font-size:.93rem}.polmore a{color:var(--accent);font-weight:600;text-decoration:underline}
+@media(max-width:900px){.officers{grid-template-columns:1fr}}
+@media(max-width:640px){.pol table{min-width:0}.pol tr:first-child{display:none}.pol tr{display:block;border-bottom:1px solid var(--line);padding:8px 0}.pol td{display:block;border:0;padding:2px 4px}.pol td:first-child{color:var(--ink);font-weight:600}}
 footer{border-top:1px solid var(--line);padding:40px 0 96px;color:var(--muted);font-size:.9rem}
 .foot{display:flex;flex-wrap:wrap;gap:12px 24px;justify-content:space-between}
-.foot nav,.credit{display:flex;flex-wrap:wrap;gap:8px 18px}
+.foot nav,.credit,footer nav.legal{display:flex;flex-wrap:wrap;gap:8px 18px}
 .credit-by{display:inline-flex;align-items:center;gap:8px;font-weight:600}.credit-photo{width:30px;height:30px;border-radius:50%;object-fit:cover;border:2px solid var(--accent)}
 .foot a:hover,.credit a:hover{color:var(--accent)}
 .credit{align-items:center;margin-top:22px;padding-top:18px;border-top:1px solid var(--line)}
@@ -138,7 +177,7 @@ section{padding:68px 0}}
 <header><div class="wrap nav">
   <a class="brand" href="#top"><i></i>Mahadev Fitness Club</a>
   <div class="links" id="links">
-    <a href="#about">About</a><a href="#programs">Programs</a><a href="#trainer">Trainer</a><a href="#plans">Plans</a><a href="#contact">Contact</a>
+    <a href="#about">About</a><a href="#programs">Programs</a><a href="#trainer">Trainer</a><a href="#plans">Plans</a><a href="#policies">Policies</a><a href="#contact">Contact</a>
     <a href="/client/login">Member login</a><a href="/admin/login">Admin</a>
   </div>
   <a class="btn fill" href="/signup">Sign up</a>
@@ -161,7 +200,7 @@ section{padding:68px 0}}
   </div>
   <div class="bar" aria-hidden="true"></div>
   <div class="quick">
-    <a class="q" href="/signup"><strong>Sign up</strong><span>Create your member account with Google.</span></a>
+    <a class="q" href="/signup"><strong>Sign up</strong><span>For gym members only. Use your Google account.</span></a>
     <a class="q" href="/client/login"><strong>Member login</strong><span>Check your plan, fee date and notices.</span></a>
     <a class="q" href="/client/scan"><strong>Mark attendance</strong><span>Scan the QR code at the gym entrance.</span></a>
   </div>
@@ -232,17 +271,17 @@ section{padding:68px 0}}
   <p class="lead">Pay once for the length you choose. Longer plans include more personal training sessions.</p>
   <div class="plans">
     <div class="plan"><em></em><div class="plate" style="--s:96px"><div><b>1</b><span>month</span></div></div><div class="price">₹700</div>
-      <ul><li>Full gym access</li><li>Strength equipment</li><li>Trainer guidance</li><li>Basic diet advice</li><li>Cardio zone: add ₹500 extra</li></ul>
+      <ul><li>Full gym access</li><li>Strength equipment</li><li>Trainer guidance</li><li>Basic diet advice</li><li>Cardio zone: add ₹500 per month</li></ul>
       <button class="btn" onclick="pick('1 Month Membership – ₹700')">Join now</button></div>
-    <div class="plan"><em></em><div class="plate" style="--s:112px"><div><b>3</b><span>months</span></div></div><div class="price">₹2000</div>
+    <div class="plan"><em></em><div class="plate" style="--s:112px"><div><b>3</b><span>months</span></div></div><div class="price">₹1800</div>
       <ul><li>Everything in 1 month</li><li>3 personal training sessions</li><li>Monthly progress check</li><li>Fat loss or muscle plan</li></ul>
-      <button class="btn" onclick="pick('3 Months Membership – ₹2000')">Join now</button></div>
-    <div class="plan pop"><em>Most popular</em><div class="plate" style="--s:128px"><div><b>6</b><span>months</span></div></div><div class="price">₹4000</div>
+      <button class="btn" onclick="pick('3 Months Membership – ₹1800')">Join now</button></div>
+    <div class="plan pop"><em>Most popular</em><div class="plate" style="--s:128px"><div><b>6</b><span>months</span></div></div><div class="price">₹3000</div>
       <ul><li>Everything in 3 months</li><li>8 personal training sessions</li><li>Custom diet plan</li><li>Supplement guidance</li></ul>
-      <button class="btn fill" onclick="pick('6 Months Membership – ₹4000')">Join now</button></div>
-    <div class="plan"><em></em><div class="plate" style="--s:144px"><div><b>12</b><span>months</span></div></div><div class="price">₹8000</div>
+      <button class="btn fill" onclick="pick('6 Months Membership – ₹3000')">Join now</button></div>
+    <div class="plan"><em></em><div class="plate" style="--s:144px"><div><b>12</b><span>months</span></div></div><div class="price">₹6000</div>
       <ul><li>Everything in 6 months</li><li>15 personal training sessions</li><li>Advanced diet program</li><li>Progress reports</li></ul>
-      <button class="btn" onclick="pick('1 Year Membership – ₹8000')">Join now</button></div>
+      <button class="btn" onclick="pick('1 Year Membership – ₹6000')">Join now</button></div>
   </div>
 </div></section>
 
@@ -255,7 +294,128 @@ section{padding:68px 0}}
   </div>
 </div></section>
 
-<section id="contact" class="alt"><div class="wrap">
+<section id="policies" class="alt"><div class="wrap">
+  <h2 class="h2">Privacy &amp; Policies</h2>
+  <p class="lead">How Mahadev Fitness Club handles your data, who can have an account, and who to contact. Written in plain words. Last updated 17 November 2026.</p>
+
+  <details class="pol" open><summary><span class="n">1</span>What data we collect and why</summary><div class="pb">
+    <p>We collect only what a gym needs to run your membership. We never sell your data and we do not use it for advertising.</p>
+    <div class="tw"><table>
+      <tr><th>Data</th><th>Why we need it</th></tr>
+      <tr><td>Name and mobile number</td><td>To identify you as a member, contact you and send fee reminders on WhatsApp.</td></tr>
+      <tr><td>Email, Google picture and Google ID (if you sign in with Google)</td><td>To let you log in without a password. We never see your Google password.</td></tr>
+      <tr><td>Photo (optional)</td><td>So gym staff can recognise you.</td></tr>
+      <tr><td>Plan (with or without cardio), fees, last fee date</td><td>To work out your fee due date and show your membership status.</td></tr>
+      <tr><td>Attendance (date and time of your QR scan)</td><td>To record your visits and show your streak.</td></tr>
+      <tr><td>Payment details: amount, UPI reference number (UTR), time</td><td>To confirm that you paid. We never see your UPI PIN, card or bank login.</td></tr>
+      <tr><td>Enquiry form details</td><td>To reply to you. The form opens your email app and sends the mail to the owner. The website does not store it.</td></tr>
+    </table></div>
+    <p>We do not collect Aadhaar, PAN, bank account numbers, health records or your location.</p>
+  </div></details>
+
+  <details class="pol"><summary><span class="n">2</span>Who can have an account</summary><div class="pb">
+    <div class="note"><strong>Accounts are for gym members only.</strong></div>
+    <ul>
+      <li>Only people who are members of Mahadev Fitness Club may log in and create an account on this website.</li>
+      <li>We take this precaution to protect our members' data and our attendance records.</li>
+      <li>If anyone unusual creates an account, we check it against our member records. If the person is not in our records, <strong>we review it and delete the account immediately</strong>.</li>
+      <li>If you are a real member and your account was removed by mistake, contact the gym and we will restore it after checking.</li>
+    </ul>
+  </div></details>
+
+  <details class="pol"><summary><span class="n">3</span>Age and parent consent</summary><div class="pb">
+    <ul>
+      <li><strong>18 and above:</strong> you may join and create your own account.</li>
+      <li><strong>Under 18:</strong> you need your parent's or guardian's consent first. The parent or guardian must also give us proof of that consent.</li>
+    </ul>
+    <p><strong>Any one of these is accepted as proof:</strong></p>
+    <ul>
+      <li>A written application or consent letter from the parent or guardian.</li>
+      <li>A confirmation phone call from the parent or guardian to the gym, or from the gym to them.</li>
+      <li>Any other proof the gym finds reliable.</li>
+    </ul>
+    <p>We do not track children, show them ads, or send them promotions. If we find we hold a child's data without parent consent, we delete it.</p>
+  </div></details>
+
+  <details class="pol"><summary><span class="n">4</span>Your consent and your rights</summary><div class="pb">
+    <ul>
+      <li><strong>Consent:</strong> we ask for your agreement to this policy when you join or sign up. We never assume it for you. If the owner adds you at the gym desk, we tell you what we collect and take your agreement there.</li>
+      <li><strong>Withdraw consent:</strong> at any time, as easily as you gave it. Tell a grievance officer below.</li>
+      <li><strong>Access and correction:</strong> ask what we hold about you, or ask us to fix your details.</li>
+      <li><strong>Deletion:</strong> we act on your request within 7 days. Fee payment records are kept without your name, phone or photo, because accounts and tax law require this.</li>
+      <li><strong>Complaints:</strong> see the grievance officers below. We reply within 15 days and never later than 90 days.</li>
+      <li><strong>Nominee:</strong> you may name a person to use these rights for you if you die or cannot act yourself.</li>
+    </ul>
+    <p>Fee reminders and gym notices are service messages. We send offers only if you separately agree.</p>
+  </div></details>
+
+  <details class="pol"><summary><span class="n">5</span>How long we keep your data</summary><div class="pb">
+    <div class="tw"><table>
+      <tr><th>Data</th><th>How long</th></tr>
+      <tr><td>Profile and attendance</td><td>We keep your data only while you are a member of the gym. If your plan ends and you do not renew within 30 days, we treat you as no longer a member and remove your data from our database.</td></tr>
+      <tr><td>Accounts that never became a paid membership</td><td>Unusual accounts that are not in our member records are deleted immediately after review. Other accounts with no plan are removed after 30 days.</td></tr>
+      <tr><td>Payment records</td><td>Up to 8 years, as accounts and tax law require. Kept without your name, phone, email or photo after you delete your account.</td></tr>
+      <tr><td>Enquiry emails</td><td>Up to 12 months.</td></tr>
+      <tr><td>Owner alerts (Telegram)</td><td>Kept in the owner's private chat and cleared at least once a year.</td></tr>
+    </table></div>
+  </div></details>
+
+  <details class="pol"><summary><span class="n">6</span>Who we share data with</summary><div class="pb">
+    <div class="note"><strong>Your data stays with us.</strong> We keep it with us and do not share it with anyone. It is visible only in our admin section.</div>
+    <ul>
+      <li>We do not share your data with any other person, company or advertiser. We do not sell or rent it.</li>
+      <li>Only the owner and authorised staff in the admin section can see it.</li>
+      <li>To run the system we use technical services that store or carry data on our behalf, only to provide that service to us: <strong>Google</strong> (sign-in, fonts, map), <strong>Render and Neon</strong> (hosting and database), <strong>GitHub</strong> (private photo store), <strong>Telegram</strong> (alerts to the owner) and <strong>WhatsApp</strong> (the owner sends fee reminders from his own phone).</li>
+      <li>We give data to an authority only if a law or court requires it. Some of these services keep servers outside India.</li>
+    </ul>
+  </div></details>
+
+  <details class="pol"><summary><span class="n">7</span>Refund policy</summary><div class="pb">
+    <div class="note"><strong>No refund on any plan.</strong></div>
+    <ul>
+      <li>We do not refund fees for any month, whether you take the <strong>1, 3, 6 or 12 month</strong> plan (with or without cardio).</li>
+      <li>This applies if you leave in between, stop coming, or for any other reason. There is no fee refund.</li>
+      <li>Fees cannot be transferred to another person.</li>
+      <li>For further details, contact <strong>Ashish Singh</strong>: <a href="tel:+919580752023" style="text-decoration:underline">+91 9580752023</a>, <a href="mailto:Ashishrajsngh718@gmail.com" style="text-decoration:underline">Ashishrajsngh718@gmail.com</a>.</li>
+    </ul>
+  </div></details>
+
+<details class="pol"><summary><span class="n">8</span>Security and cookies</summary><div class="pb">
+    <ul>
+      <li>The website uses HTTPS (an encrypted connection).</li>
+      <li>Members sign in with Google, so we hold no member passwords.</li>
+      <li>Only the owner and authorised staff can open the admin area, behind a password.</li>
+      <li>Member photos are shown only to staff and to the member themself.</li>
+      <li>If a data breach affects you, we will tell you and the Data Protection Board of India, as the law requires.</li>
+      <li><strong>Cookies:</strong> we use one login cookie and a theme setting (light or dark). No advertising or tracking cookies. The Google map and fonts load from Google, which may receive your IP address.</li>
+    </ul>
+  </div></details>
+
+  <details class="pol"><summary><span class="n">9</span>Terms &amp; conditions in short</summary><div class="pb">
+    <ul>
+      <li><strong>Fees:</strong> plans are 1, 3, 6 or 12 months, with or without cardio (₹500 per month extra). Your due date stays on the same day of the month. Paying late does not give extra days. In February the due date moves to the last day of the month, then returns to the normal date.</li>
+      <li><strong>UPI payments</strong> count as paid only after the owner confirms the UTR you enter. A false UTR can end your membership.</li>
+      <li><strong>No refunds:</strong> see the Refund policy above. No fee is refunded for a 1, 3, 6 or 12 month plan.</li>
+      <li><strong>Health:</strong> exercise has a risk of injury. Check with a doctor if you have a medical condition, and tell the trainers about any injury.</li>
+      <li><strong>Conduct:</strong> respect staff and members. Mark attendance only for yourself.</li>
+      <li><strong>Law:</strong> Indian law applies, with courts in Lucknow. Your consumer rights are not affected.</li>
+    </ul>
+  </div></details>
+
+  <h3 style="font-size:1.5rem;margin:34px 0 14px">Grievance Officers</h3>
+  <p class="lead" style="margin-bottom:18px">Have a complaint, or want to see, correct or delete your data? Contact the right person. We reply within 15 days.</p>
+  <div class="officers">
+    <div class="officer"><small>Gym related queries</small><h3>Ashish Singh</h3>
+      <p>Owner. Membership, fees, refunds, attendance, trainers, facilities and your member data.</p>
+      <p><a href="tel:+919580752023">+91 9580752023</a><br><a href="mailto:Ashishrajsngh718@gmail.com">Ashishrajsngh718@gmail.com</a></p></div>
+    <div class="officer"><small>Website related queries</small><h3>Prakhar Sharma</h3>
+      <p>Website developer. Google login problems, wrong details on the site, payment page errors and website security.</p>
+      <p><a href="tel:+918318276922">+91 8318276922</a><br><a href="mailto:prakharsharmawork1@gmail.com">prakharsharmawork1@gmail.com</a></p></div>
+  </div>
+  <p class="polmore">Full documents: <a href="photos/privacy-policy.html">Privacy Policy</a> &middot; <a href="photos/terms-and-conditions.html">Terms &amp; Conditions</a> &middot; <a href="photos/grievance-officers.html">Grievance Officers</a></p>
+</div></section>
+
+<section id="contact"><div class="wrap">
   <div class="contact">
     <div>
       <h2 class="h2">Visit or message us</h2>
@@ -274,10 +434,11 @@ section{padding:68px 0}}
       <label>Interested in<select id="cInterest">
         <option value="">Choose a program or plan</option>
         <option>Weight training</option><option>Fat loss</option><option>Muscle building</option><option>Personal training</option><option>HIIT</option>
-        <option>1 Month Membership – ₹700</option><option>3 Months Membership – ₹2000</option><option>6 Months Membership – ₹4000</option><option>1 Year Membership – ₹8000</option>
+        <option>1 Month Membership – ₹700</option><option>3 Months Membership – ₹1800</option><option>6 Months Membership – ₹3000</option><option>1 Year Membership – ₹6000</option>
         <option>Diwali offer</option><option>General enquiry</option></select></label>
       <label>Message<textarea id="cMsg" rows="3" placeholder="Tell us your goal"></textarea></label>
       <button class="btn fill" onclick="send()">Send message</button>
+      <p style="font-size:.82rem;color:var(--muted)">When you send, your details go to the gym owner by email, only to reply to you. See our <a href="photos/privacy-policy.html" style="text-decoration:underline">Privacy Policy</a>.</p>
     </div>
   </div>
   <div class="map"><iframe title="Mahadev Fitness Club location" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3561.1228688511533!2d80.89813167523229!3d26.80421607671207!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x399bfd977bf37dbf%3A0x9edaf365f3126578!2sMahadev%20Fitness%20Club!5e0!3m2!1sen!2sin!4v1772455153166!5m2!1sen!2sin"></iframe></div>
@@ -287,7 +448,9 @@ section{padding:68px 0}}
 <footer><div class="wrap">
   <div class="foot"><strong>Mahadev Fitness Club, Lucknow</strong>
     <nav><a href="/client/login">Member login</a><a href="/signup">Sign up</a><a href="/client/scan">Attendance</a><a href="/admin/login">Admin</a></nav></div>
-  <p style="margin-top:10px">© 2025 Mahadev Fitness Club. Jai Mahadev.</p>
+  <nav class="legal" style="margin-top:14px"><a href="photos/privacy-policy.html">Privacy Policy</a><a href="photos/terms-and-conditions.html">Terms &amp; Conditions</a><a href="photos/grievance-officers.html">Grievance Officers</a></nav>
+  <p style="margin-top:10px">Grievance officers: <strong>Gym queries</strong> Ashish Singh, <a href="tel:+919580752023" style="text-decoration:underline">+91 9580752023</a> &nbsp;|&nbsp; <strong>Website queries</strong> Prakhar Sharma, <a href="tel:+918318276922" style="text-decoration:underline">+91 8318276922</a></p>
+  <p style="margin-top:10px">© 2026 Mahadev Fitness Club. Jai Mahadev.</p>
   <div class="credit"><span class="credit-by"><img class="credit-photo" src="/static/prakhar.jpg" alt="Prakhar Sharma" width="28" height="28" onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 40 40%27%3E%3Crect width=%2740%27 height=%2740%27 fill=%27%23f4713f%27/%3E%3Ctext x=%2720%27 y=%2726%27 font-size=%2716%27 font-family=%27Arial%27 font-weight=%27700%27 fill=%27white%27 text-anchor=%27middle%27%3EPS%3C/text%3E%3C/svg%3E'"><span>Website by Prakhar Sharma</span></span>
     <a href="tel:+918318276922">Call</a><a href="https://wa.me/918318276922" target="_blank" rel="noopener">WhatsApp</a><a href="https://www.instagram.com/prakh.ar16/" target="_blank" rel="noopener">Instagram</a><a href="https://www.linkedin.com/in/prakhar-sharma-06april/" target="_blank" rel="noopener">LinkedIn</a><a href="mailto:prakharsharmawork1@gmail.com">Email</a><a href="https://github.com/prakharsharma123" target="_blank" rel="noopener">GitHub</a></div>
 </div></footer>
